@@ -9,7 +9,6 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
 
 public class GetIPServidor {
     String host           = ""; 
@@ -73,8 +72,8 @@ public class GetIPServidor {
           if(!comecoIPLocal.equals("10.")){
               ipServidor = "LOCALHOST";
           }else{
-              ipServidor  = "10.71.32.55";
-              //ipServidor  = "10.71.32.157";      
+              //ipServidor  = "10.71.32.55";
+              ipServidor  = "10.71.32.157";      
           }
             
         return ipServidor;        
