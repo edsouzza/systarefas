@@ -353,9 +353,9 @@ public class F_LISTAMEMOSTRANSFERIDOS extends javax.swing.JFrame {
             jTabela.getColumnModel().getColumn(0).setResizable(false);    //nao será possivel redimencionar a coluna      
             jTabela.getColumnModel().getColumn(1).setPreferredWidth(120); //define o tamanho da coluna
             jTabela.getColumnModel().getColumn(1).setResizable(false);    //nao será possivel redimencionar a coluna        
-            jTabela.getColumnModel().getColumn(2).setPreferredWidth(300); //define o tamanho da coluna
+            jTabela.getColumnModel().getColumn(2).setPreferredWidth(290); //define o tamanho da coluna
             jTabela.getColumnModel().getColumn(2).setResizable(false);    //nao será possivel redimencionar a coluna         
-            jTabela.getColumnModel().getColumn(3).setPreferredWidth(300); //define o tamanho da coluna
+            jTabela.getColumnModel().getColumn(3).setPreferredWidth(290); //define o tamanho da coluna
             jTabela.getColumnModel().getColumn(3).setResizable(false);    //nao será possivel redimencionar a coluna         
             //define propriedades da tabela
             jTabela.getTableHeader().setReorderingAllowed(false);        //nao podera ser reorganizada
