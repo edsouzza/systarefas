@@ -91,14 +91,14 @@ public class F_CADEQUIPAMENTOSEMLOTE extends javax.swing.JDialog  {
             }
         });
         panelPrincipal.add(btnSair);
-        btnSair.setBounds(650, 10, 200, 40);
+        btnSair.setBounds(910, 580, 110, 45);
 
         txtDESCRICAO.setColumns(20);
         txtDESCRICAO.setRows(5);
         jScrollPane1.setViewportView(txtDESCRICAO);
 
         panelPrincipal.add(jScrollPane1);
-        jScrollPane1.setBounds(20, 60, 830, 500);
+        jScrollPane1.setBounds(10, 10, 1010, 550);
 
         btnLimpar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         btnLimpar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/btn_limpar.gif"))); // NOI18N
@@ -111,7 +111,7 @@ public class F_CADEQUIPAMENTOSEMLOTE extends javax.swing.JDialog  {
             }
         });
         panelPrincipal.add(btnLimpar);
-        btnLimpar.setBounds(440, 10, 200, 40);
+        btnLimpar.setBounds(240, 580, 220, 45);
 
         btnGerarObsAdicional.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         btnGerarObsAdicional.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/calculator_add.png"))); // NOI18N
@@ -123,11 +123,11 @@ public class F_CADEQUIPAMENTOSEMLOTE extends javax.swing.JDialog  {
             }
         });
         panelPrincipal.add(btnGerarObsAdicional);
-        btnGerarObsAdicional.setBounds(230, 10, 200, 40);
+        btnGerarObsAdicional.setBounds(470, 580, 220, 45);
 
         btnGerarArquivoTXT.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         btnGerarArquivoTXT.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/TICK.PNG"))); // NOI18N
-        btnGerarArquivoTXT.setText("Gerar TXT");
+        btnGerarArquivoTXT.setText("Gerar TXT dos Equipamentos");
         btnGerarArquivoTXT.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnGerarArquivoTXT.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -135,11 +135,11 @@ public class F_CADEQUIPAMENTOSEMLOTE extends javax.swing.JDialog  {
             }
         });
         panelPrincipal.add(btnGerarArquivoTXT);
-        btnGerarArquivoTXT.setBounds(20, 10, 200, 40);
+        btnGerarArquivoTXT.setBounds(10, 580, 220, 45);
 
         btnLerTXT.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         btnLerTXT.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/btn_blocoNotas.gif"))); // NOI18N
-        btnLerTXT.setText("Ler TXT / Cadastrar Equpamentos");
+        btnLerTXT.setText("Ler TXT para Cadastro");
         btnLerTXT.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnLerTXT.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -147,11 +147,11 @@ public class F_CADEQUIPAMENTOSEMLOTE extends javax.swing.JDialog  {
             }
         });
         panelPrincipal.add(btnLerTXT);
-        btnLerTXT.setBounds(20, 570, 830, 40);
+        btnLerTXT.setBounds(700, 580, 200, 45);
 
-        getContentPane().add(panelPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 860, 620));
+        getContentPane().add(panelPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1030, 650));
 
-        setSize(new java.awt.Dimension(876, 655));
+        setSize(new java.awt.Dimension(1045, 683));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
       
@@ -234,6 +234,7 @@ public class F_CADEQUIPAMENTOSEMLOTE extends javax.swing.JDialog  {
             }
             if (contador > 0) {
                 JOptionPane.showMessageDialog(null, "Os equipamentos foram cadastrados sucesso!", "Cadastrado com Sucesso!", 2);
+                btnLimpar.setEnabled(true);
             } else if (contador == 0) {
                 JOptionPane.showMessageDialog(null, "ERRO!  Nenhum registro cadastrado no banco!  Possíveis  causas : \n erro de leitura do arquivo TXT ou duplicidade de séires no cadastro!", "ERRO no cadastro!", 2);
                 btnLimpar.setEnabled(true);
@@ -287,14 +288,19 @@ public class F_CADEQUIPAMENTOSEMLOTE extends javax.swing.JDialog  {
     }//GEN-LAST:event_btnSairActionPerformed
 
     private void btnLerTXTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLerTXTActionPerformed
-        LexTXT();        
+        //faz a leitura do arquivo TXT e cadastra os equipamentos registrados nele
+        LexTXT();  
+        btnGerarArquivoTXT.setEnabled(false);
+        btnLimpar.setText("Limpar");
     }//GEN-LAST:event_btnLerTXTActionPerformed
 
     private void btnLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparActionPerformed
         txtDESCRICAO.setText("");
         btnLerTXT.setEnabled(true);
         btnGerarObsAdicional.setEnabled(true);
+        btnGerarArquivoTXT.setEnabled(true);
         btnLimpar.setEnabled(false);
+        btnLimpar.setText("Limpar");
         salvandoLote = false;
         novaObservacao = sdf.format(dataDia)+" : Cadastro inicial";
     }//GEN-LAST:event_btnLimparActionPerformed
@@ -318,6 +324,7 @@ public class F_CADEQUIPAMENTOSEMLOTE extends javax.swing.JDialog  {
             cont = 0;
         }
         btnLimpar.setEnabled(true);
+        btnLimpar.setText("Cancelar");
     }//GEN-LAST:event_btnGerarObsAdicionalActionPerformed
 
     private void btnGerarArquivoTXTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGerarArquivoTXTActionPerformed

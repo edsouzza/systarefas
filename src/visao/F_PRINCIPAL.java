@@ -1047,11 +1047,12 @@ public class F_PRINCIPAL extends javax.swing.JFrame {
 
     private void menuCadPatrimoniosEmLoteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuCadPatrimoniosEmLoteActionPerformed
 
-        if(umMetodo.ConfirmouOperacao("Atenção, tenha em mente que para gerar o arquivo TXT e cadastrar os equipamentos em lote é necessário ter o \nmodelo dos mesmos cadastrados. Você  já  cadastrou os modelos dos equipamentos  para  prosseguimento?", "Cadastro de equipamentos em lote"))
+        if(umMetodo.ConfirmouOperacao("Atenção, tenha em mente que para gerar o arquivo TXT e cadastrar os equipamentos em lote é necessário ter o \nMODELO dos mesmos cadastrados. Você  já  cadastrou os modelos dos equipamentos  para  prosseguimento?", "Cadastro de equipamentos em lote"))
         {
              F_CADEQUIPAMENTOSEMLOTE frm = new F_CADEQUIPAMENTOSEMLOTE();
              frm.setVisible(true);       
         }else{
+            //abre tela para cadastro de modelos
             tabela = "TBLMODELOS";        
             F_MODELOS frm = new F_MODELOS();
             frm.setVisible(true); 
