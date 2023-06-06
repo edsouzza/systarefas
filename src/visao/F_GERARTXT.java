@@ -1,21 +1,22 @@
 package visao;
 
+import biblioteca.CampoTxtLimitadoPorQdeCaracteresUpperCase;
 import biblioteca.MetodosPublicos;
-import static biblioteca.VariaveisPublicas.qdeColunas;
+import biblioteca.VariaveisPublicas;
 import static biblioteca.VariaveisPublicas.tabela_da_lista;
 import static biblioteca.VariaveisPublicas.TipoModelo;
 import static biblioteca.VariaveisPublicas.codTipoSelecionado;
 import static biblioteca.VariaveisPublicas.lstListaCampos;
+import static biblioteca.VariaveisPublicas.lstAuxiliar;
+import static biblioteca.VariaveisPublicas.lstListaStrings;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.event.KeyEvent;
-import java.io.BufferedWriter;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.io.PrintWriter;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.ArrayList;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -51,6 +52,8 @@ public class F_GERARTXT extends javax.swing.JDialog {
         
         txtRESULTADOS.setForeground(Color.blue);        
         txtRESULTADOS.setFont(new Font("TimesRoman", Font.BOLD, 14));
+        txtSERIEINI.setDocument(new CampoTxtLimitadoPorQdeCaracteresUpperCase(20));
+        txtSERIEFIM.setDocument(new CampoTxtLimitadoPorQdeCaracteresUpperCase(20));
         
         
     }
@@ -110,9 +113,12 @@ public class F_GERARTXT extends javax.swing.JDialog {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtSERIEINIKeyPressed(evt);
             }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtSERIEINIKeyReleased(evt);
+            }
         });
 
-        jLabel4.setText("SERIE 1");
+        jLabel4.setText("SERIE INICIAL");
 
         jLabel2.setText("SEÇÃO");
 
@@ -143,7 +149,7 @@ public class F_GERARTXT extends javax.swing.JDialog {
             }
         });
 
-        jLabel5.setText("SERIE 2");
+        jLabel5.setText("SERIE FINAL");
 
         javax.swing.GroupLayout jBoxPesquisar1Layout = new javax.swing.GroupLayout(jBoxPesquisar1);
         jBoxPesquisar1.setLayout(jBoxPesquisar1Layout);
@@ -151,22 +157,10 @@ public class F_GERARTXT extends javax.swing.JDialog {
             jBoxPesquisar1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jBoxPesquisar1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jBoxPesquisar1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel6)
-                    .addComponent(jLabel1)
-                    .addComponent(txtTIPO, javax.swing.GroupLayout.DEFAULT_SIZE, 314, Short.MAX_VALUE)
-                    .addComponent(txtCHAPA))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jBoxPesquisar1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jBoxPesquisar1Layout.createSequentialGroup()
-                        .addGroup(jBoxPesquisar1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4)
-                            .addComponent(txtSERIEINI, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jBoxPesquisar1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5)
-                            .addComponent(txtSERIEFIM, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jBoxPesquisar1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
                             .addComponent(txtSECAO, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -175,15 +169,37 @@ public class F_GERARTXT extends javax.swing.JDialog {
                             .addComponent(cmbSTATUS, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel8)))
                     .addGroup(jBoxPesquisar1Layout.createSequentialGroup()
-                        .addComponent(jLabel7)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(txtMODELO))
+                        .addGroup(jBoxPesquisar1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel4)
+                            .addComponent(txtSERIEINI, javax.swing.GroupLayout.DEFAULT_SIZE, 206, Short.MAX_VALUE)
+                            .addComponent(txtTIPO))
+                        .addGroup(jBoxPesquisar1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jBoxPesquisar1Layout.createSequentialGroup()
+                                .addGroup(jBoxPesquisar1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jBoxPesquisar1Layout.createSequentialGroup()
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(txtSERIEFIM, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jBoxPesquisar1Layout.createSequentialGroup()
+                                        .addGap(11, 11, 11)
+                                        .addComponent(jLabel5)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(jBoxPesquisar1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel1)
+                                    .addComponent(txtCHAPA, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 243, Short.MAX_VALUE))
+                            .addGroup(jBoxPesquisar1Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(jBoxPesquisar1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jBoxPesquisar1Layout.createSequentialGroup()
+                                        .addComponent(jLabel7)
+                                        .addGap(0, 0, Short.MAX_VALUE))
+                                    .addComponent(txtMODELO))))))
                 .addContainerGap())
         );
         jBoxPesquisar1Layout.setVerticalGroup(
             jBoxPesquisar1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jBoxPesquisar1Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(16, 16, 16)
                 .addGroup(jBoxPesquisar1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jBoxPesquisar1Layout.createSequentialGroup()
                         .addComponent(jLabel6)
@@ -195,29 +211,29 @@ public class F_GERARTXT extends javax.swing.JDialog {
                         .addComponent(txtMODELO, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(jBoxPesquisar1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jBoxPesquisar1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jBoxPesquisar1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(cmbSTATUS, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtCHAPA, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jBoxPesquisar1Layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addGap(36, 36, 36)))
-                        .addGroup(jBoxPesquisar1Layout.createSequentialGroup()
-                            .addComponent(jLabel8)
-                            .addGap(36, 36, 36))
-                        .addGroup(jBoxPesquisar1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(txtSECAO, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jBoxPesquisar1Layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addGap(36, 36, 36))))
-                    .addComponent(txtSERIEINI, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtSERIEFIM, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jBoxPesquisar1Layout.createSequentialGroup()
                         .addGroup(jBoxPesquisar1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jBoxPesquisar1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jBoxPesquisar1Layout.createSequentialGroup()
+                                    .addGap(20, 20, 20)
+                                    .addComponent(cmbSTATUS, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jLabel8)
+                                .addGroup(jBoxPesquisar1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(txtSECAO, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jBoxPesquisar1Layout.createSequentialGroup()
+                                        .addComponent(jLabel2)
+                                        .addGap(36, 36, 36))))
+                            .addGroup(jBoxPesquisar1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(txtSERIEINI, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtCHAPA, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtSERIEFIM, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap(22, Short.MAX_VALUE))
+                    .addGroup(jBoxPesquisar1Layout.createSequentialGroup()
+                        .addGroup(jBoxPesquisar1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel4)
-                            .addComponent(jLabel5))
-                        .addGap(36, 36, 36)))
-                .addContainerGap(20, Short.MAX_VALUE))
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel1))
+                        .addGap(56, 56, 56))))
         );
         jBoxPesquisar1.setLayer(txtTIPO, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jBoxPesquisar1.setLayer(jLabel6, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -241,6 +257,7 @@ public class F_GERARTXT extends javax.swing.JDialog {
         txtRESULTADOS.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jScrollPane5.setViewportView(txtRESULTADOS);
 
+        btnGerarTXT.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
         btnGerarTXT.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/TICK.PNG"))); // NOI18N
         btnGerarTXT.setText("GERAR TXT");
         btnGerarTXT.setToolTipText("");
@@ -252,6 +269,7 @@ public class F_GERARTXT extends javax.swing.JDialog {
             }
         });
 
+        btnLimpar.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
         btnLimpar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/btn_limpar.gif"))); // NOI18N
         btnLimpar.setText("CANCELAR");
         btnLimpar.setToolTipText("");
@@ -263,6 +281,7 @@ public class F_GERARTXT extends javax.swing.JDialog {
             }
         });
 
+        btnSair.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
         btnSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/btn_sair.gif"))); // NOI18N
         btnSair.setText("SAIR");
         btnSair.setToolTipText("");
@@ -273,6 +292,7 @@ public class F_GERARTXT extends javax.swing.JDialog {
             }
         });
 
+        btnNovo.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
         btnNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/btn_blocoNotas.gif"))); // NOI18N
         btnNovo.setText("NOVO");
         btnNovo.setToolTipText("");
@@ -283,7 +303,8 @@ public class F_GERARTXT extends javax.swing.JDialog {
             }
         });
 
-        btnADDAOTXT.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/TICK.PNG"))); // NOI18N
+        btnADDAOTXT.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
+        btnADDAOTXT.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/btn_Ok1.gif"))); // NOI18N
         btnADDAOTXT.setText("ADD AO TXT");
         btnADDAOTXT.setToolTipText("");
         btnADDAOTXT.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -304,7 +325,7 @@ public class F_GERARTXT extends javax.swing.JDialog {
                         .addComponent(btnNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(44, 44, 44)
                         .addComponent(btnGerarTXT, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
                         .addComponent(btnADDAOTXT, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(50, 50, 50)
                         .addComponent(btnLimpar, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -314,14 +335,14 @@ public class F_GERARTXT extends javax.swing.JDialog {
                 .addContainerGap())
             .addGroup(jPANELTOTALLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPANELTOTALLayout.createSequentialGroup()
-                    .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 918, Short.MAX_VALUE)
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 910, Short.MAX_VALUE)
                     .addContainerGap()))
         );
         jPANELTOTALLayout.setVerticalGroup(
             jPANELTOTALLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPANELTOTALLayout.createSequentialGroup()
                 .addComponent(jBoxPesquisar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 431, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 424, Short.MAX_VALUE)
                 .addGroup(jPANELTOTALLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnGerarTXT, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnLimpar, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -350,19 +371,25 @@ public class F_GERARTXT extends javax.swing.JDialog {
     }
         
     private void addItensAoTXT()
-    {    
+    {  
         sChapa = txtCHAPA.getText();
         sSerie = txtSERIEINI.getText();
         
+        //adicionando item na lista
         lstListaCampos.add(sChapa+";"+sSerie+";"+"1;"+"30;"+"202;"+"27;"+"6;"+sTipo+";"+"N");
+        lstAuxiliar.add(sChapa+";"+sSerie+";"+"1;"+"30;"+"202;"+"27;"+"6;"+sTipo+";"+"N");
 
         for(int i = 0; i < lstListaCampos.size(); i++)
         {
-            String item = lstListaCampos.get(i).toString(); 
-            lstListaCampos.clear();
-            txtRESULTADOS.append(item+"\n");
+            ArrayList itensForm = new ArrayList();            
+            itensForm           = lstListaCampos;             
+            
+            //adicionando item na lista do txtdescricao do formulario -> itensForm.get(i)+"\n" => Retira o [] da String e coloca um embaixo do outro em cada linha
+            txtRESULTADOS.append(itensForm.get(i)+"\n");
+                        
+            //System.out.println(itensForm);             
         }               
-        //System.out.println(lstListaCampos);        
+               
         txtSERIEINI.setText("");
         txtSERIEFIM.setText("");
         txtSERIEINI.requestFocus();    
@@ -379,32 +406,31 @@ public class F_GERARTXT extends javax.swing.JDialog {
         chooser.setAcceptAllFileFilterUsed(false);
 
         //se escolheu um local aceitavel continua
-        if(chooser.showSaveDialog(null)==JFileChooser.APPROVE_OPTION){
-                String arq = chooser.getSelectedFile().toString().concat(".txt");
-                
-                //gerando o arquivo TXT
-                //umMetodo.preencherArrayListComCampos(lstListaCampos, sql);        
-                //ArrayList<Object[]> dataList = getListaDados(sql);                
-                
-                try {
-                  FileWriter criadorArqs   = new FileWriter(arq, true);
-                  BufferedWriter buffer    = new BufferedWriter(criadorArqs);
-                  PrintWriter escritorArqs = new PrintWriter(buffer);
-                  
-                  for(int i=0; i<lstListaCampos.size(); i++){
-                    String item = lstListaCampos.get(i).toString(); 
-                    System.out.println(item);
-                    escritorArqs.append(item);
-                  }
-                  
-                    escritorArqs.append("Ola mundo");
-                  
-                  
-                } catch (Exception e) {
-                    JOptionPane.showMessageDialog(null,"Não foi possível gerar o arquivo TXT, \n"+e);             
-                }
-                txtRESULTADOS.setCaretPosition(0); 
-                //limpar();
+        if(chooser.showSaveDialog(null)==JFileChooser.APPROVE_OPTION)
+        {
+            String caminhoArq = chooser.getSelectedFile().toString().concat(".txt");
+            //JOptionPane.showMessageDialog(rootPane, "Qde de itens na lista = "+lstAuxiliar.size()); 
+            
+            for(String itens : lstAuxiliar){
+                gravarNoArquivo(caminhoArq,itens); 
+                System.out.println(itens);
+            }
+            
+            //GRAVANDO SOMENTE O ULTIMO REGISTRO MAS LISTANDO TODOS
+        }
+    }
+    
+    public static boolean gravarNoArquivo(String Caminho, String Texto)
+    {
+        try{
+            FileWriter        arq = new FileWriter(Caminho);
+            PrintWriter gravarArq = new PrintWriter(arq);
+            gravarArq.println(Texto);
+            gravarArq.close();
+            return true;
+        }catch(IOException e){
+            System.out.println(e.getMessage());
+            return false;
         }
     }
     
@@ -457,12 +483,8 @@ public class F_GERARTXT extends javax.swing.JDialog {
         F_LISTAMODELOSGERARTXT frm = new F_LISTAMODELOSGERARTXT(new javax.swing.JFrame(), true);
         frm.setVisible(true);                    
         txtMODELO.setText(TipoModelo);  
-                
-        //gera serie automaticamente / manda foco para serie
-        txtCHAPA.setText("008"+umMetodo.gerarNumeroAleatorio());
-        
-        //habilitando edição do txtSerie
-        txtSERIEINI.setEnabled(true);
+                        
+        //habilitando edição do txtSerie       
         txtSERIEINI.setEditable(true);        
         txtSERIEINI.requestFocus();
         btnNovo.setEnabled(false);
@@ -473,14 +495,22 @@ public class F_GERARTXT extends javax.swing.JDialog {
     }//GEN-LAST:event_btnNovoActionPerformed
 
     private void btnADDAOTXTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnADDAOTXTActionPerformed
-        
+    if(txtSERIEINI.getText().equals("") || txtCHAPA.getText().equals(""))
+    {
+        JOptionPane.showMessageDialog(null, "Os campos [Série e Chapa] são de preenchimento obrigatórios!", "Campos obrigatórios vazios!", 2);
+        txtSERIEINI.requestFocus();
+    }else{
         if(txtSERIEFIM.getText().equals("") || txtSERIEFIM.getText().equals(null)){
             metodoPADRAOINIFIM = false;
         }else{
             metodoPADRAOINIFIM = true;
         }
-        
+        //Limpando a lista pois quando adicionamos novo item ela é prenchida novamento com todos os registros já preenchidos, se não limpar haverá duplucidades
+        lstListaCampos.clear();
         addItensAoTXT();
+        
+        txtCHAPA.setText("");
+    }
         //JOptionPane.showMessageDialog(null, metodoPADRAOINIFIM);
     }//GEN-LAST:event_btnADDAOTXTActionPerformed
 
@@ -496,6 +526,11 @@ public class F_GERARTXT extends javax.swing.JDialog {
             btnADDAOTXT.setEnabled(true);
         }
     }//GEN-LAST:event_txtSERIEINIKeyPressed
+
+    private void txtSERIEINIKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSERIEINIKeyReleased
+        //gera serie automaticamente / manda foco para serie
+        txtCHAPA.setText("008"+umMetodo.gerarNumeroAleatorio());
+    }//GEN-LAST:event_txtSERIEINIKeyReleased
 
     /**
      * @param args the command line arguments

@@ -176,10 +176,7 @@ public class F_PATRIMONIOS extends javax.swing.JFrame {
         umaBiblio.configurarBotoes(btnPesquisar);
         umaBiblio.configurarBotoes(btnExcel);
         umaBiblio.configurarBotoes(btnHistorico);
-        
-        //preenchendo a combo dos tipos
-        //umaBiblio.PreencherComboVariandoTipo(cmbTIPO, sqlComboTipo, "tipo");
-
+   
         jTabelaATIVOS.setFont(new Font("TimesRoman", Font.BOLD, 12));
         jTabelaATIVOS.setForeground(Color.blue);
         jTabelaINATIVOS.setFont(new Font("TimesRoman", Font.BOLD, 12));

@@ -6,6 +6,7 @@ import java.util.Date;
 
 public class VariaveisPublicas {
     public static ArrayList<String> lstListaStrings         = new ArrayList<>();
+    public static ArrayList<String> lstAuxiliar             = new ArrayList<>();
     public static ArrayList<String> lstListaStringsAuxiliar = new ArrayList<>();
     public static ArrayList<String> lstListaCampos          = new ArrayList<>();
     public static ArrayList<String> lstListaNumsDespachos   = new ArrayList<>();    
