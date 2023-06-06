@@ -321,7 +321,10 @@ public class F_CADEQUIPAMENTOSEMLOTE extends javax.swing.JDialog  {
     }//GEN-LAST:event_btnGerarObsAdicionalActionPerformed
 
     private void btnGerarArquivoTXTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGerarArquivoTXTActionPerformed
-        // TODO add your handling code here:
+        
+        F_GERARTXT frm = new F_GERARTXT(new javax.swing.JFrame(), true);
+        frm.setVisible(true);     
+        
     }//GEN-LAST:event_btnGerarArquivoTXTActionPerformed
           
     

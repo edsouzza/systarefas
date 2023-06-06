@@ -11,16 +11,16 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
-import static biblioteca.VariaveisPublicas.codTipoSelecionado;
 import static biblioteca.VariaveisPublicas.codigoTipoModelo;
 import static biblioteca.VariaveisPublicas.TipoModelo;
 import static biblioteca.VariaveisPublicas.tabela_da_lista;
 import static biblioteca.VariaveisPublicas.cadastrando;
+import static biblioteca.VariaveisPublicas.codTipoSelecionado;
 import controle.CtrlModelo;
 import modelo.Modelo;
 
 
-public class F_LISTAMODELOSCONTRATO extends javax.swing.JDialog {
+public class F_LISTAMODELOSGERARTXT extends javax.swing.JDialog {
     
     ConnConexao          conexao               = new ConnConexao();
     MetodosPublicos      umMetodo              = new MetodosPublicos();     
@@ -32,7 +32,7 @@ public class F_LISTAMODELOSCONTRATO extends javax.swing.JDialog {
     int qdeRegs                                = umMetodo.getQdeRegistrosNaTabela(tabela_da_lista);
     int icodigo = 0;
     
-    public F_LISTAMODELOSCONTRATO(java.awt.Frame parent, boolean modal) {
+    public F_LISTAMODELOSGERARTXT(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         this.setFocusableWindowState(true); //corrigindo erro quando clico fora da lista
         initComponents();          
@@ -208,7 +208,7 @@ public class F_LISTAMODELOSCONTRATO extends javax.swing.JDialog {
     private void filtrarPorDigitacao(String pPesq) 
     {
         if(tabela_da_lista.equals("TBLMODELOS")){
-            PreencherTabelaPadrao("select * from TBLMODELOS where tipoid=3 and (modelo like '%" + pPesq + "%') ORDER BY modelo");                      
+            PreencherTabelaPadrao("select * from TBLMODELOS where tipoid="+codTipoSelecionado+" and (modelo like '%" + pPesq + "%') ORDER BY modelo");                       
         }
     }
 
