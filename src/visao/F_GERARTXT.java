@@ -4,12 +4,14 @@ import biblioteca.Biblioteca;
 import biblioteca.CampoTxtLimitadoPorQdeCaracteresUpperCase;
 import biblioteca.GerarTXT;
 import biblioteca.MetodosPublicos;
+import biblioteca.VariaveisPublicas;
 import static biblioteca.VariaveisPublicas.tabela_da_lista;
 import static biblioteca.VariaveisPublicas.TipoModelo;
 import static biblioteca.VariaveisPublicas.codTipoSelecionado;
 import static biblioteca.VariaveisPublicas.codigoTipoModelo;
 import static biblioteca.VariaveisPublicas.lstListaCampos;
 import static biblioteca.VariaveisPublicas.lstAuxiliar;
+import static biblioteca.VariaveisPublicas.lstListaGenerica;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ComponentAdapter;
@@ -342,17 +344,16 @@ public class F_GERARTXT extends javax.swing.JDialog {
         
     private void addItensAoTXT()
     {  
-        sChapa = txtCHAPA.getText();
-        sSerie = txtSERIE.getText();
+        sChapa   = txtCHAPA.getText();
+        sSerie   = txtSERIE.getText();
         sEstacao = "PGMCGGMC000";
         iTipoid  = umMetodo.getCodigoPassandoString("tbltipos", "tipo", sTipo);
         
-        //adicionando item na lista
-        
+        //adicionando item na lista     
         if(sTipo.equals("MICRO"))
         {
             lstListaCampos.add(sChapa+";"+sSerie+";"+iTipoid+";"+"30;"+"202;"+codigoTipoModelo+";"+"6;"+sEstacao+";"+"N");
-            lstAuxiliar.add(sChapa+";"+sSerie+";"+iTipoid+";"+"30;"+"202;"+codigoTipoModelo+";"+"6;"+sEstacao+";"+"N");
+            lstAuxiliar.add(sChapa+";"+sSerie+";"+iTipoid+";"+"30;"+"202;"+codigoTipoModelo+";"+"6;"+sEstacao+";"+"N");        
         }else{
             lstListaCampos.add(sChapa+";"+sSerie+";"+iTipoid+";"+"30;"+"202;"+codigoTipoModelo+";"+"6;"+sTipo+";"+"N");
             lstAuxiliar.add(sChapa+";"+sSerie+";"+iTipoid+";"+"30;"+"202;"+codigoTipoModelo+";"+"6;"+sTipo+";"+"N");        
@@ -389,6 +390,7 @@ public class F_GERARTXT extends javax.swing.JDialog {
 
     private void limpar(){
         btnNovo.setEnabled(true);
+        btnSair.setEnabled(true);
         btnGerarTXT.setEnabled(false);
         btnADDAOTXT.setEnabled(false);
         txtSERIE.setEditable(false);
@@ -450,10 +452,10 @@ public class F_GERARTXT extends javax.swing.JDialog {
                 metodoPADRAOINIFIM = true;
             }
             //Limpando a lista pois quando adicionamos novo item ela é prenchida novamento com todos os registros já preenchidos, se não limpar haverá duplucidades
-            lstListaCampos.clear();
-            addItensAoTXT();
-
-            txtCHAPA.setText("");            
+            lstListaCampos.clear();            
+            addItensAoTXT();     
+            txtCHAPA.setText("");   
+            btnSair.setEnabled(false);
         }
         
     }//GEN-LAST:event_btnADDAOTXTActionPerformed

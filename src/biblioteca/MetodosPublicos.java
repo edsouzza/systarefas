@@ -43,6 +43,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.HashSet;
 import java.util.Set;
@@ -104,8 +105,8 @@ public class MetodosPublicos {
             }
         }
     }
-
-       public void configurarBotoes(JButton botao) {
+        
+    public void configurarBotoes(JButton botao) {
         botao.setFont(new Font("TimesRoman", Font.BOLD, 12));
         botao.setCursor(new Cursor(12));
 
