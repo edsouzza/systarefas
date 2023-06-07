@@ -1,4 +1,5 @@
 package biblioteca;
+import static biblioteca.GerarTXT.gravarNoArquivo;
 import conexao.ConnConexao;
 import java.awt.Component;
 import java.awt.Container;
@@ -9,7 +10,6 @@ import javax.swing.JTextField;
 import static biblioteca.VariaveisPublicas.sql;
 import static biblioteca.VariaveisPublicas.tabela;
 import static biblioteca.VariaveisPublicas.nivelAcessoUsuario;
-import com.toedter.calendar.JDateChooser;
 import java.awt.AWTKeyStroke;
 import java.awt.Color;
 import java.awt.Cursor;
@@ -19,7 +19,9 @@ import java.awt.event.KeyEvent;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -674,7 +676,7 @@ public class Biblioteca
         }
         return lstListaColunas;
     }
-   
+    
     public void gerarExcel(JTable jTabela, String nomeDaPlanilha){
         //ESTE METODO FOI GERADO UTILIZANDO A BIBLIOTECA JXL COM ELE FICOU MAIS PRATICO SE ESTIVER COM UMA TABELA NO FORMULARIO    
         //selecionar o local para salvar o arquivo

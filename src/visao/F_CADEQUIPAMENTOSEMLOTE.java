@@ -323,6 +323,7 @@ public class F_CADEQUIPAMENTOSEMLOTE extends javax.swing.JDialog  {
         }else{           
             cont = 0;
         }
+        btnGerarArquivoTXT.setEnabled(false);
         btnLimpar.setEnabled(true);
         btnLimpar.setText("Cancelar");
     }//GEN-LAST:event_btnGerarObsAdicionalActionPerformed

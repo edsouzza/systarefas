@@ -1,6 +1,8 @@
 package visao;
 
+import biblioteca.Biblioteca;
 import biblioteca.CampoTxtLimitadoPorQdeCaracteresUpperCase;
+import biblioteca.GerarTXT;
 import biblioteca.MetodosPublicos;
 import static biblioteca.VariaveisPublicas.tabela_da_lista;
 import static biblioteca.VariaveisPublicas.TipoModelo;
@@ -13,20 +15,17 @@ import java.awt.Font;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.event.KeyEvent;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
-import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
-import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class F_GERARTXT extends javax.swing.JDialog {
-    MetodosPublicos   umMetodo  =  new MetodosPublicos();
+    MetodosPublicos   umMetodo    = new MetodosPublicos();
+    Biblioteca        umaBiblio   = new Biblioteca();
+    GerarTXT          objGerarTXT = new GerarTXT();
     
     String sTipo, sChapa, sSerie, sEstacao  = "";
     int iTipoid = 0;
-    Boolean metodoPADRAOINIFIM = false;    
+    Boolean metodoPADRAOINIFIM,inserindo = false;    
     
     public F_GERARTXT(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -52,8 +51,7 @@ public class F_GERARTXT extends javax.swing.JDialog {
         
         txtRESULTADOS.setForeground(Color.blue);        
         txtRESULTADOS.setFont(new Font("TimesRoman", Font.BOLD, 14));
-        txtSERIEINI.setDocument(new CampoTxtLimitadoPorQdeCaracteresUpperCase(20));
-        txtSERIEFIM.setDocument(new CampoTxtLimitadoPorQdeCaracteresUpperCase(20));        
+        txtSERIE.setDocument(new CampoTxtLimitadoPorQdeCaracteresUpperCase(20));        
         
     }
 
@@ -68,16 +66,14 @@ public class F_GERARTXT extends javax.swing.JDialog {
         jLabel6 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         txtCHAPA = new javax.swing.JTextField();
-        txtSERIEINI = new javax.swing.JTextField();
+        txtSERIE = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         txtSECAO = new javax.swing.JTextField();
         txtMODELO = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        cmbSTATUS = new javax.swing.JComboBox<>();
-        txtSERIEFIM = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
+        cmbSTATUS = new javax.swing.JComboBox<String>();
         jScrollPane5 = new javax.swing.JScrollPane();
         txtRESULTADOS = new javax.swing.JTextArea();
         btnGerarTXT = new javax.swing.JButton();
@@ -105,19 +101,19 @@ public class F_GERARTXT extends javax.swing.JDialog {
         txtCHAPA.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         txtCHAPA.setForeground(new java.awt.Color(51, 51, 255));
 
-        txtSERIEINI.setEditable(false);
-        txtSERIEINI.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        txtSERIEINI.setForeground(new java.awt.Color(51, 51, 255));
-        txtSERIEINI.addKeyListener(new java.awt.event.KeyAdapter() {
+        txtSERIE.setEditable(false);
+        txtSERIE.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        txtSERIE.setForeground(new java.awt.Color(51, 51, 255));
+        txtSERIE.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                txtSERIEINIKeyPressed(evt);
+                txtSERIEKeyPressed(evt);
             }
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtSERIEINIKeyReleased(evt);
+                txtSERIEKeyReleased(evt);
             }
         });
 
-        jLabel4.setText("SERIE INICIAL");
+        jLabel4.setText("SERIE");
 
         jLabel2.setText("SEÇÃO");
 
@@ -136,34 +132,9 @@ public class F_GERARTXT extends javax.swing.JDialog {
 
         cmbSTATUS.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         cmbSTATUS.setForeground(new java.awt.Color(51, 51, 255));
-        cmbSTATUS.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "NAO", "SIM" }));
+        cmbSTATUS.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "NAO", "SIM" }));
         cmbSTATUS.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-
-        txtSERIEFIM.setEditable(false);
-        txtSERIEFIM.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        txtSERIEFIM.setForeground(new java.awt.Color(51, 51, 255));
-        txtSERIEFIM.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                txtSERIEFIMKeyPressed(evt);
-            }
-        });
-
-        jLabel5.setText("SERIE FINAL");
-
-        jBoxPesquisar1.setLayer(txtTIPO, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jBoxPesquisar1.setLayer(jLabel6, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jBoxPesquisar1.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jBoxPesquisar1.setLayer(txtCHAPA, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jBoxPesquisar1.setLayer(txtSERIEINI, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jBoxPesquisar1.setLayer(jLabel4, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jBoxPesquisar1.setLayer(jLabel2, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jBoxPesquisar1.setLayer(txtSECAO, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jBoxPesquisar1.setLayer(txtMODELO, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jBoxPesquisar1.setLayer(jLabel7, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jBoxPesquisar1.setLayer(jLabel8, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jBoxPesquisar1.setLayer(cmbSTATUS, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jBoxPesquisar1.setLayer(txtSERIEFIM, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jBoxPesquisar1.setLayer(jLabel5, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        cmbSTATUS.setEnabled(false);
 
         javax.swing.GroupLayout jBoxPesquisar1Layout = new javax.swing.GroupLayout(jBoxPesquisar1);
         jBoxPesquisar1.setLayout(jBoxPesquisar1Layout);
@@ -181,33 +152,26 @@ public class F_GERARTXT extends javax.swing.JDialog {
                             .addComponent(cmbSTATUS, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel8)))
                     .addGroup(jBoxPesquisar1Layout.createSequentialGroup()
-                        .addGroup(jBoxPesquisar1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel4)
-                            .addComponent(txtSERIEINI, javax.swing.GroupLayout.DEFAULT_SIZE, 206, Short.MAX_VALUE)
-                            .addComponent(txtTIPO))
                         .addGroup(jBoxPesquisar1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4)
+                            .addComponent(txtTIPO, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jBoxPesquisar1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtMODELO)
                             .addGroup(jBoxPesquisar1Layout.createSequentialGroup()
                                 .addGroup(jBoxPesquisar1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jBoxPesquisar1Layout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(txtSERIEFIM, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jBoxPesquisar1Layout.createSequentialGroup()
-                                        .addGap(11, 11, 11)
-                                        .addComponent(jLabel5)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(jBoxPesquisar1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel1)
-                                    .addComponent(txtCHAPA, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(9, 9, 9)
-                                .addComponent(jLabel2)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(jBoxPesquisar1Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(jBoxPesquisar1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jBoxPesquisar1Layout.createSequentialGroup()
-                                        .addComponent(jLabel7)
-                                        .addGap(0, 0, Short.MAX_VALUE))
-                                    .addComponent(txtMODELO))))))
+                                        .addGap(45, 45, 45)
+                                        .addComponent(jLabel1)
+                                        .addGap(295, 295, 295)
+                                        .addComponent(jLabel2))
+                                    .addComponent(jLabel7))
+                                .addGap(0, 0, Short.MAX_VALUE))))
+                    .addGroup(jBoxPesquisar1Layout.createSequentialGroup()
+                        .addComponent(txtSERIE, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtCHAPA, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jBoxPesquisar1Layout.setVerticalGroup(
@@ -237,17 +201,27 @@ public class F_GERARTXT extends javax.swing.JDialog {
                                         .addComponent(cmbSTATUS, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(txtSECAO, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))))
                             .addGroup(jBoxPesquisar1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(txtSERIEINI, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(txtCHAPA, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(txtSERIEFIM, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(txtSERIE, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtCHAPA, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addContainerGap(22, Short.MAX_VALUE))
                     .addGroup(jBoxPesquisar1Layout.createSequentialGroup()
                         .addGroup(jBoxPesquisar1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel4)
-                            .addComponent(jLabel5)
                             .addComponent(jLabel1))
                         .addGap(56, 56, 56))))
         );
+        jBoxPesquisar1.setLayer(txtTIPO, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jBoxPesquisar1.setLayer(jLabel6, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jBoxPesquisar1.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jBoxPesquisar1.setLayer(txtCHAPA, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jBoxPesquisar1.setLayer(txtSERIE, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jBoxPesquisar1.setLayer(jLabel4, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jBoxPesquisar1.setLayer(jLabel2, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jBoxPesquisar1.setLayer(txtSECAO, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jBoxPesquisar1.setLayer(txtMODELO, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jBoxPesquisar1.setLayer(jLabel7, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jBoxPesquisar1.setLayer(jLabel8, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jBoxPesquisar1.setLayer(cmbSTATUS, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         txtRESULTADOS.setColumns(20);
         txtRESULTADOS.setLineWrap(true);
@@ -369,7 +343,7 @@ public class F_GERARTXT extends javax.swing.JDialog {
     private void addItensAoTXT()
     {  
         sChapa = txtCHAPA.getText();
-        sSerie = txtSERIEINI.getText();
+        sSerie = txtSERIE.getText();
         sEstacao = "PGMCGGMC000";
         iTipoid  = umMetodo.getCodigoPassandoString("tbltipos", "tipo", sTipo);
         
@@ -395,77 +369,39 @@ public class F_GERARTXT extends javax.swing.JDialog {
             //System.out.println(itensForm);             
         }               
                
-        txtSERIEINI.setText("");
-        txtSERIEFIM.setText("");
-        txtSERIEINI.requestFocus();    
-    }
-    
-    private void gerarTXTMANUAL()
-    {
-        //abrindo opção para selecionar o local para salvar o arquivo
-        JFileChooser chooser            = new JFileChooser();
-        FileNameExtensionFilter filtro  = new FileNameExtensionFilter("Arquivos txt","txt");
-        chooser.setFileFilter(filtro);
-        chooser.setDialogTitle("Salvar arquivo");
-        chooser.setMultiSelectionEnabled(false);
-        chooser.setAcceptAllFileFilterUsed(false);
-
-        //se escolheu um local aceitavel continua
-        if(chooser.showSaveDialog(null)==JFileChooser.APPROVE_OPTION)
-        {
-            String caminhoArq = chooser.getSelectedFile().toString().concat(".txt");
-            //JOptionPane.showMessageDialog(rootPane, "Qde de itens na lista = "+lstAuxiliar.size()); 
-            
-            for(String itens : lstAuxiliar){
-                if(gravarNoArquivo(caminhoArq,itens))
-                {                   
-                    btnLimparActionPerformed(null);
-                }
-                //System.out.println(itens);
-            }  
-             JOptionPane.showMessageDialog(null, "O arquivo TXT foi gerado com sucesso!","Gerando arquivo TXT",2);
-        }
-    }
-    
-    public static boolean gravarNoArquivo(String Caminho, String Texto)
-    {
-        try{
-            FileWriter        arq = new FileWriter(Caminho,true);
-            PrintWriter gravarArq = new PrintWriter(arq);
-            gravarArq.println(Texto);
-            gravarArq.close();
-            return true;
-        }catch(IOException e){
-            System.out.println(e.getMessage());
-            return false;
-        }
-    }
+        txtSERIE.setText("");
+        txtSERIE.requestFocus();    
+    }    
     
     private void btnGerarTXTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGerarTXTActionPerformed
        //Metodo MANUAL inserido a série inteira
-       //Metodo não Manual : Serie com padrao inicial / final = metodoLotes
-       //JOptionPane.showMessageDialog(null, metodoPADRAOINIFIM);
-        
-       if(!metodoPADRAOINIFIM){
-          gerarTXTMANUAL();
+       if(txtRESULTADOS.getText().equals("")){
+          JOptionPane.showMessageDialog(null, "Primeiro insira uma série e adicione para continuar!","Série não entrada...",2); 
+       }else{
+            //Gera o TXT a partir da lista passada por parametro
+            objGerarTXT.gerarTXTDELISTA(lstAuxiliar);          
+            btnLimparActionPerformed(null);           
+            cmbSTATUS.setEnabled(false);
+            inserindo=false;
        }
-       
-       
+      
     }//GEN-LAST:event_btnGerarTXTActionPerformed
 
     private void limpar(){
         btnNovo.setEnabled(true);
         btnGerarTXT.setEnabled(false);
         btnADDAOTXT.setEnabled(false);
+        txtSERIE.setEditable(false);
         btnLimpar.setEnabled(false);
+        txtRESULTADOS.setEditable(false);
+        cmbSTATUS.setEnabled(false);
         txtTIPO.setText("");
         txtMODELO.setText("");
         txtCHAPA.setText("");
-        txtSERIEINI.setText("");
-        txtSERIEFIM.setText("");
-        txtRESULTADOS.setText("");
-        txtRESULTADOS.setEditable(false);
+        txtSERIE.setText("");
+        txtRESULTADOS.setText("");        
         lstListaCampos.clear();
+        inserindo=false;
     }
     
     private void btnLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparActionPerformed
@@ -478,6 +414,7 @@ public class F_GERARTXT extends javax.swing.JDialog {
 
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
         //abrir lista de tipos de equipamentos para cadastrar
+        inserindo=true;
         F_LISTATIPOS frmTipos = new F_LISTATIPOS(new javax.swing.JFrame(), true);
         frmTipos.setVisible(true);
         //se este tipo tiver clientes virturais dos setores quero abrir a lista com eles e não a lista com os servidores
@@ -492,53 +429,54 @@ public class F_GERARTXT extends javax.swing.JDialog {
         txtMODELO.setText(TipoModelo);  
                         
         //habilitando edição do txtSerie       
-        txtSERIEINI.setEditable(true);        
-        txtSERIEINI.requestFocus();
-        btnNovo.setEnabled(false);
-        btnGerarTXT.setEnabled(true);
-        btnADDAOTXT.setEnabled(true);
+        txtSERIE.setEditable(true);        
+        txtSERIE.requestFocus();
+        btnNovo.setEnabled(false);        
         btnLimpar.setEnabled(true);
+        cmbSTATUS.setEnabled(true);
         lstAuxiliar.clear();
         
     }//GEN-LAST:event_btnNovoActionPerformed
 
     private void btnADDAOTXTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnADDAOTXTActionPerformed
-    if(txtSERIEINI.getText().equals("") || txtCHAPA.getText().equals(""))
-    {
-        JOptionPane.showMessageDialog(null, "O campo [Série] é de preenchimento obrigatório!", "Campo obrigatório vazio!", 2);
-        txtSERIEINI.requestFocus();
-    }else{
-        if(txtSERIEFIM.getText().equals("") || txtSERIEFIM.getText().equals(null)){
-            metodoPADRAOINIFIM = false;
+        if(txtSERIE.getText().equals("") || txtCHAPA.getText().equals(""))
+        {
+            JOptionPane.showMessageDialog(null, "O campo [Série] é de preenchimento obrigatório!", "Campo obrigatório vazio!", 2);
+            txtSERIE.requestFocus();
         }else{
-            metodoPADRAOINIFIM = true;
+            if(txtSERIE.getText().equals(null)){
+                metodoPADRAOINIFIM = false;
+            }else{
+                metodoPADRAOINIFIM = true;
+            }
+            //Limpando a lista pois quando adicionamos novo item ela é prenchida novamento com todos os registros já preenchidos, se não limpar haverá duplucidades
+            lstListaCampos.clear();
+            addItensAoTXT();
+
+            txtCHAPA.setText("");            
         }
-        //Limpando a lista pois quando adicionamos novo item ela é prenchida novamento com todos os registros já preenchidos, se não limpar haverá duplucidades
-        lstListaCampos.clear();
-        addItensAoTXT();
         
-        txtCHAPA.setText("");
-    }
-        //JOptionPane.showMessageDialog(null, metodoPADRAOINIFIM);
     }//GEN-LAST:event_btnADDAOTXTActionPerformed
 
-    private void txtSERIEFIMKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSERIEFIMKeyPressed
-        btnGerarTXT.setEnabled(false);    
-        metodoPADRAOINIFIM = true;
-    }//GEN-LAST:event_txtSERIEFIMKeyPressed
-
-    private void txtSERIEINIKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSERIEINIKeyPressed
+    private void txtSERIEKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSERIEKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            txtSERIEFIM.requestFocus();
-            txtSERIEFIM.setEditable(true);
-            btnADDAOTXT.setEnabled(true);
+            txtSERIE.requestFocus();
+            txtSERIE.setEditable(true);            
         }
-    }//GEN-LAST:event_txtSERIEINIKeyPressed
+        if(inserindo)
+        {
+            btnADDAOTXT.setEnabled(true);
+            btnGerarTXT.setEnabled(true);
+        }
+        
+    }//GEN-LAST:event_txtSERIEKeyPressed
 
-    private void txtSERIEINIKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSERIEINIKeyReleased
+    private void txtSERIEKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSERIEKeyReleased
         //gera serie automaticamente / manda foco para serie
-        txtCHAPA.setText("008"+umMetodo.gerarNumeroAleatorio());
-    }//GEN-LAST:event_txtSERIEINIKeyReleased
+        if(inserindo){
+            txtCHAPA.setText("008"+umMetodo.gerarNumeroAleatorio());
+        }        
+    }//GEN-LAST:event_txtSERIEKeyReleased
 
     /**
      * @param args the command line arguments
@@ -596,7 +534,6 @@ public class F_GERARTXT extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
@@ -606,8 +543,7 @@ public class F_GERARTXT extends javax.swing.JDialog {
     private javax.swing.JTextField txtMODELO;
     private javax.swing.JTextArea txtRESULTADOS;
     private javax.swing.JTextField txtSECAO;
-    private javax.swing.JTextField txtSERIEFIM;
-    private javax.swing.JTextField txtSERIEINI;
+    private javax.swing.JTextField txtSERIE;
     private javax.swing.JTextField txtTIPO;
     // End of variables declaration//GEN-END:variables
 }
