@@ -23,7 +23,7 @@ import java.util.Date;
 import modelo.Patrimonio;
 
 
-public class F_CADEQUIPAMENTOSEMLOTE extends javax.swing.JDialog  {
+public class F_CADPATRIMONIOSVIATXT extends javax.swing.JDialog  {
 
     ConnConexao         conexao                  = new ConnConexao();
     Biblioteca          umaBiblio                = new Biblioteca();
@@ -36,9 +36,9 @@ public class F_CADEQUIPAMENTOSEMLOTE extends javax.swing.JDialog  {
     Date dataDia                                 = dataDoDia; 
         
     String sChapa, sSerie, sTipoid, sSecaoid, sClienteid, sModeloid, sDeptoid, sNomeEquipamento, sContrato, sObs, caminhoTXT, linha, observacaoCadLote, novaObservacao = "";  
-    int contador,cont =0;    
+    int contador,cont,iCodigo =0;    
 
-    public F_CADEQUIPAMENTOSEMLOTE() 
+    public F_CADPATRIMONIOSVIATXT() 
     {
         initComponents();
         setResizable(false);   //desabilitando o redimencionamento da tela     
@@ -139,7 +139,7 @@ public class F_CADEQUIPAMENTOSEMLOTE extends javax.swing.JDialog  {
 
         btnLerTXT.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         btnLerTXT.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/btn_blocoNotas.gif"))); // NOI18N
-        btnLerTXT.setText("Ler TXT para Cadastro");
+        btnLerTXT.setText("Ler TXT e Cadastrar");
         btnLerTXT.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnLerTXT.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -208,7 +208,7 @@ public class F_CADEQUIPAMENTOSEMLOTE extends javax.swing.JDialog  {
 //                                       
 //                    System.out.println("====================================================================================================================");
 //                    
-                    gravarDados("");
+                    gravarDados();
                                        
                     //lendo a proxima linha
                     linha = lerBuf.readLine();
@@ -233,10 +233,10 @@ public class F_CADEQUIPAMENTOSEMLOTE extends javax.swing.JDialog  {
                 JOptionPane.showMessageDialog(null, "Erro ao tentar ler o arquivo!");
             }
             if (contador > 0) {
-                JOptionPane.showMessageDialog(null, "Os equipamentos foram cadastrados sucesso!", "Cadastrado com Sucesso!", 2);
+                JOptionPane.showMessageDialog(null, "Todos os patrimônios válidos foram cadastrados com sucesso!", "Cadastrado com Sucesso!", 2);
                 btnLimpar.setEnabled(true);
-            } else if (contador == 0) {
-                JOptionPane.showMessageDialog(null, "ERRO!  Nenhum registro cadastrado no banco!  Possíveis  causas : \n erro de leitura do arquivo TXT ou duplicidade de séires no cadastro!", "ERRO no cadastro!", 2);
+            } else if (contador == 0) {                
+                JOptionPane.showMessageDialog(null, "ERRO  no  cadastro, possíveis  causas :  Problemas na leitura do arquivo TXT\n ou duplicidade em algum número de série inserido, confira os dados do TXT!", "ERRO no cadastro!", 2);
                 btnLimpar.setEnabled(true);
                 btnLerTXT.setEnabled(false);
             }
@@ -244,7 +244,7 @@ public class F_CADEQUIPAMENTOSEMLOTE extends javax.swing.JDialog  {
         
     }
            
-    private void gravarDados(String msg)
+    private void gravarDados()
     {
         //setando os valores no objeto do modelo
         salvandoLote = true;
@@ -265,10 +265,13 @@ public class F_CADEQUIPAMENTOSEMLOTE extends javax.swing.JDialog  {
         }else{
             umModPatrimonio.setObservacoes(sdf.format(dataDia)+" : Cadastro inicial");
         };
+        
+        iCodigo = umMetodo.getCodigoPassandoString("tblpatrimonios", "serie", sSerie);
 
         //gravando no banco de dados, antes verifica se o rf já esta cadastrado e não grava se isso acontecer
         if (umMetodo.temDuplicidadeDeCadastro("tblpatrimonios", "serie", sSerie)) {
-            //JOptionPane.showMessageDialog(null,"O ServidorComCargo "+nome+" já esta cadastrado!");
+            JOptionPane.showMessageDialog(null,"Erro : Patrimônio Serie "+sSerie+" já esta cadastrado e seu código é : "+iCodigo+"","Duplicidade : Série "+sSerie+"",2);
+            //btnLimparActionPerformed(null);
             contador = 0;
         } else {
             if (umControlePatrimonio.salvarPatrimonio(umModPatrimonio)) {

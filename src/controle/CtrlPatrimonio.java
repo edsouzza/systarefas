@@ -16,7 +16,7 @@ public class CtrlPatrimonio
     { 
         if(!salvandoLote)
         {
-           JOptionPane.showMessageDialog(null,"Patrimonio cadastrado com sucesso!");           
+           JOptionPane.showMessageDialog(null,"Patrimonios cadastrados com sucesso!");           
         }
         return new DAOPatrimonio().salvarPatrimonioDAO(umPatrimonio);
     }    
