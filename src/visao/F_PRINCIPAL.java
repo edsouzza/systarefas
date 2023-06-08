@@ -1049,7 +1049,7 @@ public class F_PRINCIPAL extends javax.swing.JFrame {
 
         if(umMetodo.ConfirmouOperacao("Atenção, tenha  em  mente que para gerar o arquivo TXT e cadastrar os equipamentos em lote é necessário ter o \nMODELO dos mesmos cadastrados. Você  já  cadastrou os modelos dos equipamentos  para  prosseguimento?", "Cadastro de equipamentos em lote"))
         {
-             F_CADEQUIPAMENTOSEMLOTE frm = new F_CADEQUIPAMENTOSEMLOTE();
+             F_CADPATRIMONIOSPORTXT frm = new F_CADPATRIMONIOSPORTXT();
              frm.setVisible(true);       
         }else{
             //abre tela para cadastro de modelos

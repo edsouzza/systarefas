@@ -23,7 +23,7 @@ import java.util.Date;
 import modelo.Patrimonio;
 
 
-public class F_CADEQUIPAMENTOSEMLOTE extends javax.swing.JDialog  {
+public class F_CADPATRIMONIOSPORTXT extends javax.swing.JDialog  {
 
     ConnConexao         conexao                  = new ConnConexao();
     Biblioteca          umaBiblio                = new Biblioteca();
@@ -38,7 +38,7 @@ public class F_CADEQUIPAMENTOSEMLOTE extends javax.swing.JDialog  {
     String sChapa, sSerie, sTipoid, sSecaoid, sClienteid, sModeloid, sDeptoid, sNomeEquipamento, sContrato, sObs, caminhoTXT, linha, observacaoCadLote, novaObservacao = "";  
     int contador,cont =0;    
 
-    public F_CADEQUIPAMENTOSEMLOTE() 
+    public F_CADPATRIMONIOSPORTXT() 
     {
         initComponents();
         setResizable(false);   //desabilitando o redimencionamento da tela     
@@ -139,7 +139,7 @@ public class F_CADEQUIPAMENTOSEMLOTE extends javax.swing.JDialog  {
 
         btnLerTXT.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         btnLerTXT.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/btn_blocoNotas.gif"))); // NOI18N
-        btnLerTXT.setText("Ler TXT para Cadastro");
+        btnLerTXT.setText("Ler TXT e Cadastrar");
         btnLerTXT.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnLerTXT.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
