@@ -23,7 +23,7 @@ import java.util.Date;
 import modelo.Patrimonio;
 
 
-public class F_CADPATRIMONIOSPORTXT extends javax.swing.JDialog  {
+public class F_CADPATRIMONIOSVIATXT extends javax.swing.JDialog  {
 
     ConnConexao         conexao                  = new ConnConexao();
     Biblioteca          umaBiblio                = new Biblioteca();
@@ -38,7 +38,7 @@ public class F_CADPATRIMONIOSPORTXT extends javax.swing.JDialog  {
     String sChapa, sSerie, sTipoid, sSecaoid, sClienteid, sModeloid, sDeptoid, sNomeEquipamento, sContrato, sObs, caminhoTXT, linha, observacaoCadLote, novaObservacao = "";  
     int contador,cont,iCodigo =0;    
 
-    public F_CADPATRIMONIOSPORTXT() 
+    public F_CADPATRIMONIOSVIATXT() 
     {
         initComponents();
         setResizable(false);   //desabilitando o redimencionamento da tela     
@@ -235,8 +235,8 @@ public class F_CADPATRIMONIOSPORTXT extends javax.swing.JDialog  {
             if (contador > 0) {
                 JOptionPane.showMessageDialog(null, "Todos os patrimônios válidos foram cadastrados com sucesso!", "Cadastrado com Sucesso!", 2);
                 btnLimpar.setEnabled(true);
-            } else if (contador == 0) {
-                JOptionPane.showMessageDialog(null, "ERRO no cadastro, possíveis  causas : \nErro      de    leitura     do    arquivo   TXT \nDuplicidade   de   séires   no   cadastro!", "ERRO no cadastro!", 2);
+            } else if (contador == 0) {                
+                JOptionPane.showMessageDialog(null, "ERRO  no  cadastro, possíveis  causas :  Problemas na leitura do arquivo TXT\n ou duplicidade em algum número de série inserido, confira os dados do TXT!", "ERRO no cadastro!", 2);
                 btnLimpar.setEnabled(true);
                 btnLerTXT.setEnabled(false);
             }
