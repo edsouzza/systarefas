@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
+import static biblioteca.VariaveisPublicas.codTipoSelecionado;
 import static biblioteca.VariaveisPublicas.codigoTipoModelo;
 import static biblioteca.VariaveisPublicas.TipoModelo;
 import static biblioteca.VariaveisPublicas.tabela_da_lista;
@@ -207,7 +208,7 @@ public class F_LISTAMODELOSCONTRATO extends javax.swing.JDialog {
     private void filtrarPorDigitacao(String pPesq) 
     {
         if(tabela_da_lista.equals("TBLMODELOS")){
-            PreencherTabelaPadrao("select * from TBLMODELOS where tipoid=3 and contrato='S' and (modelo like '%" + pPesq + "%') ORDER BY modelo");                      
+            PreencherTabelaPadrao("select * from TBLMODELOS where tipoid=3 and (modelo like '%" + pPesq + "%') ORDER BY modelo");                      
         }
     }
 

@@ -176,10 +176,7 @@ public class F_PATRIMONIOS extends javax.swing.JFrame {
         umaBiblio.configurarBotoes(btnPesquisar);
         umaBiblio.configurarBotoes(btnExcel);
         umaBiblio.configurarBotoes(btnHistorico);
-        
-        //preenchendo a combo dos tipos
-        //umaBiblio.PreencherComboVariandoTipo(cmbTIPO, sqlComboTipo, "tipo");
-
+   
         jTabelaATIVOS.setFont(new Font("TimesRoman", Font.BOLD, 12));
         jTabelaATIVOS.setForeground(Color.blue);
         jTabelaINATIVOS.setFont(new Font("TimesRoman", Font.BOLD, 12));
@@ -2018,8 +2015,7 @@ private void gravarEdicaoRegistro()
 
         //LIBERANDO OS TXT PARA EDIÇÃO
         umaBiblio.limparTodosCampos(rootPane);
-        txtCODIGO.setEditable(false);
-        //txtIP.setEditable(true);        
+        txtCODIGO.setEditable(false);       
         txtSERIE.setEditable(true);        
         txtCHAPA.setEditable(true);
         txtESTACAO.setEnabled(true);
@@ -3499,9 +3495,9 @@ private void gravarEdicaoRegistro()
 
     private void txtCHAPAFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCHAPAFocusLost
         if(txtCHAPA.getText().equals(""))
-            {
-               txtCHAPA.setText("009"+umMetodo.gerarNumeroAleatorio());
-            }
+        {
+           txtCHAPA.setText("009"+umMetodo.gerarNumeroAleatorio());
+        }
     }//GEN-LAST:event_txtCHAPAFocusLost
         
     private void mostrarDescricao(int idMod){

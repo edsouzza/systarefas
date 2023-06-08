@@ -18,22 +18,22 @@
             <url>src/biblioteca/MetodosPublicos.java</url>
             <bookmark id="179">
                 <name/>
-                <line>494</line>
+                <line>495</line>
                 <key/>
             </bookmark>
             <bookmark id="180">
                 <name/>
-                <line>1067</line>
+                <line>1068</line>
                 <key/>
             </bookmark>
             <bookmark id="161">
                 <name/>
-                <line>1223</line>
+                <line>1224</line>
                 <key/>
             </bookmark>
             <bookmark id="25">
                 <name/>
-                <line>1536</line>
+                <line>1537</line>
                 <key/>
             </bookmark>
         </file>
@@ -64,12 +64,12 @@
             </bookmark>
             <bookmark id="187">
                 <name/>
-                <line>1742</line>
+                <line>1739</line>
                 <key/>
             </bookmark>
             <bookmark id="190">
                 <name/>
-                <line>3127</line>
+                <line>3123</line>
                 <key/>
             </bookmark>
         </file>
@@ -119,7 +119,7 @@
             <url>src/visao/F_PRINCIPAL.java</url>
             <bookmark id="30">
                 <name/>
-                <line>895</line>
+                <line>907</line>
                 <key/>
             </bookmark>
         </file>
@@ -409,7 +409,13 @@
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< HEAD
             <file>file:/J:/Arqs-Java/Projetos/NetBeans/SYSTAREFAS/Tarefas/src/biblioteca/GetIPServidor.java</file>
+=======
+            <file>file:/J:/Arqs-Java/Projetos/NetBeans/SYSTAREFAS/Tarefas/src/visao/F_CADPATRIMONIOSVIATXT.java</file>
+            <file>file:/J:/Arqs-Java/Projetos/NetBeans/SYSTAREFAS/Tarefas/src/visao/F_GERARTXT.java</file>
+            <file>file:/J:/Arqs-Java/Projetos/NetBeans/SYSTAREFAS/Tarefas/src/biblioteca/GerarTXT.java</file>
+>>>>>>> dev
         </group>
     </open-files>
 </project-private>

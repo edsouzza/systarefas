@@ -33,7 +33,7 @@ public class F_LISTATIPOS extends javax.swing.JDialog {
     String tabela               = "tblTIPOS";
     String status               = "ATIVO";
     String sqlDefault           = "SELECT tipo FROM tbltipos WHERE status = 'ATIVO' and tipopatrimonio='PATRIMONIO' ORDER BY tipo";
-    //String sqlDefault         = "SELECT "+campo+" FROM "+tabela+" WHERE status = "+"'"+status+"'";
+    
     private String itemSelecionado;
     
     public F_LISTATIPOS(java.awt.Frame parent, boolean modal) {

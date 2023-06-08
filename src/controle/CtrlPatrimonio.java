@@ -1,10 +1,8 @@
 package controle;
 import Dao.DAOPatrimonio;
-import java.util.ArrayList;
-import java.util.Vector;
 import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
 import modelo.Patrimonio;
+import static biblioteca.VariaveisPublicas.salvandoLote;
 
 public class CtrlPatrimonio 
 { 
@@ -16,7 +14,10 @@ public class CtrlPatrimonio
     
     public boolean salvarPatrimonio(Patrimonio umPatrimonio) 
     { 
-        JOptionPane.showMessageDialog(null,"Patrimonio cadastrado com sucesso!"); 
+        if(!salvandoLote)
+        {
+           JOptionPane.showMessageDialog(null,"Patrimonios cadastrados com sucesso!");           
+        }
         return new DAOPatrimonio().salvarPatrimonioDAO(umPatrimonio);
     }    
     

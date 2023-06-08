@@ -94,6 +94,7 @@ public class F_PRINCIPAL extends javax.swing.JFrame {
         menuCLIENTES = new javax.swing.JMenuItem();
         menuPatrimonios = new javax.swing.JMenuItem();
         menupatrimoniosmoveis = new javax.swing.JMenuItem();
+        menuCadPatrimoniosEmLote = new javax.swing.JMenuItem();
         menutipodocumentos = new javax.swing.JMenuItem();
         menugerarnumdocto = new javax.swing.JMenuItem();
         menupatrideptos = new javax.swing.JMenuItem();
@@ -306,6 +307,17 @@ public class F_PRINCIPAL extends javax.swing.JFrame {
             }
         });
         menuCadastro.add(menupatrimoniosmoveis);
+
+        menuCadPatrimoniosEmLote.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_MASK));
+        menuCadPatrimoniosEmLote.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/calculator_add.png"))); // NOI18N
+        menuCadPatrimoniosEmLote.setText("PATRIMONIOS EM LOTE");
+        menuCadPatrimoniosEmLote.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        menuCadPatrimoniosEmLote.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuCadPatrimoniosEmLoteActionPerformed(evt);
+            }
+        });
+        menuCadastro.add(menuCadPatrimoniosEmLote);
 
         menutipodocumentos.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F3, java.awt.event.InputEvent.CTRL_MASK));
         menutipodocumentos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/calculator.png"))); // NOI18N
@@ -1033,6 +1045,21 @@ public class F_PRINCIPAL extends javax.swing.JFrame {
         frm.setVisible(true); 
     }//GEN-LAST:event_menupatrideptosActionPerformed
 
+    private void menuCadPatrimoniosEmLoteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuCadPatrimoniosEmLoteActionPerformed
+
+        if(umMetodo.ConfirmouOperacao("Atenção, tenha  em  mente que para gerar o arquivo TXT e cadastrar os equipamentos em lote é necessário ter o \nMODELO dos mesmos cadastrados. Você  já  cadastrou os modelos dos equipamentos  para  prosseguimento?", "Cadastro de equipamentos em lote"))
+        {
+             F_CADPATRIMONIOSVIATXT frm = new F_CADPATRIMONIOSVIATXT();
+             frm.setVisible(true);       
+        }else{
+            //abre tela para cadastro de modelos
+            tabela = "TBLMODELOS";        
+            F_MODELOS frm = new F_MODELOS();
+            frm.setVisible(true); 
+        }
+        
+    }//GEN-LAST:event_menuCadPatrimoniosEmLoteActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1084,6 +1111,7 @@ public class F_PRINCIPAL extends javax.swing.JFrame {
     public javax.swing.JLabel lblNOMESERVIDOR;
     public javax.swing.JLabel lblNomeBanco;
     private javax.swing.JMenuItem menuCLIENTES;
+    private javax.swing.JMenuItem menuCadPatrimoniosEmLote;
     private javax.swing.JMenu menuCadastro;
     private javax.swing.JMenu menuConsultas;
     private javax.swing.JMenuItem menuContatos;
