@@ -236,7 +236,7 @@ public class F_CADPATRIMONIOSVIATXT extends javax.swing.JDialog  {
                 JOptionPane.showMessageDialog(null, "Todos os patrimônios válidos foram cadastrados com sucesso!", "Cadastrado com Sucesso!", 2);
                 btnLimpar.setEnabled(true);
             } else if (contador == 0) {                
-                JOptionPane.showMessageDialog(null, "ERRO  no  cadastro, possíveis  causas :  Problemas na leitura do arquivo TXT\n ou duplicidade em algum número de série inserido, confira os dados do TXT!", "ERRO no cadastro!", 2);
+                JOptionPane.showMessageDialog(null, "ERRO  no  cadastro  de  alguns registros, possíveis  causas :  Problemas  na  leitura do arquivo TXT\nou    duplicidade    em    algum   número    de    série   inserido,  confira   os   dados  do  TXT  gerado!", "ERRO no cadastro!", 2);
                 btnLimpar.setEnabled(true);
                 btnLerTXT.setEnabled(false);
             }
