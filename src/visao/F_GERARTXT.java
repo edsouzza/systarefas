@@ -76,7 +76,11 @@ public class F_GERARTXT extends javax.swing.JDialog {
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
 <<<<<<< HEAD
+<<<<<<< HEAD
         cmbSTATUS = new javax.swing.JComboBox<>();
+=======
+        cmbSTATUS = new javax.swing.JComboBox<String>();
+>>>>>>> 78ae7b320ef48cbcceff31fb5814687ee1d8c0a4
 =======
         cmbSTATUS = new javax.swing.JComboBox<String>();
 >>>>>>> 78ae7b320ef48cbcceff31fb5814687ee1d8c0a4
@@ -142,6 +146,7 @@ public class F_GERARTXT extends javax.swing.JDialog {
         cmbSTATUS.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         cmbSTATUS.setEnabled(false);
 <<<<<<< HEAD
+<<<<<<< HEAD
 
         jBoxPesquisar1.setLayer(txtTIPO, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jBoxPesquisar1.setLayer(jLabel6, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -155,6 +160,8 @@ public class F_GERARTXT extends javax.swing.JDialog {
         jBoxPesquisar1.setLayer(jLabel7, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jBoxPesquisar1.setLayer(jLabel8, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jBoxPesquisar1.setLayer(cmbSTATUS, javax.swing.JLayeredPane.DEFAULT_LAYER);
+=======
+>>>>>>> 78ae7b320ef48cbcceff31fb5814687ee1d8c0a4
 =======
 >>>>>>> 78ae7b320ef48cbcceff31fb5814687ee1d8c0a4
 
