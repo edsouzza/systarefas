@@ -157,6 +157,7 @@ public class F_CADPATRIMONIOSVIATXT extends javax.swing.JDialog  {
       
     private void Leitura(){
         txtDESCRICAO.setEditable(false);
+        cont=0;
     }
     
     private void LexTXT()
@@ -310,7 +311,7 @@ public class F_CADPATRIMONIOSVIATXT extends javax.swing.JDialog  {
 
     private void btnGerarObsAdicionalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGerarObsAdicionalActionPerformed
          //JOptionPane.showMessageDialog(this, "VALOR DO CONT : "+cont);
-        if(cont <=1)
+        if(cont <1)
         {
             novaObservacao = JOptionPane.showInputDialog(null, "Entre com sua observação adicional!", "Observação Adicional", 2); 
             while (novaObservacao == null || novaObservacao.equals("")) 
@@ -322,13 +323,13 @@ public class F_CADPATRIMONIOSVIATXT extends javax.swing.JDialog  {
             JOptionPane.showMessageDialog(this, "Observação adicional inserida com sucesso para todos os registros!", "Observação Adicional", 2); 
             btnGerarObsAdicional.setEnabled(false);
             cont++;
-            cont++;
         }else{           
             cont = 0;
         }
         btnGerarArquivoTXT.setEnabled(false);
         btnLimpar.setEnabled(true);
         btnLimpar.setText("Cancelar");
+        
     }//GEN-LAST:event_btnGerarObsAdicionalActionPerformed
 
     private void btnGerarArquivoTXTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGerarArquivoTXTActionPerformed
