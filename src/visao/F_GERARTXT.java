@@ -75,7 +75,11 @@ public class F_GERARTXT extends javax.swing.JDialog {
         txtMODELO = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
+<<<<<<< HEAD
         cmbSTATUS = new javax.swing.JComboBox<>();
+=======
+        cmbSTATUS = new javax.swing.JComboBox<String>();
+>>>>>>> 78ae7b320ef48cbcceff31fb5814687ee1d8c0a4
         jScrollPane5 = new javax.swing.JScrollPane();
         txtRESULTADOS = new javax.swing.JTextArea();
         btnGerarTXT = new javax.swing.JButton();
@@ -134,9 +138,10 @@ public class F_GERARTXT extends javax.swing.JDialog {
 
         cmbSTATUS.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         cmbSTATUS.setForeground(new java.awt.Color(51, 51, 255));
-        cmbSTATUS.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "NAO", "SIM" }));
+        cmbSTATUS.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "NAO", "SIM" }));
         cmbSTATUS.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         cmbSTATUS.setEnabled(false);
+<<<<<<< HEAD
 
         jBoxPesquisar1.setLayer(txtTIPO, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jBoxPesquisar1.setLayer(jLabel6, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -150,6 +155,8 @@ public class F_GERARTXT extends javax.swing.JDialog {
         jBoxPesquisar1.setLayer(jLabel7, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jBoxPesquisar1.setLayer(jLabel8, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jBoxPesquisar1.setLayer(cmbSTATUS, javax.swing.JLayeredPane.DEFAULT_LAYER);
+=======
+>>>>>>> 78ae7b320ef48cbcceff31fb5814687ee1d8c0a4
 
         javax.swing.GroupLayout jBoxPesquisar1Layout = new javax.swing.GroupLayout(jBoxPesquisar1);
         jBoxPesquisar1.setLayout(jBoxPesquisar1Layout);
@@ -225,6 +232,18 @@ public class F_GERARTXT extends javax.swing.JDialog {
                             .addComponent(jLabel1))
                         .addGap(56, 56, 56))))
         );
+        jBoxPesquisar1.setLayer(txtTIPO, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jBoxPesquisar1.setLayer(jLabel6, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jBoxPesquisar1.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jBoxPesquisar1.setLayer(txtCHAPA, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jBoxPesquisar1.setLayer(txtSERIE, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jBoxPesquisar1.setLayer(jLabel4, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jBoxPesquisar1.setLayer(jLabel2, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jBoxPesquisar1.setLayer(txtSECAO, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jBoxPesquisar1.setLayer(txtMODELO, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jBoxPesquisar1.setLayer(jLabel7, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jBoxPesquisar1.setLayer(jLabel8, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jBoxPesquisar1.setLayer(cmbSTATUS, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         txtRESULTADOS.setColumns(20);
         txtRESULTADOS.setLineWrap(true);
