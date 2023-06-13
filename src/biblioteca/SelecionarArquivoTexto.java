@@ -54,7 +54,7 @@ public class SelecionarArquivoTexto {
             return file.getAbsolutePath();
             
         } else if (resposta == JFileChooser.CANCEL_OPTION) {
-            JOptionPane.showMessageDialog(null,"Cancelado pelo usuário!");
+            JOptionPane.showMessageDialog(null,"Cancelado pelo usuário!");  
             return null;
         }else{
             return null;

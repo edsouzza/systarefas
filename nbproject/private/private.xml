@@ -18,22 +18,22 @@
             <url>src/biblioteca/MetodosPublicos.java</url>
             <bookmark id="179">
                 <name/>
-                <line>494</line>
+                <line>495</line>
                 <key/>
             </bookmark>
             <bookmark id="180">
                 <name/>
-                <line>1067</line>
+                <line>1068</line>
                 <key/>
             </bookmark>
             <bookmark id="161">
                 <name/>
-                <line>1223</line>
+                <line>1224</line>
                 <key/>
             </bookmark>
             <bookmark id="25">
                 <name/>
-                <line>1536</line>
+                <line>1537</line>
                 <key/>
             </bookmark>
         </file>
@@ -409,10 +409,14 @@
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< HEAD
             <file>file:/D:/PROJETOS-JAVA/NetBeans/SYSTAREFAS/Tarefas/src/visao/F_PRINCIPAL.java</file>
-            <file>file:/D:/PROJETOS-JAVA/NetBeans/SYSTAREFAS/Tarefas/src/visao/F_GERARTXT.java</file>
             <file>file:/D:/PROJETOS-JAVA/NetBeans/SYSTAREFAS/Tarefas/src/visao/F_LISTAMODELOSGERARTXT.java</file>
             <file>file:/D:/PROJETOS-JAVA/NetBeans/SYSTAREFAS/Tarefas/src/visao/F_CADEQUIPAMENTOSEMLOTE.java</file>
+=======
+            <file>file:/J:/Arqs-Java/Projetos/NetBeans/SYSTAREFAS/Tarefas/src/visao/F_CADPATRIMONIOSVIATXT.java</file>
+            <file>file:/J:/Arqs-Java/Projetos/NetBeans/SYSTAREFAS/Tarefas/src/visao/F_LOGIN.java</file>
+>>>>>>> 78ae7b320ef48cbcceff31fb5814687ee1d8c0a4
         </group>
     </open-files>
 </project-private>
