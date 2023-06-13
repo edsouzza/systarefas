@@ -241,7 +241,13 @@ public class F_CADPATRIMONIOSVIATXT extends javax.swing.JDialog  {
                 btnLimpar.setEnabled(true);
                 btnLerTXT.setEnabled(false);
             }
-        }        
+        }else{               
+            btnGerarArquivoTXT.setEnabled(false);
+            btnGerarObsAdicional.setEnabled(false);
+            btnLerTXT.setEnabled(false);
+            btnLimpar.setEnabled(true);
+            btnSair.setEnabled(false);
+        }           
         
     }
            
@@ -305,6 +311,7 @@ public class F_CADPATRIMONIOSVIATXT extends javax.swing.JDialog  {
         btnGerarArquivoTXT.setEnabled(true);
         btnLimpar.setEnabled(false);
         btnLimpar.setText("Limpar");
+        btnSair.setEnabled(true);
         salvandoLote = false;
         novaObservacao = sdf.format(dataDia)+" : Cadastro inicial";
     }//GEN-LAST:event_btnLimparActionPerformed
