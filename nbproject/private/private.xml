@@ -411,6 +411,7 @@
         <group>
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
             <file>file:/J:/Arqs-Java/Projetos/NetBeans/SYSTAREFAS/Tarefas/src/biblioteca/GetIPServidor.java</file>
 =======
             <file>file:/J:/Arqs-Java/Projetos/NetBeans/SYSTAREFAS/Tarefas/src/visao/F_CADPATRIMONIOSVIATXT.java</file>
@@ -422,6 +423,11 @@
             <file>file:/J:/Arqs-Java/Projetos/NetBeans/SYSTAREFAS/Tarefas/src/biblioteca/GetIPServidor.java</file>
             <file>file:/J:/Arqs-Java/Projetos/NetBeans/SYSTAREFAS/Tarefas/src/visao/F_LOGIN.java</file>
 >>>>>>> dev
+=======
+            <file>file:/D:/PROJETOS-JAVA/NetBeans/SYSTAREFAS/Tarefas/src/biblioteca/GetIPServidor.java</file>
+            <file>file:/D:/PROJETOS-JAVA/NetBeans/SYSTAREFAS/Tarefas/src/visao/F_CADPATRIMONIOSVIATXT.java</file>
+            <file>file:/D:/PROJETOS-JAVA/NetBeans/SYSTAREFAS/Tarefas/src/visao/F_LOGIN.java</file>
+>>>>>>> feature-form-cadastro-em-lotes
         </group>
     </open-files>
 </project-private>
