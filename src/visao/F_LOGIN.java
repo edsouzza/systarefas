@@ -62,10 +62,7 @@ public class F_LOGIN extends javax.swing.JFrame
 
         //DEFINE O BANCO DE DADOS A SER UTILIZADO COMO PADRÃO NO SERVIDOR
         nomeBancoSetado = "SYSTAREFAS";
-        
-        //DEFINE O BANCO DE DADOS A SER UTILIZADO COMO PADRÃO NO DESENVOLVIMENTO
-        //nomeBancoSetado = "SYSDESENV";
-        
+               
         initComponents();
         setResizable(false);   //desabilitando o redimencionamento da tela 
         
