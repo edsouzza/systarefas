@@ -432,6 +432,7 @@ public class F_GERARTXT extends javax.swing.JDialog {
                         
         //habilitando edição do txtSerie       
         txtSERIE.setEditable(true);        
+        txtCHAPA.setEditable(true);        
         txtSERIE.requestFocus();
         btnNovo.setEnabled(false);        
         btnLimpar.setEnabled(true);
@@ -462,8 +463,8 @@ public class F_GERARTXT extends javax.swing.JDialog {
 
     private void txtSERIEKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSERIEKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            txtSERIE.requestFocus();
-            txtSERIE.setEditable(true);            
+            txtCHAPA.requestFocus();
+            txtCHAPA.selectAll();
         }
         if(inserindo)
         {
