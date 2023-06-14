@@ -364,28 +364,7 @@ public class F_GERARTXT extends javax.swing.JDialog {
         sEstacao = "PGMCGGMC000";
         iTipoid  = umMetodo.getCodigoPassandoString("tbltipos", "tipo", sTipo);
         
-        //adicionando item na lista     
-//        if(sTipo.equals("MICRO"))
-//        {
-//            lstListaCampos.add(sChapa+";"+sSerie+";"+iTipoid+";"+"30;"+"202;"+codigoTipoModelo+";"+"6;"+sEstacao+";"+"N");
-//            lstAuxiliar.add(sChapa+";"+sSerie+";"+iTipoid+";"+"30;"+"202;"+codigoTipoModelo+";"+"6;"+sEstacao+";"+"N");        
-//        }else{
-//            lstListaCampos.add(sChapa+";"+sSerie+";"+iTipoid+";"+"30;"+"202;"+codigoTipoModelo+";"+"6;"+sTipo+";"+"N");
-//            lstAuxiliar.add(sChapa+";"+sSerie+";"+iTipoid+";"+"30;"+"202;"+codigoTipoModelo+";"+"6;"+sTipo+";"+"N");        
-//        }
-
-//        for(int i = 0; i < lstListaCampos.size(); i++)
-//        {
-//            ArrayList itensForm = new ArrayList();            
-//            itensForm           = lstListaCampos;             
-//            
-//            //adicionando item na lista do txtdescricao do formulario -> itensForm.get(i)+"\n" => Retira o [] da String e coloca um embaixo do outro em cada linha
-//            String item = itensForm.get(i)+"\n";           
-//            model.addElement(item);
-//            lstITENS.setModel(model);
-//
-//            //System.out.println(itensForm);             
-//        }               
+        //adicionando item na lista    
         String dados = sChapa+";"+sSerie+";"+iTipoid+";"+"30;"+"202;"+codigoTipoModelo+";"+"6;"+sEstacao+";"+"N";
         String item  = dados;           
         model.addElement(item);
