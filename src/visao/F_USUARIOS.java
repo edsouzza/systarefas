@@ -58,6 +58,7 @@ public class F_USUARIOS extends javax.swing.JFrame {
     String secao, rf, nome, sNomeSecao, strNivelAcesso, sNomeAcesso, nAcesso, obs  = "";    
     int codigo, idSecaoRegSel, ind, nivelAcesso, qdeRegs, codigoRegSelecionado = 0;
     boolean gravando;  //controla no botão gravar entre gravar novo registro e gravar alteração de um registro
+    
     String sqlDefault = "select u.*, s.nome as secao from tblusuarios u, tblsecoes s where s.codigo = u.secaoid "
                       + "and u.status='ATIVO' order by u.nome";
     String sqlInativos = "select u.*, s.nome as secao from tblusuarios u, tblsecoes s where s.codigo = u.secaoid "
@@ -465,36 +466,42 @@ public class F_USUARIOS extends javax.swing.JFrame {
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
         //populando os combobox
         if(umabiblio.permissaoLiberada()){
-            popularComboNivelAcesso();
-            popularComboStatus();
-            //umabiblio.PreencherCombo(cmbSecao, "tblsecoes", "nome");
-            //controlando os botoes
-            HabilitarDesabilitarBotoes(false);
-            btnReiniciarSenha.setEnabled(false);
-            btnVoltar.setText("Cancelar");
-            umabiblio.limparTodosCampos(jBoxDados);
-            txtPESQUISA.setText(null);
-            txtOBS  .requestFocus();            
-            //txtRF    .setEditable(true);
-            txtOBS   .setEditable(true);
-            gravando    = true;       
-            cadastrando = true;       
-            txtCODIGO.setText(String.valueOf(umabiblio.mostrarProximoCodigo(tabela)));
-            PreencherTabela(sqlVazia); 
-            
-            //abre lista de servidores
-            tabela_da_lista = "TBLCLIENTES";
-            F_LISTAPADRAO frm = new F_LISTAPADRAO(new javax.swing.JFrame(), true);
-            frm.setVisible(true);
-            
-             //passando os dados das variaveis para os edits somente se o usuário não for cadastrado
-            if (!umMetodo.usuarioCadastrado(nomeCliente)){             
-                txtNOME.setText(nomeCliente);
-                txtRF.setText(umMetodo.retornaRFparaGravarUsuario(rfCliente));
-                txtSECAO.setText(nomeSecao);                
+            if(!umabiblio.tabelaVazia("tblclientes"))
+            {
+                popularComboNivelAcesso();
+                popularComboStatus();
+                //umabiblio.PreencherCombo(cmbSecao, "tblsecoes", "nome");
+                //controlando os botoes
+                HabilitarDesabilitarBotoes(false);
+                btnReiniciarSenha.setEnabled(false);
+                btnVoltar.setText("Cancelar");
+                umabiblio.limparTodosCampos(jBoxDados);
+                txtPESQUISA.setText(null);
+                txtOBS  .requestFocus();            
+                //txtRF    .setEditable(true);
+                txtOBS   .setEditable(true);
+                gravando    = true;       
+                cadastrando = true;       
+                txtCODIGO.setText(String.valueOf(umabiblio.mostrarProximoCodigo(tabela)));
+                PreencherTabela(sqlVazia); 
+
+                //abre lista de servidores
+                tabela_da_lista = "TBLCLIENTES";
+                F_LISTAPADRAO frm = new F_LISTAPADRAO(new javax.swing.JFrame(), true);
+                frm.setVisible(true);
+
+                 //passando os dados das variaveis para os edits somente se o usuário não for cadastrado
+                if (!umMetodo.usuarioCadastrado(nomeCliente)){             
+                    txtNOME.setText(nomeCliente);
+                    txtRF.setText(umMetodo.retornaRFparaGravarUsuario(rfCliente));
+                    txtSECAO.setText(nomeSecao);                
+                }else{
+                    Leitura();                 
+                }            
             }else{
-                Leitura();                 
-            }            
+                JOptionPane.showMessageDialog(null, "Esta ação exige que a tabela de Clientes não esteja vazia, saia e cadastre clientes primeiro!","Tabela Clientes vazia",2);
+                btnSair.requestFocus();
+            }
         }
                 
     }//GEN-LAST:event_btnNovoActionPerformed
@@ -727,7 +734,7 @@ public class F_USUARIOS extends javax.swing.JFrame {
         try {
             if (conexao.rs.next()) {   
                 //selecionando a primeira linha somente se tiver registros
-                //jTabela.addRowSelectionInterval(0, 0);
+                jTabela.addRowSelectionInterval(0, 0);
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro ao preencher o combo de seções!\nErro: " + ex.getMessage());
@@ -1131,7 +1138,7 @@ public class F_USUARIOS extends javax.swing.JFrame {
                 jTabela.getColumnModel().getColumn(1).setResizable(false);
                 jTabela.getColumnModel().getColumn(2).setPreferredWidth(80);  //define o tamanho da coluna
                 jTabela.getColumnModel().getColumn(2).setResizable(false);    //nao será possivel redimencionar a coluna 
-                jTabela.getColumnModel().getColumn(3).setPreferredWidth(150);
+                jTabela.getColumnModel().getColumn(3).setPreferredWidth(168);
                 jTabela.getColumnModel().getColumn(3).setResizable(false);
                 //define propriedades da tabela
                 jTabela.getTableHeader().setReorderingAllowed(false);        //nao podera ser reorganizada

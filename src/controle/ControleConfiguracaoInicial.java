@@ -28,7 +28,7 @@ public class ControleConfiguracaoInicial
             conexao.ExecutarPesquisaSQL(sql);
             if(!conexao.rs.next())
             {
-                objControleUsuario.salvarUsuarioInicial();
+                //objControleUsuario.salvarUsuarioInicial();
                 objDepto.salvarDepartamentoInicialDAO();
                 objSecao.salvarSecaoInicial();
                 objLog.salvarLogInicial();   

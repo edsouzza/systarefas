@@ -64,9 +64,7 @@ public class F_LOGIN extends javax.swing.JFrame
         2-ABRA A CONEXAO E ACESSE A CLASSE GETIPSERVIDOR PARA SETAR O IP DO SERVIDOR SNJPGMC53 10.71.32.39*/
 
         //DEFINE O BANCO DE DADOS A SER UTILIZADO COMO PADRÃO NO SERVIDOR
-        nomeBancoSetado = "SYSTAREFAS";
-        
-        
+        nomeBancoSetado = "SYSTAREFAS";                
                
         initComponents();
         setResizable(false);   //desabilitando o redimencionamento da tela 
@@ -244,7 +242,7 @@ public class F_LOGIN extends javax.swing.JFrame
             senha = Criptografia.Criptografar(senha);
             //JOptionPane.showMessageDialog(null,senha);
         } catch (NoSuchAlgorithmException ex) {
-            Logger.getLogger(F_LOGIN.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Não foi possível gerar uma senha cripotografado!", "Erro!", 2);
         }
         
         //setando o valor da senha criptografada no modelo   
@@ -301,7 +299,7 @@ public class F_LOGIN extends javax.swing.JFrame
         if(acessoInicial)
         {
             JOptionPane.showMessageDialog(null, "Olá, seja  bem vindo ao seu primeiro acesso \nao    Sistema,   cadastre-se   para  continuar!", "Primeiro acesso detectado!", 2);
-            txtLogin.setText(null);
+            cci.gravarConfiguracoesInciais();
             F_ACESSOINICIAL frm = new F_ACESSOINICIAL(this,true);
             frm.setVisible(true); 
             dispose();            
@@ -364,7 +362,7 @@ public class F_LOGIN extends javax.swing.JFrame
 
     private void txtLoginFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtLoginFocusGained
         
-        //txtLogin.setText("D631863");       
+        txtLogin.setText("D631863");       
         //txtLogin.setText("D538076");   
         //txtLogin.setText("D741921");   
         

@@ -37,7 +37,7 @@ public class GerarCopiaArquivo {
             File arquivo2 = new File(destino); 
          
             copiar(arquivo1, arquivo2);
-            System.out.println("SysDesenv copiado com sucesso!");
+            //System.out.println("SysDesenv copiado com sucesso!");
         }
         catch(IOException e){
             // pode ocorrer erros
