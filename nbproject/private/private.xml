@@ -5,12 +5,12 @@
             <url>src/visao/F_USUARIOS.java</url>
             <bookmark id="105">
                 <name/>
-                <line>673</line>
+                <line>680</line>
                 <key/>
             </bookmark>
             <bookmark id="55">
                 <name/>
-                <line>814</line>
+                <line>821</line>
                 <key/>
             </bookmark>
         </file>
@@ -95,7 +95,7 @@
             <url>src/visao/F_LOGIN.java</url>
             <bookmark id="163">
                 <name/>
-                <line>366</line>
+                <line>364</line>
                 <key/>
             </bookmark>
         </file>
@@ -411,7 +411,9 @@
         <group>
             <file>file:/J:/Arqs-Java/Projetos/NetBeans/SYSTAREFAS/Tarefas/src/visao/F_PRINCIPAL.java</file>
             <file>file:/J:/Arqs-Java/Projetos/NetBeans/SYSTAREFAS/Tarefas/src/visao/F_USUARIOS.java</file>
+            <file>file:/J:/Arqs-Java/Projetos/NetBeans/SYSTAREFAS/Tarefas/src/visao/F_ACESSOINICIAL.java</file>
             <file>file:/J:/Arqs-Java/Projetos/NetBeans/SYSTAREFAS/Tarefas/src/visao/F_LOGIN.java</file>
+            <file>file:/J:/Arqs-Java/Projetos/NetBeans/SYSTAREFAS/Tarefas/src/controle/ControleConfiguracaoInicial.java</file>
         </group>
     </open-files>
 </project-private>
