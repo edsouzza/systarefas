@@ -53,6 +53,7 @@ public class F_USUARIOS extends javax.swing.JFrame {
     Criptografia umaCriptografia          = new Criptografia();
     ControleGravarLog umGravarLog         = new ControleGravarLog();
     MetodosPublicos umMetodo              = new MetodosPublicos();
+    
     Boolean clicouNaTabela,reiniciouSenha = false;
     String secao, rf, nome, sNomeSecao, strNivelAcesso, sNomeAcesso, nAcesso, obs  = "";    
     int codigo, idSecaoRegSel, ind, nivelAcesso, qdeRegs, codigoRegSelecionado = 0;
@@ -417,11 +418,6 @@ public class F_USUARIOS extends javax.swing.JFrame {
 
         txtPESQUISA.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         txtPESQUISA.setToolTipText("Digite INATIVOS para imprimir todos os registos com status inativatdos");
-        txtPESQUISA.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtPESQUISAActionPerformed(evt);
-            }
-        });
         txtPESQUISA.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtPESQUISAKeyPressed(evt);
@@ -498,8 +494,7 @@ public class F_USUARIOS extends javax.swing.JFrame {
                 txtSECAO.setText(nomeSecao);                
             }else{
                 Leitura();                 
-            }
-            
+            }            
         }
                 
     }//GEN-LAST:event_btnNovoActionPerformed
@@ -548,10 +543,6 @@ public class F_USUARIOS extends javax.swing.JFrame {
             PreencherTabela(sqlVazia); 
         }
     }//GEN-LAST:event_btnEditarActionPerformed
-
-    private void txtPESQUISAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPESQUISAActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtPESQUISAActionPerformed
     
      public String MostrarSecaoSelecionada(int idSecao)
     {
@@ -683,23 +674,23 @@ public class F_USUARIOS extends javax.swing.JFrame {
         if(status.equals("INATIVO")) 
         {  
            
-                contador++;
-                if(clicouNaTabela)
-                {
-                      nomeRelatorio = "relusuarioselecionado";
-                }else{
-                    if(status.equals("ATIVO"))
-                      {
-                        nomeRelatorio = "relusuarios";
-                      }else{
-                         nomeRelatorio = "relusuariosInativos";
-                      }  
+            contador++;
+            if(clicouNaTabela)
+            {
+                  nomeRelatorio = "relusuarioselecionado";
+            }else{
+                if(status.equals("ATIVO"))
+                  {
+                    nomeRelatorio = "relusuarios";
+                  }else{
+                     nomeRelatorio = "relusuariosInativos";
+                  }  
 
-                } 
-                  entidadeInativa = ("INATIVOS"); //DEFINE SE IMPRIMIRA ATIVOS OU INATIVOS-> DIGITE INATIVOS NA PESQUISA
+            } 
+              entidadeInativa = ("INATIVOS"); //DEFINE SE IMPRIMIRA ATIVOS OU INATIVOS-> DIGITE INATIVOS NA PESQUISA
 
-                  F_IMPRESSAO frm = new F_IMPRESSAO();
-                  frm.setVisible(true);  
+              F_IMPRESSAO frm = new F_IMPRESSAO();
+              frm.setVisible(true);  
              
         }
         else{
@@ -728,20 +719,22 @@ public class F_USUARIOS extends javax.swing.JFrame {
     }//GEN-LAST:event_btnImprimirActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        //preenche a tabela e seta o primeiro registro se tiver registros cadastrados
+       //preenche a tabela e seta o primeiro registro se tiver registros cadastrados
+        
         conexao.conectar();
         String sql = "select * from tblusuarios where status='ATIVO' order by nome";
         conexao.ExecutarPesquisaSQL(sql);
         try {
-            if (conexao.rs.next()) {   //selecionando a primeira linha somente se tiver registros
-                jTabela.addRowSelectionInterval(0, 0);
+            if (conexao.rs.next()) {   
+                //selecionando a primeira linha somente se tiver registros
+                //jTabela.addRowSelectionInterval(0, 0);
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro ao preencher o combo de seções!\nErro: " + ex.getMessage());
         } finally {
             conexao.desconectar();
         }
-
+       
     }//GEN-LAST:event_formWindowOpened
 
     public void ReiniciarSenha() 
@@ -816,7 +809,7 @@ public class F_USUARIOS extends javax.swing.JFrame {
         btnVoltar.setEnabled(true);
     }
     private void txtPESQUISAKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPESQUISAKeyReleased
-        //filtrar o nome conforme o usuario for digitando
+        //filtrar o nome conforme o usuario for digitando        
         filtrarPorDigitacao(txtPESQUISA.getText());                                 
     }//GEN-LAST:event_txtPESQUISAKeyReleased
 
@@ -888,7 +881,6 @@ public class F_USUARIOS extends javax.swing.JFrame {
             }
         });
     }
-
    
     private void popularComboNivelAcesso(){
         cmbNivelAcesso.removeAllItems();
@@ -1031,14 +1023,6 @@ public class F_USUARIOS extends javax.swing.JFrame {
                 
         //mostrando o titulo com qde de registros cadastrados
         this.setTitle(umabiblio.mostrarTituloDoFormulario());
-                
-//        //botao de reiniciar senha
-//         if(nivelAcessoUsuario > 2)
-//         {
-//            btnReiniciarSenha.setEnabled(false);
-//         }else{
-//            btnReiniciarSenha.setEnabled(true); 
-//         }       
                           
         //habilitando a pesquisa  e preenchendo a tabela se tiver registros
          c = jBoxPesquisar.getComponents();
@@ -1047,7 +1031,7 @@ public class F_USUARIOS extends javax.swing.JFrame {
             c[i].setEnabled(!Habilitar);
          }      
     }
-   
+    
     public void Leitura()
     {
         //formatacao inicial dos botoes ao abrir o formulario
@@ -1082,16 +1066,8 @@ public class F_USUARIOS extends javax.swing.JFrame {
         
         //limpando os combos         
         cmbStatus       .setSelectedIndex(-1);
-        cmbNivelAcesso  .setSelectedIndex(-1);
-                        
-        //botao de reiniciar senha
-//         if(nivelAcessoUsuario > 2)
-//         {
-//            btnReiniciarSenha.setEnabled(false);
-//         }else{
-//            btnReiniciarSenha.setEnabled(true); 
-//         }       
-                          
+        cmbNivelAcesso  .setSelectedIndex(-1);                        
+                                
         //habilitando a pesquisa  e preenchendo a tabela se tiver registros
          c = jBoxPesquisar.getComponents();
          for(int i=0; i<c.length; i++)

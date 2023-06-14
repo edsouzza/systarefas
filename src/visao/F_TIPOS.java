@@ -116,12 +116,12 @@ public class F_TIPOS extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         lblDESCRICAO = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        cmbTipoPatrimonio = new javax.swing.JComboBox<>();
-        cmbClientesVirtuais = new javax.swing.JComboBox<>();
+        cmbTipoPatrimonio = new javax.swing.JComboBox<String>();
+        cmbClientesVirtuais = new javax.swing.JComboBox<String>();
         jLabel5 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        cmbStatus = new javax.swing.JComboBox<>();
-        cmbTemIP = new javax.swing.JComboBox<>();
+        cmbStatus = new javax.swing.JComboBox<String>();
+        cmbTemIP = new javax.swing.JComboBox<String>();
         jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -196,13 +196,6 @@ public class F_TIPOS extends javax.swing.JFrame {
             }
         });
 
-        jBoxBotoes.setLayer(btnGravar, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jBoxBotoes.setLayer(btnVoltar, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jBoxBotoes.setLayer(btnSair, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jBoxBotoes.setLayer(btnNovo, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jBoxBotoes.setLayer(btnEditar, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jBoxBotoes.setLayer(btnGerarExcel, javax.swing.JLayeredPane.DEFAULT_LAYER);
-
         javax.swing.GroupLayout jBoxBotoesLayout = new javax.swing.GroupLayout(jBoxBotoes);
         jBoxBotoes.setLayout(jBoxBotoesLayout);
         jBoxBotoesLayout.setHorizontalGroup(
@@ -235,6 +228,12 @@ public class F_TIPOS extends javax.swing.JFrame {
                     .addComponent(btnSair, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+        jBoxBotoes.setLayer(btnGravar, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jBoxBotoes.setLayer(btnVoltar, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jBoxBotoes.setLayer(btnSair, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jBoxBotoes.setLayer(btnNovo, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jBoxBotoes.setLayer(btnEditar, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jBoxBotoes.setLayer(btnGerarExcel, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jBoxDados.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
         jBoxDados.setName("panelDados"); // NOI18N
@@ -274,7 +273,7 @@ public class F_TIPOS extends javax.swing.JFrame {
         });
 
         cmbClientesVirtuais.setForeground(new java.awt.Color(51, 51, 255));
-        cmbClientesVirtuais.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SIM", "NAO" }));
+        cmbClientesVirtuais.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "SIM", "NAO" }));
         cmbClientesVirtuais.setSelectedIndex(-1);
         cmbClientesVirtuais.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
@@ -289,19 +288,6 @@ public class F_TIPOS extends javax.swing.JFrame {
         cmbTemIP.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         jLabel6.setText("TEM IP");
-
-        jBoxDados.setLayer(txtTIPO, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jBoxDados.setLayer(txtCODIGO, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jBoxDados.setLayer(jLabel3, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jBoxDados.setLayer(lblDESCRICAO, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jBoxDados.setLayer(jLabel4, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jBoxDados.setLayer(cmbTipoPatrimonio, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jBoxDados.setLayer(cmbClientesVirtuais, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jBoxDados.setLayer(jLabel5, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jBoxDados.setLayer(jLabel2, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jBoxDados.setLayer(cmbStatus, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jBoxDados.setLayer(cmbTemIP, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jBoxDados.setLayer(jLabel6, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jBoxDadosLayout = new javax.swing.GroupLayout(jBoxDados);
         jBoxDados.setLayout(jBoxDadosLayout);
@@ -366,6 +352,18 @@ public class F_TIPOS extends javax.swing.JFrame {
                                 .addComponent(txtCODIGO, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addGap(19, 19, 19))
         );
+        jBoxDados.setLayer(txtTIPO, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jBoxDados.setLayer(txtCODIGO, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jBoxDados.setLayer(jLabel3, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jBoxDados.setLayer(lblDESCRICAO, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jBoxDados.setLayer(jLabel4, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jBoxDados.setLayer(cmbTipoPatrimonio, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jBoxDados.setLayer(cmbClientesVirtuais, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jBoxDados.setLayer(jLabel5, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jBoxDados.setLayer(jLabel2, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jBoxDados.setLayer(cmbStatus, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jBoxDados.setLayer(cmbTemIP, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jBoxDados.setLayer(jLabel6, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -391,7 +389,7 @@ public class F_TIPOS extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        setSize(new java.awt.Dimension(852, 598));
+        setSize(new java.awt.Dimension(844, 598));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 

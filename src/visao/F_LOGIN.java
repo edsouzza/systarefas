@@ -13,11 +13,13 @@ import java.awt.event.KeyEvent;
 import java.util.HashSet;
 import Dao.DAOUsuario;
 import biblioteca.CampoLimitadoParaRF;
+import biblioteca.MetodosPublicos;
 import static biblioteca.VariaveisPublicas.confIni;
 import static biblioteca.VariaveisPublicas.cadastrado;
 import static biblioteca.VariaveisPublicas.codigoUsuario;
 import static biblioteca.VariaveisPublicas.nivelAcessoUsuario;
 import static biblioteca.VariaveisPublicas.nomeBancoSetado;
+import static biblioteca.VariaveisPublicas.acessoInicial;
 import static biblioteca.VariaveisPublicas.nomeUsuario;
 import static biblioteca.VariaveisPublicas.nomeUsuarioLogado;
 import static biblioteca.VariaveisPublicas.novaSenha;
@@ -41,6 +43,7 @@ import javax.swing.JPopupMenu;
 
 public class F_LOGIN extends javax.swing.JFrame 
 {
+    MetodosPublicos umMetodo        = new MetodosPublicos();
     ControleGravarLog umGravarLog   = new ControleGravarLog();
     ControleConfiguracaoInicial cci = new ControleConfiguracaoInicial();
     CtrlLog     umControleLog       = new CtrlLog();
@@ -62,6 +65,8 @@ public class F_LOGIN extends javax.swing.JFrame
 
         //DEFINE O BANCO DE DADOS A SER UTILIZADO COMO PADRÃO NO SERVIDOR
         nomeBancoSetado = "SYSTAREFAS";
+        
+        
                
         initComponents();
         setResizable(false);   //desabilitando o redimencionamento da tela 
@@ -71,10 +76,7 @@ public class F_LOGIN extends javax.swing.JFrame
         txtSenha.setHorizontalAlignment(txtSenha.CENTER); 
         txtLogin.setHorizontalAlignment(txtLogin.CENTER);        
         txtLogin.setDocument(new CampoLimitadoParaRF(7));
-        
-        //setando controle configuração inicial(cci) se necessário
-        cci.gravarConfiguracoesInciais();
-
+                
         // Colocando enter para pular de campo 
         HashSet conj = new HashSet(this.getFocusTraversalKeys(KeyboardFocusManager.FORWARD_TRAVERSAL_KEYS));
         conj.add(AWTKeyStroke.getAWTKeyStroke(KeyEvent.VK_ENTER, 0));
@@ -280,8 +282,33 @@ public class F_LOGIN extends javax.swing.JFrame
        autenticar();
     }//GEN-LAST:event_btnLogarActionPerformed
 
-    private void txtSenhaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtSenhaFocusGained
-        //txtLogin.setEnabled(false);
+    private boolean meuAcessoInicial(){
+        if(umMetodo.tabelaEstaVazia("tblusuarios"))
+        {
+            acessoInicial = true;            
+            if(acessoInicial)
+            {               
+                return true;
+            }                      
+        }   
+        return false;
+    }
+    
+    private void autenticarUsuario(){
+        /*Verifica primeiramente se trata-se de um acesso inicial ou seja com banco de dados vazio, inicio de tudo, caso negativo verifica se o usuario esta cadastrado para usar o sistema*/
+        meuAcessoInicial();
+        
+        if(acessoInicial)
+        {
+            JOptionPane.showMessageDialog(null, "Olá, seja  bem vindo ao seu primeiro acesso \nao    Sistema,   cadastre-se   para  continuar!", "Primeiro acesso detectado!", 2);
+            txtLogin.setText(null);
+            F_ACESSOINICIAL frm = new F_ACESSOINICIAL(this,true);
+            frm.setVisible(true); 
+            dispose();            
+        }else{
+            //JOptionPane.showMessageDialog(null, "Tudo certo!");
+        }                
+        
         txtSenha.selectAll();
         
         btnLogar.setEnabled(true);
@@ -325,6 +352,10 @@ public class F_LOGIN extends javax.swing.JFrame
               System.exit(0);
           }
         }
+    }
+    
+    private void txtSenhaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtSenhaFocusGained
+        autenticarUsuario();       
     }//GEN-LAST:event_txtSenhaFocusGained
 
     private void txtSenhaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSenhaKeyPressed
@@ -333,7 +364,7 @@ public class F_LOGIN extends javax.swing.JFrame
 
     private void txtLoginFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtLoginFocusGained
         
-        txtLogin.setText("D631863");       
+        //txtLogin.setText("D631863");       
         //txtLogin.setText("D538076");   
         //txtLogin.setText("D741921");   
         
