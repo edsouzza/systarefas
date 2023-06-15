@@ -499,7 +499,6 @@
             <Property name="toolTipText" type="java.lang.String" value="Digite INATIVOS para imprimir todos os registos com status inativatdos"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtPESQUISAActionPerformed"/>
             <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtPESQUISAKeyPressed"/>
             <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtPESQUISAKeyReleased"/>
           </Events>

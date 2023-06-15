@@ -1,5 +1,6 @@
 package visao;
 import biblioteca.Biblioteca;
+import biblioteca.GerarCopiaArquivo;
 import biblioteca.GetIPServidor;
 import biblioteca.MetodosPublicos;
 import static biblioteca.VariaveisPublicas.alterouBanco;
@@ -22,6 +23,7 @@ import modelo.ModeloBanco;
 
 public class F_PRINCIPAL extends javax.swing.JFrame { 
     Biblioteca          umabiblio            = new Biblioteca();
+    GerarCopiaArquivo   gerarCopia            = new GerarCopiaArquivo();
     MetodosPublicos     umMetodo             = new MetodosPublicos();
     ConnConexao         conexao              = new ConnConexao();
     GetIPServidor       umIPServidor         = new GetIPServidor();
@@ -683,6 +685,7 @@ public class F_PRINCIPAL extends javax.swing.JFrame {
      
     private void menuSairMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuSairMouseClicked
   
+              gerarCopia.CopiarArquivo("C:\\Meus Documentos\\Bancos_De_Projetos\\SysTarefas\\SYSTAREFAS.fdb", "C:\\Meus Documentos\\Bancos_De_Projetos\\SysTarefas\\SYSDESENV.fdb");
               umGravarLog.gravarLog("saida do Sistema");
               System.exit(0);
 //         

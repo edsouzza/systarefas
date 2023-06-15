@@ -124,7 +124,6 @@ public class F_GERARTXT extends javax.swing.JDialog {
         txtSECAO.setEditable(false);
         txtSECAO.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         txtSECAO.setForeground(new java.awt.Color(51, 51, 255));
-        txtSECAO.setText("INFORMATICA");
 
         txtMODELO.setEditable(false);
         txtMODELO.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -137,6 +136,7 @@ public class F_GERARTXT extends javax.swing.JDialog {
         cmbSTATUS.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         cmbSTATUS.setForeground(new java.awt.Color(51, 51, 255));
         cmbSTATUS.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "NAO", "SIM" }));
+        cmbSTATUS.setSelectedIndex(-1);
         cmbSTATUS.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         cmbSTATUS.setEnabled(false);
 
@@ -353,6 +353,7 @@ public class F_GERARTXT extends javax.swing.JDialog {
 
     private void Leitura() 
     {        
+        txtSECAO.setText("INFORMATICA");
         sTipo  = txtTIPO.getText();
         limpar();      
     }        
