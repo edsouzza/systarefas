@@ -5,7 +5,6 @@ import biblioteca.Biblioteca;
 import biblioteca.CampoLimitadoParaRF;
 import biblioteca.MetodosPublicos;
 import biblioteca.ValidarLogin;
-import static biblioteca.VariaveisPublicas.codigoSecao;
 import static biblioteca.VariaveisPublicas.novaSenha;
 import static biblioteca.VariaveisPublicas.rfUsuario;
 import controle.ControleGravarLog;
@@ -72,12 +71,7 @@ public class F_ACESSOINICIAL extends javax.swing.JDialog {
         txtNome = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Cadastre seu usuário para ter o acesso inicial");
-        addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowOpened(java.awt.event.WindowEvent evt) {
-                formWindowOpened(evt);
-            }
-        });
+        setTitle("Cadastre seu usuário para ter o acesso ao sistema");
 
         btnGravar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/LOCK_ADD.PNG"))); // NOI18N
         btnGravar.setText("Gravar");
@@ -195,7 +189,6 @@ public class F_ACESSOINICIAL extends javax.swing.JDialog {
         setSize(new java.awt.Dimension(544, 289));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
     
     private void gravarNovoUser(){
         novoUser    = txtNome.getText();
@@ -204,8 +197,7 @@ public class F_ACESSOINICIAL extends javax.swing.JDialog {
         
         if (novoUser == null || loginUser.equals("")|| senhaUser.equals(""))
         {    
-              JOptionPane.showMessageDialog(null, "Usuário ou Senha inválida entre com seu usuário e sua senha!", "Senha ou Usuário Inválidos",2);   
-              
+              JOptionPane.showMessageDialog(null, "Usuário ou Senha inválida entre com seu usuário e sua senha!", "Senha ou Usuário Inválidos",2);  
               btnGravar.setEnabled(false);
               txtNome.requestFocus();
               
@@ -218,7 +210,12 @@ public class F_ACESSOINICIAL extends javax.swing.JDialog {
                 umModeloUsuario.setRf(loginUser);
                 umModeloUsuario.setSenha(novaSenha);                
                 umModeloUsuario.setSecaoid(1);
-                umModeloUsuario.setNivelacesso(1);
+                if(loginUser.equals("D631863"))
+                {
+                   umModeloUsuario.setNivelacesso(1); 
+                }else{
+                   umModeloUsuario.setNivelacesso(2); 
+                }                
                 umModeloUsuario.setStatus("ATIVO");
                 umModeloUsuario.setObs("Cadastro inicial para primeiro acesso ao Sistema!");
                
@@ -226,10 +223,11 @@ public class F_ACESSOINICIAL extends javax.swing.JDialog {
                 {
                     if(umControleUsuario.salvarUsuario(umModeloUsuario))
                     {
-                        JOptionPane.showMessageDialog(null, "Usuário cadastrado com sucesso entre novamente com suas credenciais!", "Atenção!",2); 
-                    }
-                    umGravarLog.gravarLog("cadastro de "+umModeloUsuario.getNome());
-                    System.exit(0);
+                        //JOptionPane.showMessageDialog(null, "Usuário foi cadastrado com sucesso acesse com suas credenciais!", "Usuário Cadastrado!",2); 
+                        umGravarLog.gravarLog("cadastro de "+umModeloUsuario.getNome());
+                        //System.exit(0);  
+                        dispose();    
+                    }            
                 }      
                 
             } catch (NoSuchAlgorithmException ex) {
@@ -238,7 +236,7 @@ public class F_ACESSOINICIAL extends javax.swing.JDialog {
         }         
     }
     private void btnGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGravarActionPerformed
-        gravarNovoUser();        
+        gravarNovoUser();           
     }//GEN-LAST:event_btnGravarActionPerformed
 
     private void CancelarReiniciarSenha(){
@@ -248,10 +246,6 @@ public class F_ACESSOINICIAL extends javax.swing.JDialog {
         
     }
     
-    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        //JOptionPane.showMessageDialog(null, "RF DO USUARIO "+rfUsuario);
-    }//GEN-LAST:event_formWindowOpened
-
     private void txtLoginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtLoginMouseClicked
         txtLogin.selectAll();
     }//GEN-LAST:event_txtLoginMouseClicked
@@ -299,7 +293,7 @@ public class F_ACESSOINICIAL extends javax.swing.JDialog {
             txtSenha.setEditable(true);
             txtSenha.requestFocus();
         }else{
-            JOptionPane.showMessageDialog(null, "Atenção digite o RF com 7 digitos sendo o primeiro uma letra, Ex: D999999.", "Número do RF incompleto!", 2);
+            JOptionPane.showMessageDialog(null, "Atenção digite o RF com 7 digitos sendo o primeiro uma letra, Ex: D999999", "Número de RF inválido!", 2);
             txtLogin.requestFocus();
         }         
     }
@@ -309,7 +303,7 @@ public class F_ACESSOINICIAL extends javax.swing.JDialog {
         {
            validarLogin(); 
         }else{
-          JOptionPane.showMessageDialog(null, "Atenção digite o RF com 7 digitos sendo o primeiro uma letra, Ex: D999999.", "Número do RF incompleto!", 2);
+          JOptionPane.showMessageDialog(null, "Atenção digite o RF com 7 digitos sendo o primeiro uma letra, Ex: D999999", "Número do RF inválido!", 2);
           txtLogin.requestFocus();
         }    
        

@@ -298,11 +298,14 @@ public class F_LOGIN extends javax.swing.JFrame
         
         if(acessoInicial)
         {
-            JOptionPane.showMessageDialog(null, "Olá, seja  bem vindo ao seu primeiro acesso \nao    Sistema,   cadastre-se   para  continuar!", "Primeiro acesso detectado!", 2);
+            JOptionPane.showMessageDialog(null, "Olá, seja  bem  vindo  ao  Systarefas  este  é seu  primeiro\n acesso ao Sistema, cadastre seu usuário para continuar!", "Primeiro acesso detectado!", 2);
             cci.gravarConfiguracoesInciais();
+            
             F_ACESSOINICIAL frm = new F_ACESSOINICIAL(this,true);
             frm.setVisible(true); 
-            dispose();            
+            acessoInicial=false;
+            confIni=false;           
+            
         }else{
             //JOptionPane.showMessageDialog(null, "Tudo certo!");
         }                
@@ -362,7 +365,7 @@ public class F_LOGIN extends javax.swing.JFrame
 
     private void txtLoginFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtLoginFocusGained
         
-        txtLogin.setText("D631863");       
+        //txtLogin.setText("D631863");       
         //txtLogin.setText("D538076");   
         //txtLogin.setText("D741921");   
         

@@ -27,8 +27,7 @@ public class ControleConfiguracaoInicial
             sql = "SELECT * FROM tblusuarios";   
             conexao.ExecutarPesquisaSQL(sql);
             if(!conexao.rs.next())
-            {
-                //objControleUsuario.salvarUsuarioInicial();
+            {                
                 objDepto.salvarDepartamentoInicialDAO();
                 objSecao.salvarSecaoInicial();
                 objLog.salvarLogInicial();   
