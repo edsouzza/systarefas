@@ -5,7 +5,7 @@
             <url>src/visao/F_USUARIOS.java</url>
             <bookmark id="105">
                 <name/>
-                <line>682</line>
+                <line>680</line>
                 <key/>
             </bookmark>
             <bookmark id="55">
@@ -95,7 +95,7 @@
             <url>src/visao/F_LOGIN.java</url>
             <bookmark id="163">
                 <name/>
-                <line>338</line>
+                <line>367</line>
                 <key/>
             </bookmark>
         </file>
@@ -119,7 +119,7 @@
             <url>src/visao/F_PRINCIPAL.java</url>
             <bookmark id="30">
                 <name/>
-                <line>907</line>
+                <line>910</line>
                 <key/>
             </bookmark>
         </file>
@@ -410,6 +410,7 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -428,6 +429,16 @@
             <file>file:/D:/PROJETOS-JAVA/NetBeans/SYSTAREFAS/Tarefas/src/visao/F_LOGIN.java</file>
 >>>>>>> feature-form-cadastro-em-lotes
 >>>>>>> 688e6f75f27b103d5ecd4f7e62085348573989ce
+=======
+            <file>file:/J:/Arqs-Java/Projetos/NetBeans/SYSTAREFAS/Tarefas/src/visao/F_CADPATRIMONIOSVIATXT.java</file>
+            <file>file:/J:/Arqs-Java/Projetos/NetBeans/SYSTAREFAS/Tarefas/src/visao/F_LOGIN.java</file>
+            <file>file:/J:/Arqs-Java/Projetos/NetBeans/SYSTAREFAS/Tarefas/src/visao/F_GERARTXT.java</file>
+=======
+            <file>file:/J:/Arqs-Java/Projetos/NetBeans/SYSTAREFAS/Tarefas/src/visao/F_PRINCIPAL.java</file>
+            <file>file:/J:/Arqs-Java/Projetos/NetBeans/SYSTAREFAS/Tarefas/src/visao/F_ACESSOINICIAL.java</file>
+            <file>file:/J:/Arqs-Java/Projetos/NetBeans/SYSTAREFAS/Tarefas/src/visao/F_LOGIN.java</file>
+>>>>>>> feature
+>>>>>>> dev
         </group>
     </open-files>
 </project-private>

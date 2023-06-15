@@ -17,9 +17,12 @@ import static biblioteca.VariaveisPublicas.salvandoLote;
 import static biblioteca.VariaveisPublicas.dataDoDia;
 import controle.ControleGravarLog;
 import controle.CtrlPatrimonio;
+import java.awt.Toolkit;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import modelo.Patrimonio;
 
 
@@ -245,7 +248,7 @@ public class F_CADPATRIMONIOSVIATXT extends javax.swing.JDialog  {
             btnGerarArquivoTXT.setEnabled(false);
             btnGerarObsAdicional.setEnabled(false);
             btnLerTXT.setEnabled(false);
-            btnLimpar.setEnabled(true);
+            btnLimpar.setEnabled(true);            
             btnSair.setEnabled(false);
         }           
         
@@ -301,7 +304,7 @@ public class F_CADPATRIMONIOSVIATXT extends javax.swing.JDialog  {
         //faz a leitura do arquivo TXT e cadastra os equipamentos registrados nele
         LexTXT();  
         btnGerarArquivoTXT.setEnabled(false);
-        btnLimpar.setText("Limpar");
+        btnLimpar.setText("Voltar");
     }//GEN-LAST:event_btnLerTXTActionPerformed
 
     private void btnLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparActionPerformed

@@ -4,29 +4,29 @@ import biblioteca.Biblioteca;
 import biblioteca.CampoTxtLimitadoPorQdeCaracteresUpperCase;
 import biblioteca.GerarTXT;
 import biblioteca.MetodosPublicos;
-import biblioteca.VariaveisPublicas;
 import static biblioteca.VariaveisPublicas.tabela_da_lista;
 import static biblioteca.VariaveisPublicas.TipoModelo;
 import static biblioteca.VariaveisPublicas.codTipoSelecionado;
 import static biblioteca.VariaveisPublicas.codigoTipoModelo;
-import static biblioteca.VariaveisPublicas.lstListaCampos;
 import static biblioteca.VariaveisPublicas.lstAuxiliar;
-import static biblioteca.VariaveisPublicas.lstListaGenerica;
+import static biblioteca.VariaveisPublicas.lstListaCampos;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
+import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 
 public class F_GERARTXT extends javax.swing.JDialog {
     MetodosPublicos   umMetodo    = new MetodosPublicos();
     Biblioteca        umaBiblio   = new Biblioteca();
     GerarTXT          objGerarTXT = new GerarTXT();
+    DefaultListModel  model       = new DefaultListModel();
     
     String sTipo, sChapa, sSerie, sEstacao  = "";
-    int iTipoid = 0;
+    int iTipoid, codItem = 0;
     Boolean metodoPADRAOINIFIM,inserindo = false;    
     
     public F_GERARTXT(java.awt.Frame parent, boolean modal) {
@@ -50,9 +50,10 @@ public class F_GERARTXT extends javax.swing.JDialog {
         umMetodo.configurarBotoes(btnLimpar);
         umMetodo.configurarBotoes(btnSair);
         umMetodo.configurarBotoes(btnNovo);
+        umMetodo.configurarBotoes(btnRemoverItem);
         
-        txtRESULTADOS.setForeground(Color.blue);        
-        txtRESULTADOS.setFont(new Font("TimesRoman", Font.BOLD, 14));
+        lstITENS.setForeground(Color.blue);        
+        lstITENS.setFont(new Font("TimesRoman", Font.BOLD, 14));
         txtSERIE.setDocument(new CampoTxtLimitadoPorQdeCaracteresUpperCase(20));        
         
     }
@@ -76,13 +77,14 @@ public class F_GERARTXT extends javax.swing.JDialog {
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         cmbSTATUS = new javax.swing.JComboBox<String>();
-        jScrollPane5 = new javax.swing.JScrollPane();
-        txtRESULTADOS = new javax.swing.JTextArea();
         btnGerarTXT = new javax.swing.JButton();
         btnLimpar = new javax.swing.JButton();
         btnSair = new javax.swing.JButton();
         btnNovo = new javax.swing.JButton();
         btnADDAOTXT = new javax.swing.JButton();
+        btnRemoverItem = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        lstITENS = new javax.swing.JList();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("GERAR ARQUIVO TXT A PARTIR DE UMA SQL");
@@ -122,7 +124,6 @@ public class F_GERARTXT extends javax.swing.JDialog {
         txtSECAO.setEditable(false);
         txtSECAO.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         txtSECAO.setForeground(new java.awt.Color(51, 51, 255));
-        txtSECAO.setText("INFORMATICA");
 
         txtMODELO.setEditable(false);
         txtMODELO.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -135,6 +136,7 @@ public class F_GERARTXT extends javax.swing.JDialog {
         cmbSTATUS.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         cmbSTATUS.setForeground(new java.awt.Color(51, 51, 255));
         cmbSTATUS.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "NAO", "SIM" }));
+        cmbSTATUS.setSelectedIndex(-1);
         cmbSTATUS.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         cmbSTATUS.setEnabled(false);
 
@@ -225,13 +227,6 @@ public class F_GERARTXT extends javax.swing.JDialog {
         jBoxPesquisar1.setLayer(jLabel8, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jBoxPesquisar1.setLayer(cmbSTATUS, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
-        txtRESULTADOS.setColumns(20);
-        txtRESULTADOS.setLineWrap(true);
-        txtRESULTADOS.setRows(5);
-        txtRESULTADOS.setToolTipText("");
-        txtRESULTADOS.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jScrollPane5.setViewportView(txtRESULTADOS);
-
         btnGerarTXT.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
         btnGerarTXT.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/TICK.PNG"))); // NOI18N
         btnGerarTXT.setText("Gerar TXT");
@@ -290,57 +285,78 @@ public class F_GERARTXT extends javax.swing.JDialog {
             }
         });
 
+        btnRemoverItem.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
+        btnRemoverItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/btn_Cancelar.gif"))); // NOI18N
+        btnRemoverItem.setText("Remover Item");
+        btnRemoverItem.setToolTipText("");
+        btnRemoverItem.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnRemoverItem.setEnabled(false);
+        btnRemoverItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRemoverItemActionPerformed(evt);
+            }
+        });
+
+        lstITENS.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lstITENS.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lstITENSMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(lstITENS);
+
         javax.swing.GroupLayout jPANELTOTALLayout = new javax.swing.GroupLayout(jPANELTOTAL);
         jPANELTOTAL.setLayout(jPANELTOTALLayout);
         jPANELTOTALLayout.setHorizontalGroup(
             jPANELTOTALLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPANELTOTALLayout.createSequentialGroup()
                 .addGroup(jPANELTOTALLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPANELTOTALLayout.createSequentialGroup()
-                        .addComponent(btnNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(42, 42, 42)
-                        .addComponent(btnGerarTXT, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnADDAOTXT, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(37, 37, 37)
-                        .addComponent(btnLimpar, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(38, 38, 38)
-                        .addComponent(btnSair, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jBoxPesquisar1)
-                    .addComponent(jScrollPane5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1010, Short.MAX_VALUE))
+                    .addGroup(jPANELTOTALLayout.createSequentialGroup()
+                        .addComponent(btnNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnGerarTXT, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnADDAOTXT, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(10, 10, 10)
+                        .addComponent(btnRemoverItem, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnLimpar, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+                        .addComponent(btnSair, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1))
                 .addContainerGap())
         );
-
-        jPANELTOTALLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnADDAOTXT, btnGerarTXT, btnLimpar, btnNovo, btnSair});
-
         jPANELTOTALLayout.setVerticalGroup(
             jPANELTOTALLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPANELTOTALLayout.createSequentialGroup()
                 .addComponent(jBoxPesquisar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 414, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 414, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPANELTOTALLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(btnNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnGerarTXT, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnADDAOTXT, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnLimpar, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnSair, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnSair, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnRemoverItem, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
         getContentPane().add(jPANELTOTAL);
         jPANELTOTAL.setBounds(14, 11, 1020, 650);
 
-        setSize(new java.awt.Dimension(1063, 700));
+        setSize(new java.awt.Dimension(1055, 700));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void Leitura() 
     {        
+        txtSECAO.setText("INFORMATICA");
         sTipo  = txtTIPO.getText();
         limpar();      
-    }
+    }        
         
     private void addItensAoTXT()
     {  
@@ -349,26 +365,11 @@ public class F_GERARTXT extends javax.swing.JDialog {
         sEstacao = "PGMCGGMC000";
         iTipoid  = umMetodo.getCodigoPassandoString("tbltipos", "tipo", sTipo);
         
-        //adicionando item na lista     
-        if(sTipo.equals("MICRO"))
-        {
-            lstListaCampos.add(sChapa+";"+sSerie+";"+iTipoid+";"+"30;"+"202;"+codigoTipoModelo+";"+"6;"+sEstacao+";"+"N");
-            lstAuxiliar.add(sChapa+";"+sSerie+";"+iTipoid+";"+"30;"+"202;"+codigoTipoModelo+";"+"6;"+sEstacao+";"+"N");        
-        }else{
-            lstListaCampos.add(sChapa+";"+sSerie+";"+iTipoid+";"+"30;"+"202;"+codigoTipoModelo+";"+"6;"+sTipo+";"+"N");
-            lstAuxiliar.add(sChapa+";"+sSerie+";"+iTipoid+";"+"30;"+"202;"+codigoTipoModelo+";"+"6;"+sTipo+";"+"N");        
-        }
-
-        for(int i = 0; i < lstListaCampos.size(); i++)
-        {
-            ArrayList itensForm = new ArrayList();            
-            itensForm           = lstListaCampos;             
-            
-            //adicionando item na lista do txtdescricao do formulario -> itensForm.get(i)+"\n" => Retira o [] da String e coloca um embaixo do outro em cada linha
-            txtRESULTADOS.append(itensForm.get(i)+"\n");
-                        
-            //System.out.println(itensForm);             
-        }               
+        //adicionando item na lista    
+        String dados = sChapa+";"+sSerie+";"+iTipoid+";"+"30;"+"202;"+codigoTipoModelo+";"+"6;"+sEstacao+";"+"N";
+        String item  = dados;           
+        model.addElement(item);
+        lstITENS.setModel(model);
                
         txtSERIE.setText("");
         txtSERIE.requestFocus();    
@@ -376,15 +377,16 @@ public class F_GERARTXT extends javax.swing.JDialog {
     
     private void btnGerarTXTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGerarTXTActionPerformed
        //Metodo MANUAL inserido a série inteira
-       if(txtRESULTADOS.getText().equals("")){
-          JOptionPane.showMessageDialog(null, "Primeiro insira uma série e adicione para continuar!","Série não entrada...",2); 
-       }else{
-            //Gera o TXT a partir da lista passada por parametro
-            objGerarTXT.gerarTXTDELISTA(lstAuxiliar);          
-            btnLimparActionPerformed(null);           
-            cmbSTATUS.setEnabled(false);
-            inserindo=false;
+       for(int i = 0; i < model.size(); i++)
+       {
+            lstAuxiliar.add(model.get(i).toString());
        }
+       
+       objGerarTXT.gerarTXTDELISTA(lstAuxiliar);          
+       btnLimparActionPerformed(null);           
+       cmbSTATUS.setEnabled(false);
+       inserindo=false;
+      
       
     }//GEN-LAST:event_btnGerarTXTActionPerformed
 
@@ -395,15 +397,17 @@ public class F_GERARTXT extends javax.swing.JDialog {
         btnADDAOTXT.setEnabled(false);
         txtSERIE.setEditable(false);
         btnLimpar.setEnabled(false);
-        txtRESULTADOS.setEditable(false);
+        btnRemoverItem.setEnabled(false);
         cmbSTATUS.setEnabled(false);
         txtTIPO.setText("");
         txtMODELO.setText("");
         txtCHAPA.setText("");
-        txtSERIE.setText("");
-        txtRESULTADOS.setText("");        
+        txtSERIE.setText("");      
+        txtSECAO.setText("");      
+        cmbSTATUS.setSelectedIndex(-1);
         lstListaCampos.clear();
-        inserindo=false;
+        model.clear();
+        inserindo=false;        
     }
     
     private void btnLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparActionPerformed
@@ -430,13 +434,17 @@ public class F_GERARTXT extends javax.swing.JDialog {
         frm.setVisible(true);                    
         txtMODELO.setText(TipoModelo);  
                         
-        //habilitando edição do txtSerie       
+        //habilitando edição do txtSerie     
+        txtSECAO.setText("INFORMATICA");      
+        cmbSTATUS.setSelectedIndex(0);
         txtSERIE.setEditable(true);        
+        txtCHAPA.setEditable(true);        
         txtSERIE.requestFocus();
         btnNovo.setEnabled(false);        
         btnLimpar.setEnabled(true);
         cmbSTATUS.setEnabled(true);
         lstAuxiliar.clear();
+        model.clear();
         
     }//GEN-LAST:event_btnNovoActionPerformed
 
@@ -445,25 +453,21 @@ public class F_GERARTXT extends javax.swing.JDialog {
         {
             JOptionPane.showMessageDialog(null, "O campo [Série] é de preenchimento obrigatório!", "Campo obrigatório vazio!", 2);
             txtSERIE.requestFocus();
-        }else{
-            if(txtSERIE.getText().equals(null)){
-                metodoPADRAOINIFIM = false;
-            }else{
-                metodoPADRAOINIFIM = true;
-            }
+        }else{            
             //Limpando a lista pois quando adicionamos novo item ela é prenchida novamento com todos os registros já preenchidos, se não limpar haverá duplucidades
-            lstListaCampos.clear();            
+            //lstListaCampos.clear();     
             addItensAoTXT();     
             txtCHAPA.setText("");   
             btnSair.setEnabled(false);
+            btnRemoverItem.setEnabled(true);
         }
         
     }//GEN-LAST:event_btnADDAOTXTActionPerformed
 
     private void txtSERIEKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSERIEKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            txtSERIE.requestFocus();
-            txtSERIE.setEditable(true);            
+            txtCHAPA.requestFocus();
+            txtCHAPA.selectAll();
         }
         if(inserindo)
         {
@@ -479,6 +483,21 @@ public class F_GERARTXT extends javax.swing.JDialog {
             txtCHAPA.setText("008"+umMetodo.gerarNumeroAleatorio());
         }        
     }//GEN-LAST:event_txtSERIEKeyReleased
+
+    private void removerItem(){
+        model.remove(codItem);       
+        btnRemoverItem.setEnabled(false);
+        btnADDAOTXT.setEnabled(false);
+        txtSERIE.requestFocus();
+    }
+    
+    private void btnRemoverItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverItemActionPerformed
+        removerItem();
+    }//GEN-LAST:event_btnRemoverItemActionPerformed
+
+    private void lstITENSMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lstITENSMouseClicked
+        codItem = lstITENS.getSelectedIndex();        
+    }//GEN-LAST:event_lstITENSMouseClicked
 
     /**
      * @param args the command line arguments
@@ -530,6 +549,7 @@ public class F_GERARTXT extends javax.swing.JDialog {
     private javax.swing.JButton btnGerarTXT;
     private javax.swing.JButton btnLimpar;
     private javax.swing.JButton btnNovo;
+    private javax.swing.JButton btnRemoverItem;
     private javax.swing.JButton btnSair;
     private javax.swing.JComboBox<String> cmbSTATUS;
     private javax.swing.JLayeredPane jBoxPesquisar1;
@@ -540,10 +560,10 @@ public class F_GERARTXT extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPANELTOTAL;
-    private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JList lstITENS;
     private javax.swing.JTextField txtCHAPA;
     private javax.swing.JTextField txtMODELO;
-    private javax.swing.JTextArea txtRESULTADOS;
     private javax.swing.JTextField txtSECAO;
     private javax.swing.JTextField txtSERIE;
     private javax.swing.JTextField txtTIPO;

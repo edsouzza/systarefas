@@ -1,9 +1,7 @@
 package controle;
 import Dao.DAOUsuario;
-import java.util.ArrayList;
-import java.util.Vector;
 import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
+import static biblioteca.VariaveisPublicas.acessoInicial;
 import modelo.Usuario;
 
 public class CtrlUsuario 
@@ -16,7 +14,10 @@ public class CtrlUsuario
     
     public boolean salvarUsuario(Usuario pUsuario) 
     { 
-        JOptionPane.showMessageDialog(null,"Usuário cadastrado com sucesso!"); 
+        if(!acessoInicial)
+        {
+           JOptionPane.showMessageDialog(null,"Usuário cadastrado com sucesso!");  
+        }        
         return new DAOUsuario().salvarUsuarioDAO(pUsuario);
     }    
     
