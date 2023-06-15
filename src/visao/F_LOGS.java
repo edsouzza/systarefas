@@ -347,7 +347,7 @@ public class F_LOGS extends javax.swing.JFrame {
                     //define tamanho das colunas
                     jTabelaLOGS.getColumnModel().getColumn(0).setPreferredWidth(60);
                     jTabelaLOGS.getColumnModel().getColumn(0).setResizable(false); 
-                    jTabelaLOGS.getColumnModel().getColumn(1).setPreferredWidth(620);
+                    jTabelaLOGS.getColumnModel().getColumn(1).setPreferredWidth(600);
                     jTabelaLOGS.getColumnModel().getColumn(1).setResizable(false);  
                     jTabelaLOGS.getColumnModel().getColumn(2).setPreferredWidth(75);
                     jTabelaLOGS.getColumnModel().getColumn(2).setResizable(false); 
