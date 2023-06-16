@@ -72,7 +72,7 @@ public class GetIPServidor {
           if(!comecoIPLocal.equals("10.")){
               ipServidor = "LOCALHOST";
           }else{
-              ipServidor  = "10.71.32.55";
+              //ipServidor  = "10.71.32.55";
               //ipServidor  = "10.71.32.157";      
           }
             
