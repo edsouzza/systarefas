@@ -1085,7 +1085,7 @@ public class F_PATRIDEPTOS extends javax.swing.JFrame {
         cmbFILTRARPORORIGEM.setEnabled(false);  
         btnEditar.setEnabled(false); 
         btnCancelar.setText("Cancelar");    
-        //btnGravar.setEnabled(true);
+        btnGravar.setEnabled(true);
         
         PreencherTabelaEnviar(sqlVazia);
         

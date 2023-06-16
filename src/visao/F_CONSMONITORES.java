@@ -132,7 +132,7 @@ public class F_CONSMONITORES extends javax.swing.JFrame {
         txtIP = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
-        cmbMODELOS = new javax.swing.JComboBox<String>();
+        cmbMODELOS = new javax.swing.JComboBox<>();
         txtOBSERVACOES = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
@@ -146,7 +146,7 @@ public class F_CONSMONITORES extends javax.swing.JFrame {
         jScrollPane5 = new javax.swing.JScrollPane();
         jTabelaINATIVOS = new javax.swing.JTable();
         btnLimparPesquisa = new javax.swing.JButton();
-        cmbSECOES = new javax.swing.JComboBox<String>();
+        cmbSECOES = new javax.swing.JComboBox<>();
         jLabel9 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -236,7 +236,7 @@ public class F_CONSMONITORES extends javax.swing.JFrame {
 
         cmbMODELOS.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
         cmbMODELOS.setForeground(new java.awt.Color(51, 51, 255));
-        cmbMODELOS.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "<ESCOLHA O MODELO>", " " }));
+        cmbMODELOS.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "<ESCOLHA O MODELO>", " " }));
         cmbMODELOS.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         cmbMODELOS.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
@@ -344,7 +344,7 @@ public class F_CONSMONITORES extends javax.swing.JFrame {
 
         cmbSECOES.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
         cmbSECOES.setForeground(new java.awt.Color(51, 51, 255));
-        cmbSECOES.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "<ESCOLHA A SEÇÃO>", "" }));
+        cmbSECOES.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "<ESCOLHA A SEÇÃO>", "" }));
         cmbSECOES.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         cmbSECOES.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
@@ -465,7 +465,7 @@ public class F_CONSMONITORES extends javax.swing.JFrame {
 
         getContentPane().add(panelPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 920, 690));
 
-        setSize(new java.awt.Dimension(921, 734));
+        setSize(new java.awt.Dimension(918, 734));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
     private void PreencherComboSecoes(JComboBox cmb,String campo)
