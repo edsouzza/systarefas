@@ -5,6 +5,7 @@ import java.sql.Date;
 public class PatriDepto {
      private int codigo;
      private int tipoid;  
+     private String modelo;    
      private String serie;
      private String chapa;      
      private String origem;      
@@ -33,6 +34,14 @@ public class PatriDepto {
         this.tipoid = tipoid;
     }
 
+    public String getModelo() {
+        return modelo;
+    }
+
+    public void setModelo(String modelo) {
+        this.modelo = modelo;
+    }
+    
     public String getSerie() {
         return serie;
     }

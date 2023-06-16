@@ -1,7 +1,6 @@
 package Dao;
 
 import conexao.ConnConexao;
-import static biblioteca.VariaveisPublicas.dataDoDia;
 import static biblioteca.VariaveisPublicas.sql;
 import java.sql.PreparedStatement;
 import java.text.SimpleDateFormat;
@@ -19,17 +18,18 @@ public class DAOPatriDeptos {
         conexao.conectar();
         try 
         {
-            sql = "INSERT INTO TBLPATRIDEPTOS (tipoid, serie, chapa, origem, dtentrada, memoenvio, memodevolucao, status, obs) VALUES (?,?,?,?,?,?,?,?,?)";
+            sql = "INSERT INTO TBLPATRIDEPTOS (tipoid, modelo, serie, chapa, origem, dtentrada, memoenvio, memodevolucao, status, obs) VALUES (?,?,?,?,?,?,?,?,?,?)";
             PreparedStatement pst = conexao.getConnection().prepareStatement(sql);
             pst.setInt(1, umPatriDepto.getTipoid());
-            pst.setString(2, umPatriDepto.getSerie());
-            pst.setString(3, umPatriDepto.getChapa());
-            pst.setString(4, umPatriDepto.getOrigem());
-            pst.setString(5, umPatriDepto.getDtentrada());
-            pst.setString(6, "N");
+            pst.setString(2, umPatriDepto.getModelo());
+            pst.setString(3, umPatriDepto.getSerie());
+            pst.setString(4, umPatriDepto.getChapa());
+            pst.setString(5, umPatriDepto.getOrigem());
+            pst.setString(6, umPatriDepto.getDtentrada());
             pst.setString(7, "N");
-            pst.setString(8, umPatriDepto.getStatus());
-            pst.setString(9, umPatriDepto.getObs());            
+            pst.setString(8, "N");
+            pst.setString(9, umPatriDepto.getStatus());
+            pst.setString(10, umPatriDepto.getObs());            
             pst.executeUpdate();
             pst.close(); 
             return true;
@@ -46,20 +46,21 @@ public class DAOPatriDeptos {
         conexao.conectar();
         try
         {
-            sql = "UPDATE TBLPATRIDEPTOS SET tipoid=?, serie=?, chapa=?, origem=?, destino=?, dtenvio=?, memoenvio=?, dtdevolucao=?, memodevolucao=?, status=?, obs=? WHERE codigo=?";
+            sql = "UPDATE TBLPATRIDEPTOS SET tipoid=?, modelo=?, serie=?, chapa=?, origem=?, destino=?, dtenvio=?, memoenvio=?, dtdevolucao=?, memodevolucao=?, status=?, obs=? WHERE codigo=?";
             PreparedStatement pst = conexao.getConnection().prepareStatement(sql);
             pst.setInt(1, umPatriDeptos.getTipoid());
-            pst.setString(2, umPatriDeptos.getSerie());
-            pst.setString(3, umPatriDeptos.getChapa());
-            pst.setString(4, umPatriDeptos.getOrigem());
-            pst.setString(5, umPatriDeptos.getDestino());
-            pst.setString(6, umPatriDeptos.getDtenvio());
-            pst.setString(7, umPatriDeptos.getMemoenvio());
-            pst.setString(8, umPatriDeptos.getDtdevolucao()); 
-            pst.setString(9, umPatriDeptos.getMemodevolucao()); 
-            pst.setString(10, umPatriDeptos.getStatus());
-            pst.setString(11, umPatriDeptos.getObs());
-            pst.setInt(12, umPatriDeptos.getCodigo());
+            pst.setString(2, umPatriDeptos.getModelo());
+            pst.setString(3, umPatriDeptos.getSerie());
+            pst.setString(4, umPatriDeptos.getChapa());
+            pst.setString(5, umPatriDeptos.getOrigem());
+            pst.setString(6, umPatriDeptos.getDestino());
+            pst.setString(7, umPatriDeptos.getDtenvio());
+            pst.setString(8, umPatriDeptos.getMemoenvio());
+            pst.setString(9, umPatriDeptos.getDtdevolucao()); 
+            pst.setString(10, umPatriDeptos.getMemodevolucao()); 
+            pst.setString(11, umPatriDeptos.getStatus());
+            pst.setString(12, umPatriDeptos.getObs());
+            pst.setInt(13, umPatriDeptos.getCodigo());
             pst.executeUpdate();
             pst.close();  
             return true;
@@ -88,6 +89,7 @@ public class DAOPatriDeptos {
             {
                 umPatridepto.setCodigo(conexao.rs.getInt("codigo"));
                 umPatridepto.setTipoid(conexao.rs.getInt("tipoid"));
+                umPatridepto.setSerie(conexao.rs.getString("modelo"));
                 umPatridepto.setSerie(conexao.rs.getString("serie"));
                 umPatridepto.setChapa(conexao.rs.getString("chapa"));
                 umPatridepto.setOrigem(conexao.rs.getString("origem"));

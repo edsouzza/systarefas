@@ -50,7 +50,7 @@ public class F_PATRIDEPTOS extends javax.swing.JFrame {
     Date                dataDia                    = dataDoDia; 
     SimpleDateFormat    sdf                        = new SimpleDateFormat("dd.MM.yyyy");   
        
-    String tipo,serie,chapa,origem,destino,dtentrada,dtenvio,dtdevolucao,status,obs,sOrigemSelecionada,sStatusSelecionado,dataDevolucao,dataEnvio,dataDev,memoDev,memoEnv,statusAtual  = null; 
+    String tipo,serie,chapa,origem,destino,dtentrada,dtenvio,dtdevolucao,status,obs,sOrigemSelecionada,sStatusSelecionado,dataDevolucao,dataEnvio,dataDev,memoDev,memoEnv,statusAtual,modelo  = null; 
     int controle, codigo, tipoid = 0;
     boolean editando, cadastrando, clicouEnviar, clicouEncerrados, filtrou, enviado, alterouCampo, clicouEnviados, clicouDevolver, clicouInativos;
     
@@ -72,6 +72,7 @@ public class F_PATRIDEPTOS extends javax.swing.JFrame {
         //configuracoes dos edits           
         umaBiblio.configurarCamposTextos(txtCODIGO);
         umaBiblio.configurarCamposTextos(txtTIPO);
+        umaBiblio.configurarCamposTextos(txtMODELO);
         umaBiblio.configurarCamposTextos(txtSERIE);
         umaBiblio.configurarCamposTextos(txtCHAPA);
         umaBiblio.configurarCamposTextos(txtORIGEM);
@@ -173,6 +174,8 @@ public class F_PATRIDEPTOS extends javax.swing.JFrame {
         txtPESQUISA = new javax.swing.JTextField();
         cmbFILTRARPORORIGEM = new javax.swing.JComboBox<>();
         jLabel14 = new javax.swing.JLabel();
+        txtMODELO = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -513,6 +516,16 @@ public class F_PATRIDEPTOS extends javax.swing.JFrame {
         jLabel14.setText("ORIGENS");
         jLabel14.setAlignmentX(0.5F);
 
+        txtMODELO.setEditable(false);
+        txtMODELO.setForeground(new java.awt.Color(51, 51, 255));
+        txtMODELO.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtMODELOKeyPressed(evt);
+            }
+        });
+
+        jLabel2.setText("MODELO");
+
         javax.swing.GroupLayout panelPrincipalLayout = new javax.swing.GroupLayout(panelPrincipal);
         panelPrincipal.setLayout(panelPrincipalLayout);
         panelPrincipalLayout.setHorizontalGroup(
@@ -534,12 +547,16 @@ public class F_PATRIDEPTOS extends javax.swing.JFrame {
                             .addComponent(txtTIPO))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtSERIE, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4))
+                            .addComponent(jLabel2)
+                            .addComponent(txtMODELO, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtSERIE, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4))
+                        .addGap(10, 10, 10)
+                        .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
-                            .addComponent(txtCHAPA, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(txtCHAPA, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(panelPrincipalLayout.createSequentialGroup()
                         .addComponent(btnNovo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -583,22 +600,27 @@ public class F_PATRIDEPTOS extends javax.swing.JFrame {
         panelPrincipalLayout.setVerticalGroup(
             panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelPrincipalLayout.createSequentialGroup()
-                .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(panelPrincipalLayout.createSequentialGroup()
-                        .addGap(11, 11, 11)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelPrincipalLayout.createSequentialGroup()
                         .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel6)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel4))
+                            .addComponent(jLabel3))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtCODIGO, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtTIPO, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtSERIE, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelPrincipalLayout.createSequentialGroup()
-                        .addGap(6, 6, 6)
+                            .addComponent(txtTIPO, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelPrincipalLayout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtMODELO, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelPrincipalLayout.createSequentialGroup()
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtSERIE, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelPrincipalLayout.createSequentialGroup()
                         .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtCHAPA, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(10, 10, 10)
                 .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -737,6 +759,7 @@ public class F_PATRIDEPTOS extends javax.swing.JFrame {
             //setando os valores dos edits   
             tipo            = txtTIPO.getText(); 
             tipoid          = umMetodo.getCodigoPassandoString("tbltipos", "tipo", tipo);
+            modelo          = txtMODELO.getText();              
             serie           = txtSERIE.getText();              
             chapa           = txtCHAPA.getText();              
             origem          = txtORIGEM.getText();   
@@ -744,6 +767,7 @@ public class F_PATRIDEPTOS extends javax.swing.JFrame {
             obs             = txtOBS.getText();
             
             umModPatriDeptos.setTipoid(tipoid);
+            umModPatriDeptos.setModelo(modelo);
             umModPatriDeptos.setSerie(serie);
             umModPatriDeptos.setChapa(chapa);
             umModPatriDeptos.setOrigem(origem);
@@ -778,6 +802,7 @@ public class F_PATRIDEPTOS extends javax.swing.JFrame {
         /*Criando as variaveis dataEnvio e dataDevolucao para serem convertidas em sql.Date já que o JDateChooser tem uma data sql.util*/  
         tipo                = txtTIPO.getText(); 
         tipoid              = umMetodo.getCodigoPassandoString("tbltipos", "tipo", tipo);
+        modelo              = txtMODELO.getText(); 
         serie               = txtSERIE.getText();              
         chapa               = txtCHAPA.getText();              
         origem              = txtORIGEM.getText();   
@@ -786,6 +811,7 @@ public class F_PATRIDEPTOS extends javax.swing.JFrame {
 
         umModPatriDeptos.setCodigo(codigo);
         umModPatriDeptos.setTipoid(tipoid);
+        umModPatriDeptos.setModelo(modelo);
         umModPatriDeptos.setSerie(serie);
         umModPatriDeptos.setChapa(chapa);
         umModPatriDeptos.setOrigem(origem);    
@@ -908,6 +934,8 @@ public class F_PATRIDEPTOS extends javax.swing.JFrame {
         btnImprimir.setEnabled(false);
         btnCancelar.setText("Voltar");
         PreencherTabelaEnviar(sqlVazia);
+        filtrou=false;
+        clicouInativos=false;
     }//GEN-LAST:event_btnImprimirActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
@@ -923,6 +951,8 @@ public class F_PATRIDEPTOS extends javax.swing.JFrame {
         txtSERIE.setText(null);
         txtSERIE.setEditable(false);
         txtOBS.setEditable(false);        
+        txtMODELO.setEditable(false);
+        txtMODELO.setEnabled(true);
         txtCHAPA.setEditable(false);
         txtORIGEM.setEditable(false);
         txtORIGEM.setEnabled(true);
@@ -942,6 +972,8 @@ public class F_PATRIDEPTOS extends javax.swing.JFrame {
         clicouDevolver   = false;
         clicouEncerrados = false;
         clicouEnviados   = false;
+        filtrou          = false;
+        clicouInativos   = false;
         umaBiblio.limparTodosCampos(rootPane);
         cmbSTATUS.setEnabled(false);
         cmbSTATUS.setSelectedIndex(-1);
@@ -953,6 +985,7 @@ public class F_PATRIDEPTOS extends javax.swing.JFrame {
     private void bloquearFocus(){
         txtCODIGO.setFocusable(false);
         txtTIPO.setFocusable(false);
+        txtMODELO.setFocusable(false);
         txtSERIE.setFocusable(false);
         txtCHAPA.setFocusable(false);
         txtORIGEM.setFocusable(false);
@@ -965,6 +998,7 @@ public class F_PATRIDEPTOS extends javax.swing.JFrame {
     private void desbloquearFocus(){
         txtCODIGO.setFocusable(true);
         txtTIPO.setFocusable(true);
+        txtMODELO.setFocusable(true);
         txtSERIE.setFocusable(true);
         txtCHAPA.setFocusable(true);
         txtORIGEM.setFocusable(true);
@@ -1006,6 +1040,9 @@ public class F_PATRIDEPTOS extends javax.swing.JFrame {
         
         txtTIPO.setEnabled(true);
         txtTIPO.setEditable(false);          
+        
+        txtMODELO.setEditable(false);
+        txtMODELO.setEnabled(true);
         
         txtSERIE.setEditable(false);
         txtSERIE.setEnabled(true);
@@ -1055,6 +1092,7 @@ public class F_PATRIDEPTOS extends javax.swing.JFrame {
     
     private void mostrarCursorEdicao(){
         txtSERIE.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        txtMODELO.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         txtCHAPA.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         txtORIGEM.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         txtDESTINO.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -1063,6 +1101,7 @@ public class F_PATRIDEPTOS extends javax.swing.JFrame {
     
     private void mostrarCursorDefault(){
         txtSERIE.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+        txtMODELO.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
         txtCHAPA.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
         txtORIGEM.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
         txtDESTINO.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
@@ -1077,6 +1116,7 @@ public class F_PATRIDEPTOS extends javax.swing.JFrame {
         editando = true;
         
         txtSERIE       .setEditable(true);
+        txtMODELO      .setEditable(true);
         txtCHAPA       .setEditable(true);
         txtORIGEM      .setEditable(true);
         txtDESTINO     .setEditable(true);
@@ -1098,8 +1138,8 @@ public class F_PATRIDEPTOS extends javax.swing.JFrame {
             cmbSTATUS.setSelectedIndex(-1);
         }
         txtORIGEM.setEditable(false);
-        txtSERIE.selectAll();
-        txtSERIE.requestFocus();              
+        txtMODELO.selectAll();
+        txtMODELO.requestFocus();              
         mostrarCursorEdicao();
         controle = 0;
           
@@ -1122,6 +1162,7 @@ public class F_PATRIDEPTOS extends javax.swing.JFrame {
         btnImprimir.setEnabled(true);
         btnSair.setEnabled(true);
         btnGravar.setEnabled(false);
+        txtMODELO.setEditable(false);        
         txtCHAPA.setEditable(false);        
         txtOBS.setEditable(false);
         txtORIGEM.setEnabled(true);
@@ -1176,10 +1217,14 @@ public class F_PATRIDEPTOS extends javax.swing.JFrame {
             tipo = frmTipos.getItemSelecionado();          
             txtTIPO.setText(tipo); 
             desbloquearFocus();
-            txtSERIE.requestFocus();
+            txtMODELO.requestFocus();
         
             HabilitarDesabilitarBotoes(false);            
 
+            txtMODELO.setText(null);
+            txtMODELO.setEditable(true);
+            txtMODELO.setEnabled(true);
+            
             txtSERIE.setText(null);
             txtSERIE.setEditable(true);
             txtSERIE.setEnabled(true);
@@ -1320,6 +1365,7 @@ public class F_PATRIDEPTOS extends javax.swing.JFrame {
             //mostrando os dados do registro selecionado nos edits
             txtCODIGO.setText(String.valueOf(conexao.rs.getInt("codigo")));
             txtTIPO.setText(conexao.rs.getString("tipo")); 
+            txtMODELO.setText(conexao.rs.getString("modelo")); 
             txtSERIE.setText(conexao.rs.getString("serie")); 
             txtCHAPA.setText(conexao.rs.getString("chapa")); 
             txtORIGEM.setText(conexao.rs.getString("origem")); 
@@ -1343,6 +1389,8 @@ public class F_PATRIDEPTOS extends javax.swing.JFrame {
         txtCODIGO.setEditable(false);
         txtTIPO.setEnabled(true);
         txtTIPO.setEditable(false);
+        txtMODELO.setEnabled(true);
+        txtMODELO.setEditable(false);
         txtSERIE.setEnabled(true);
         txtSERIE.setEditable(false);
         txtCHAPA.setEnabled(true);
@@ -1636,6 +1684,13 @@ public class F_PATRIDEPTOS extends javax.swing.JFrame {
     private void cmbSTATUSMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cmbSTATUSMouseClicked
         controle=1;
     }//GEN-LAST:event_cmbSTATUSMouseClicked
+
+    private void txtMODELOKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMODELOKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            txtSERIE.requestFocus();
+            txtSERIE.selectAll();
+        }
+    }//GEN-LAST:event_txtMODELOKeyPressed
     
     public void PreencherTabelaEnviar(String sql)
     {
@@ -1907,6 +1962,7 @@ public class F_PATRIDEPTOS extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
@@ -1925,6 +1981,7 @@ public class F_PATRIDEPTOS extends javax.swing.JFrame {
     private javax.swing.JTextField txtCHAPA;
     private javax.swing.JTextField txtCODIGO;
     private javax.swing.JTextField txtDESTINO;
+    private javax.swing.JTextField txtMODELO;
     public javax.swing.JTextArea txtOBS;
     private javax.swing.JTextField txtORIGEM;
     private javax.swing.JTextField txtPESQUISA;
