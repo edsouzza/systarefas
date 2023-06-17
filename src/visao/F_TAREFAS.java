@@ -226,7 +226,7 @@ public class F_TAREFAS extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         txtTAREFA = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        cmbStatus = new javax.swing.JComboBox<>();
+        cmbStatus = new javax.swing.JComboBox<String>();
         txtCODIGO = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -234,7 +234,7 @@ public class F_TAREFAS extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         txtSITUACAO = new javax.swing.JTextArea();
         jLabel6 = new javax.swing.JLabel();
-        cmbFILTRARPORSECAO = new javax.swing.JComboBox<>();
+        cmbFILTRARPORSECAO = new javax.swing.JComboBox<String>();
         TituloSecao = new javax.swing.JLabel();
         btnFILTRAR = new javax.swing.JButton();
         txtPESQUISA = new javax.swing.JTextField();
@@ -342,7 +342,7 @@ public class F_TAREFAS extends javax.swing.JFrame {
         jLabel3.setText("CÓDIGO");
 
         cmbStatus.setForeground(new java.awt.Color(51, 51, 255));
-        cmbStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ABERTA", "FECHAR" }));
+        cmbStatus.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "ABERTA", "FECHAR" }));
         cmbStatus.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         cmbStatus.setEnabled(false);
 
@@ -410,21 +410,6 @@ public class F_TAREFAS extends javax.swing.JFrame {
                 txtPESQUISAKeyReleased(evt);
             }
         });
-
-        jBoxDados.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jBoxDados.setLayer(txtTAREFA, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jBoxDados.setLayer(jLabel3, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jBoxDados.setLayer(cmbStatus, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jBoxDados.setLayer(txtCODIGO, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jBoxDados.setLayer(jLabel4, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jBoxDados.setLayer(jLabel5, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jBoxDados.setLayer(txtNOMECLIENTE, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jBoxDados.setLayer(jScrollPane1, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jBoxDados.setLayer(jLabel6, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jBoxDados.setLayer(cmbFILTRARPORSECAO, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jBoxDados.setLayer(TituloSecao, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jBoxDados.setLayer(btnFILTRAR, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jBoxDados.setLayer(txtPESQUISA, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jBoxDadosLayout = new javax.swing.GroupLayout(jBoxDados);
         jBoxDados.setLayout(jBoxDadosLayout);
@@ -501,6 +486,20 @@ public class F_TAREFAS extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
+        jBoxDados.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jBoxDados.setLayer(txtTAREFA, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jBoxDados.setLayer(jLabel3, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jBoxDados.setLayer(cmbStatus, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jBoxDados.setLayer(txtCODIGO, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jBoxDados.setLayer(jLabel4, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jBoxDados.setLayer(jLabel5, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jBoxDados.setLayer(txtNOMECLIENTE, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jBoxDados.setLayer(jScrollPane1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jBoxDados.setLayer(jLabel6, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jBoxDados.setLayer(cmbFILTRARPORSECAO, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jBoxDados.setLayer(TituloSecao, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jBoxDados.setLayer(btnFILTRAR, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jBoxDados.setLayer(txtPESQUISA, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jBoxBotoes.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
 
@@ -575,14 +574,6 @@ public class F_TAREFAS extends javax.swing.JFrame {
             }
         });
 
-        jBoxBotoes.setLayer(btnGravar, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jBoxBotoes.setLayer(btnVoltar, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jBoxBotoes.setLayer(btnSair, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jBoxBotoes.setLayer(btnNovo, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jBoxBotoes.setLayer(btnEditar, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jBoxBotoes.setLayer(btnImprimir, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jBoxBotoes.setLayer(btnPesquisar, javax.swing.JLayeredPane.DEFAULT_LAYER);
-
         javax.swing.GroupLayout jBoxBotoesLayout = new javax.swing.GroupLayout(jBoxBotoes);
         jBoxBotoes.setLayout(jBoxBotoesLayout);
         jBoxBotoesLayout.setHorizontalGroup(
@@ -618,6 +609,13 @@ public class F_TAREFAS extends javax.swing.JFrame {
                     .addComponent(btnPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+        jBoxBotoes.setLayer(btnGravar, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jBoxBotoes.setLayer(btnVoltar, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jBoxBotoes.setLayer(btnSair, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jBoxBotoes.setLayer(btnNovo, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jBoxBotoes.setLayer(btnEditar, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jBoxBotoes.setLayer(btnImprimir, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jBoxBotoes.setLayer(btnPesquisar, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -656,7 +654,7 @@ public class F_TAREFAS extends javax.swing.JFrame {
                 .addGap(0, 4, Short.MAX_VALUE))
         );
 
-        setSize(new java.awt.Dimension(1060, 799));
+        setSize(new java.awt.Dimension(1062, 799));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
     

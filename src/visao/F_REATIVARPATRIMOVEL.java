@@ -194,7 +194,7 @@ public class F_REATIVARPATRIMOVEL extends javax.swing.JFrame {
         conexao.conectar();
         ArrayList dados = new ArrayList();
         //para receber os dados das colunas(exibe os titulos das colunas)
-        String[] Colunas = new String[]{"Código", "Serial", "Chapa", "Descrição", "Status"};
+        String[] Colunas = new String[]{"Cód.", "Serial", "Chapa", "Descrição", "Status"};
         try {
             conexao.ExecutarPesquisaSQL(sql);
             while (conexao.rs.next()) {
@@ -210,15 +210,15 @@ public class F_REATIVARPATRIMOVEL extends javax.swing.JFrame {
             ModeloTabela modelo = new ModeloTabela(dados, Colunas);
             jTabela.setModel(modelo);
             //define tamanho das colunas
-            jTabela.getColumnModel().getColumn(0).setPreferredWidth(60);  //define o tamanho da coluna
+            jTabela.getColumnModel().getColumn(0).setPreferredWidth(40);  //define o tamanho da coluna
             jTabela.getColumnModel().getColumn(0).setResizable(false);    //nao será possivel redimencionar a coluna 
-            jTabela.getColumnModel().getColumn(1).setPreferredWidth(120);
+            jTabela.getColumnModel().getColumn(1).setPreferredWidth(100);
             jTabela.getColumnModel().getColumn(1).setResizable(false);
-            jTabela.getColumnModel().getColumn(2).setPreferredWidth(120);  //define o tamanho da coluna
+            jTabela.getColumnModel().getColumn(2).setPreferredWidth(110);  //define o tamanho da coluna
             jTabela.getColumnModel().getColumn(2).setResizable(false);    //nao será possivel redimencionar a coluna 
-            jTabela.getColumnModel().getColumn(3).setPreferredWidth(430);
+            jTabela.getColumnModel().getColumn(3).setPreferredWidth(500);
             jTabela.getColumnModel().getColumn(3).setResizable(false);
-            jTabela.getColumnModel().getColumn(4).setPreferredWidth(80);
+            jTabela.getColumnModel().getColumn(4).setPreferredWidth(60);
             jTabela.getColumnModel().getColumn(4).setResizable(false);
             //define propriedades da tabela
             jTabela.getTableHeader().setReorderingAllowed(false);        //nao podera ser reorganizada
