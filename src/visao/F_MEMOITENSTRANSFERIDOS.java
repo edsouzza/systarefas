@@ -149,7 +149,7 @@ public class F_MEMOITENSTRANSFERIDOS extends javax.swing.JFrame {
         jScrollPane2.setViewportView(jTabela);
 
         btnAdicionar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/users16.jpg"))); // NOI18N
-        btnAdicionar.setText("Adicionar");
+        btnAdicionar.setText("Add Equipamento");
         btnAdicionar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnAdicionar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
