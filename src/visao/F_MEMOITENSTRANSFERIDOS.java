@@ -223,6 +223,11 @@ public class F_MEMOITENSTRANSFERIDOS extends javax.swing.JFrame {
         });
 
         txtORIGEM.setForeground(new java.awt.Color(51, 51, 255));
+        txtORIGEM.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtORIGEMFocusLost(evt);
+            }
+        });
         txtORIGEM.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 txtORIGEMMouseClicked(evt);
@@ -632,6 +637,12 @@ public class F_MEMOITENSTRANSFERIDOS extends javax.swing.JFrame {
         btnCancelar.setEnabled(true);
 
     }//GEN-LAST:event_btnSelecionarDestinoActionPerformed
+
+    private void txtORIGEMFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtORIGEMFocusLost
+        if(txtORIGEM.getText().equals("CGGM")){
+            txtORIGEM.setText("CGGM/INFO");
+        }
+    }//GEN-LAST:event_txtORIGEMFocusLost
     
     public void PreencherTabela(String sql)
     {
