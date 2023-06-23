@@ -5,14 +5,20 @@ import biblioteca.Biblioteca;
 import biblioteca.MetodosPublicos;
 import biblioteca.GerarNumerosAleatorios;
 import biblioteca.ModeloTabela;
+import static biblioteca.VariaveisPublicas.TipoModelo;
 import controle.CtrlPatriDepto;
 import static biblioteca.VariaveisPublicas.totalRegs;
 import static biblioteca.VariaveisPublicas.codigoRegSelecionado;
 import static biblioteca.VariaveisPublicas.indiceItemSelecionado;
+import static biblioteca.VariaveisPublicas.controlenaveg;
+import static biblioteca.VariaveisPublicas.tipoEquipamento;
 import static biblioteca.VariaveisPublicas.contador;
 import static biblioteca.VariaveisPublicas.dataDoDia;
 import static biblioteca.VariaveisPublicas.sql;
 import static biblioteca.VariaveisPublicas.tabela;
+import static biblioteca.VariaveisPublicas.tabela_da_lista;
+import static biblioteca.VariaveisPublicas.cadPatriDeptos;
+import static biblioteca.VariaveisPublicas.codigoTipoModelo;
 import controle.ControleGravarLog;
 import java.awt.Color;
 import java.awt.Component;
@@ -51,13 +57,13 @@ public class F_PATRIDEPTOS extends javax.swing.JFrame {
     SimpleDateFormat    sdf                        = new SimpleDateFormat("dd.MM.yyyy");   
        
     String tipo,serie,chapa,origem,destino,dtentrada,dtenvio,dtdevolucao,status,obs,sOrigemSelecionada,sStatusSelecionado,dataDevolucao,dataEnvio,dataDev,memoDev,memoEnv,statusAtual,modelo  = null; 
-    int controle, codigo, tipoid = 0;
+    int controle, codigo, tipoid, modeloid = 0;
     boolean editando, cadastrando, clicouEnviar, clicouEncerrados, filtrou, enviado, alterouCampo, clicouEnviados, clicouDevolver, clicouInativos;
     
-    String sqlEnviar          = "SELECT t.tipo, p.* FROM tbltipos t, tblpatrideptos p WHERE p.tipoid = t.codigo AND (p.status = 'ENVIAR') ORDER BY p.codigo";
-    String sqlEnviados        = "SELECT t.tipo, p.* FROM tbltipos t, tblpatrideptos p WHERE p.tipoid = t.codigo AND (p.status = 'ENVIADO') ORDER BY p.codigo";
-    String sqlDevolver        = "SELECT t.tipo, p.* FROM tbltipos t, tblpatrideptos p WHERE p.tipoid = t.codigo AND (p.status = 'DEVOLVER') ORDER BY p.codigo";    
-    String sqlEncerrados      = "SELECT t.tipo, p.* FROM tbltipos t, tblpatrideptos p WHERE p.tipoid = t.codigo AND (p.status = 'ENCERRADO') ORDER BY p.codigo";
+    String sqlEnviar          = "SELECT m.modelo, p.* FROM tblmodelos m, tblpatrideptos p WHERE p.modeloid = m.codigo AND (p.status = 'ENVIAR') ORDER BY p.codigo";
+    String sqlEnviados        = "SELECT m.modelo, p.* FROM tblmodelos m, tblpatrideptos p WHERE p.modeloid = m.codigo AND (p.status = 'ENVIADO') ORDER BY p.codigo";
+    String sqlDevolver        = "SELECT m.modelo, p.* FROM tblmodelos m, tblpatrideptos p WHERE p.modeloid = m.codigo AND (p.status = 'DEVOLVER') ORDER BY p.codigo";    
+    String sqlEncerrados      = "SELECT m.modelo, p.* FROM tblmodelos m, tblpatrideptos p WHERE p.modeloid = m.codigo AND (p.status = 'ENCERRADO') ORDER BY p.codigo";
     String sqlDefault         = "select * from tblPatriDeptos";    
     String sqlVazia           = "select * from tblPatriDeptos where codigo = 0";
     
@@ -155,7 +161,7 @@ public class F_PATRIDEPTOS extends javax.swing.JFrame {
         btnSair = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         txtSERIE = new javax.swing.JTextField();
-        cmbSTATUS = new javax.swing.JComboBox<>();
+        cmbSTATUS = new javax.swing.JComboBox<String>();
         jLabel3 = new javax.swing.JLabel();
         txtCODIGO = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
@@ -172,7 +178,7 @@ public class F_PATRIDEPTOS extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         txtPESQUISA = new javax.swing.JTextField();
-        cmbFILTRARPORORIGEM = new javax.swing.JComboBox<>();
+        cmbFILTRARPORORIGEM = new javax.swing.JComboBox<String>();
         jLabel14 = new javax.swing.JLabel();
         txtMODELO = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
@@ -518,6 +524,11 @@ public class F_PATRIDEPTOS extends javax.swing.JFrame {
 
         txtMODELO.setEditable(false);
         txtMODELO.setForeground(new java.awt.Color(51, 51, 255));
+        txtMODELO.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtMODELOFocusGained(evt);
+            }
+        });
         txtMODELO.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtMODELOKeyPressed(evt);
@@ -541,14 +552,14 @@ public class F_PATRIDEPTOS extends javax.swing.JFrame {
                             .addComponent(jLabel3))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(panelPrincipalLayout.createSequentialGroup()
-                                .addComponent(jLabel6)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(txtTIPO))
+                            .addComponent(jLabel6)
+                            .addComponent(txtTIPO, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(txtMODELO, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtMODELO)
+                            .addGroup(panelPrincipalLayout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addGap(0, 0, Short.MAX_VALUE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtSERIE, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -767,7 +778,7 @@ public class F_PATRIDEPTOS extends javax.swing.JFrame {
             obs             = txtOBS.getText();
             
             umModPatriDeptos.setTipoid(tipoid);
-            umModPatriDeptos.setModelo(modelo);
+            umModPatriDeptos.setModeloid(codigoTipoModelo);
             umModPatriDeptos.setSerie(serie);
             umModPatriDeptos.setChapa(chapa);
             umModPatriDeptos.setOrigem(origem);
@@ -802,6 +813,7 @@ public class F_PATRIDEPTOS extends javax.swing.JFrame {
         /*Criando as variaveis dataEnvio e dataDevolucao para serem convertidas em sql.Date já que o JDateChooser tem uma data sql.util*/  
         tipo                = txtTIPO.getText(); 
         tipoid              = umMetodo.getCodigoPassandoString("tbltipos", "tipo", tipo);
+        modeloid            = umMetodo.getCodigoPassandoString("tblmodelos", "modelo", txtMODELO.getText());
         modelo              = txtMODELO.getText(); 
         serie               = txtSERIE.getText();              
         chapa               = txtCHAPA.getText();              
@@ -811,7 +823,7 @@ public class F_PATRIDEPTOS extends javax.swing.JFrame {
 
         umModPatriDeptos.setCodigo(codigo);
         umModPatriDeptos.setTipoid(tipoid);
-        umModPatriDeptos.setModelo(modelo);
+        umModPatriDeptos.setModeloid(modeloid);
         umModPatriDeptos.setSerie(serie);
         umModPatriDeptos.setChapa(chapa);
         umModPatriDeptos.setOrigem(origem);    
@@ -1176,6 +1188,7 @@ public class F_PATRIDEPTOS extends javax.swing.JFrame {
         cadastrando    = false;     
         editando       = false;  
         filtrou        = false;
+        cadPatriDeptos = false;
         tipo           = "";
         serie          = "";      
         cmbSTATUS.setEnabled(false);
@@ -1214,15 +1227,14 @@ public class F_PATRIDEPTOS extends javax.swing.JFrame {
             txtTIPO.setEnabled(true);
 
             //se este tipo tiver clientes virturais dos setores quero abrir a lista com eles e não a lista com os servidores
-            tipo = frmTipos.getItemSelecionado();          
+            tipo = frmTipos.getItemSelecionado();                     
             txtTIPO.setText(tipo); 
-            desbloquearFocus();
-            txtMODELO.requestFocus();
-        
+            desbloquearFocus();            
+                    
             HabilitarDesabilitarBotoes(false);            
 
             txtMODELO.setText(null);
-            txtMODELO.setEditable(true);
+            txtMODELO.setEditable(false);
             txtMODELO.setEnabled(true);
             
             txtSERIE.setText(null);
@@ -1246,14 +1258,27 @@ public class F_PATRIDEPTOS extends javax.swing.JFrame {
             btnSair.setEnabled(false);
             btnGravar.setEnabled(false);
             btnEncaminhar.setEnabled(false);
-            
-            cadastrando = true;
-            btnNovo.setEnabled(false);
-            
+                        
             cmbSTATUS.removeAllItems();
             cmbSTATUS.addItem("ENVIAR");
             cmbSTATUS.setEnabled(true);
-            PreencherTabelaEnviar(sqlVazia);
+            
+            PreencherTabelaEnviar(sqlVazia);            
+            cadPatriDeptos = true;
+            cadastrando    = true;   
+            
+            
+            if(cadastrando){
+                tabela_da_lista = "TBLMODELOS";        
+                F_LISTAPADRAO frm = new F_LISTAPADRAO(this,true);
+                frm.setVisible(true); 
+
+                txtMODELO.setText(TipoModelo);
+                modeloid = codigoTipoModelo;
+                
+            }     
+            txtSERIE.requestFocus();
+            
         }
 
     }//GEN-LAST:event_btnNovoActionPerformed
@@ -1281,6 +1306,7 @@ public class F_PATRIDEPTOS extends javax.swing.JFrame {
             cmbFILTRARPORORIGEM.setEnabled(true);
             btnEncaminhar.setEnabled(false);
             clicouEnviar = true;
+            btnCancelarActionPerformed(null);
         }else if (JTableStatus.getSelectedIndex() == 1) { 
            txtPESQUISA.setEnabled(false);
            cmbFILTRARPORORIGEM.setEnabled(false);
@@ -1307,6 +1333,7 @@ public class F_PATRIDEPTOS extends javax.swing.JFrame {
         if(umMetodo.temUnidadesParaEnvio() || umMetodo.temUnidadesParaDevolucao()){
             tabela = "TBLITENSMEMOTRANSFERIDOS";   
             F_MEMOITENSTRANSFERIDOS frm = new F_MEMOITENSTRANSFERIDOS();
+            controlenaveg = 1;
             frm.setVisible(true);   
             dispose();
         }else{
@@ -1355,7 +1382,7 @@ public class F_PATRIDEPTOS extends javax.swing.JFrame {
     private void mostrarDadosRegSelecionado()
     {
         //AO CLICAR EM UM REGISTRO DA TABELA MOSTRAR OS DADOS NOS EDITS  
-        sql = "SELECT t.tipo, p.* FROM tbltipos t, tblpatrideptos p WHERE p.tipoid = t.codigo and p.codigo="+codigoRegSelecionado+"";        
+        sql = "SELECT t.tipo, p.*, m.modelo FROM tbltipos t, tblpatrideptos p, tblmodelos m WHERE m.codigo=p.modeloid and p.tipoid = t.codigo and p.codigo="+codigoRegSelecionado+"";        
         conexao.conectar();
         conexao.ExecutarPesquisaSQL(sql);          
         try 
@@ -1464,16 +1491,16 @@ public class F_PATRIDEPTOS extends javax.swing.JFrame {
         
         if(!clicouInativos){     
             
-              PreencherTabelaEnviar("SELECT t.tipo, p.* FROM tbltipos t, tblpatrideptos p "
-              + "WHERE (t.tipo like '%" + pPesq + "%'" + "OR p.origem like '%" + pPesq + "%'" + " OR p.serie like '%" + pPesq + "%'" + " OR p.chapa like '%" + pPesq + "%'"+") "
-              + "AND p.tipoid = t.codigo AND (p.status = 'ENVIAR' OR p.status = 'ENVIADO') ORDER BY p.codigo");           
+              PreencherTabelaEnviar("SELECT p.*, m.* FROM tblmodelos m, tblpatrideptos p "
+              + "WHERE (m.modelo like '%" + pPesq + "%'" + "OR p.origem like '%" + pPesq + "%'" + " OR p.serie like '%" + pPesq + "%'" + " OR p.chapa like '%" + pPesq + "%'"+") "
+              + "AND p.modeloid=m.codigo AND (p.status = 'ENVIAR' OR p.status = 'ENVIADO' OR p.status = 'DEVOLVER') ORDER BY p.codigo");           
             
             this.setTitle("Total de registros retornados pela pesquisa = "+totalRegs);                        
                      
         }else if(clicouInativos){
-            PreencherTabelaEnviados("SELECT t.tipo, p.* FROM tbltipos t, tblpatrideptos p "
-              + "WHERE (t.tipo like '%" + pPesq + "%'" + "OR p.origem like '%" + pPesq + "%'" + " OR p.serie like '%" + pPesq + "%'" + " OR p.chapa like '%" + pPesq + "%'"+") "
-              + "AND p.tipoid = t.codigo AND (p.status = 'ENCERRADO') ORDER BY p.codigo");
+            PreencherTabelaEnviados("SELECT p.*, m.* FROM tblmodelos m, tblpatrideptos p "
+              + "WHERE (m.modelo like '%" + pPesq + "%'" + "OR p.origem like '%" + pPesq + "%'" + " OR p.serie like '%" + pPesq + "%'" + " OR p.chapa like '%" + pPesq + "%'"+") "
+              + "AND p.modeloid=m.codigo AND (p.status = 'ENCERRADO') ORDER BY p.codigo");
            
             this.setTitle("Total de registros inativos retornados pela pesquisa = "+totalRegs);
         }       
@@ -1487,16 +1514,16 @@ public class F_PATRIDEPTOS extends javax.swing.JFrame {
         
         if(!clicouInativos){     
             
-              PreencherTabelaEnviar("SELECT t.tipo, p.* FROM tbltipos t, tblpatrideptos p "
+              PreencherTabelaEnviar("SELECT p.*, m.* FROM tblmodelos m, tblpatrideptos p "
               + "WHERE (p.origem like '%" + pPesq + "%'"+") "
-              + "AND p.tipoid = t.codigo AND (p.status = 'ENVIAR' OR p.status = 'ENVIADO') ORDER BY p.codigo");           
+              + "AND p.modeloid=m.codigo AND (p.status = 'ENVIAR' OR p.status = 'ENVIADO' OR p.status = 'DEVOLVER') ORDER BY p.codigo");           
             
             this.setTitle("Total de registros retornados pela pesquisa = "+totalRegs);                        
                      
         }else if(clicouInativos){
-            PreencherTabelaEnviados("SELECT t.tipo, p.* FROM tbltipos t, tblpatrideptos p "
+            PreencherTabelaEnviados("SELECT p.*, m.* FROM tblmodelos m, tblpatrideptos p "
               + "WHERE (p.origem like '%" + pPesq + "%'"+") "
-              + "AND p.tipoid = t.codigo AND (p.status = 'ENCERRADO') ORDER BY p.codigo");
+              + "AND p.modeloid=m.codigo AND (p.status = 'ENCERRADO') ORDER BY p.codigo");
            
             this.setTitle("Total de registros inativos retornados pela pesquisa = "+totalRegs);
         }       
@@ -1691,13 +1718,17 @@ public class F_PATRIDEPTOS extends javax.swing.JFrame {
             txtSERIE.selectAll();
         }
     }//GEN-LAST:event_txtMODELOKeyPressed
+
+    private void txtMODELOFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtMODELOFocusGained
+        
+    }//GEN-LAST:event_txtMODELOFocusGained
     
     public void PreencherTabelaEnviar(String sql)
     {
         conexao.conectar();
         ArrayList dados = new ArrayList();
         //para receber os dados das colunas(exibe os titulos das colunas)
-        String[] Colunas = new String[]{"Código", "Tipo", "Série", "Chapa", "Origem", "Destino", "Data Entrada", "Status"};
+        String[] Colunas = new String[]{"Código", "Modelo", "Série", "Chapa", "Origem", "Destino", "Data Entrada", "Status"};
         try 
         {  
             conexao.ExecutarPesquisaSQL(sql);
@@ -1707,7 +1738,7 @@ public class F_PATRIDEPTOS extends javax.swing.JFrame {
                 dados.add(new Object[]
                 {
                     conexao.rs.getInt("codigo"),
-                    conexao.rs.getString("tipo"),
+                    conexao.rs.getString("modelo"),
                     conexao.rs.getString("serie"),
                     conexao.rs.getString("chapa"),
                     conexao.rs.getString("origem"),
@@ -1759,7 +1790,7 @@ public class F_PATRIDEPTOS extends javax.swing.JFrame {
         conexao.conectar();
         ArrayList dados = new ArrayList();
         //para receber os dados das colunas(exibe os titulos das colunas)
-        String[] Colunas = new String[]{"Código", "Tipo", "Série", "Chapa", "Origem", "Destino", "Data Entrada", "Status"};
+        String[] Colunas = new String[]{"Código", "Modelo", "Série", "Chapa", "Origem", "Destino", "Data Entrada", "Status"};
         try 
         {  
             conexao.ExecutarPesquisaSQL(sql);
@@ -1769,7 +1800,7 @@ public class F_PATRIDEPTOS extends javax.swing.JFrame {
                 dados.add(new Object[]
                 {
                     conexao.rs.getInt("codigo"),
-                    conexao.rs.getString("tipo"),
+                    conexao.rs.getString("modelo"),
                     conexao.rs.getString("serie"),
                     conexao.rs.getString("chapa"),
                     conexao.rs.getString("origem"),
@@ -1821,7 +1852,7 @@ public class F_PATRIDEPTOS extends javax.swing.JFrame {
         conexao.conectar();
         ArrayList dados = new ArrayList();
         //para receber os dados das colunas(exibe os titulos das colunas)
-        String[] Colunas = new String[]{"Código", "Tipo", "Série", "Chapa", "Origem", "Destino", "Data Entrada", "Status"};
+        String[] Colunas = new String[]{"Código", "Modelo", "Série", "Chapa", "Origem", "Destino", "Data Entrada", "Status"};
         try 
         {  
             conexao.ExecutarPesquisaSQL(sql);
@@ -1831,7 +1862,7 @@ public class F_PATRIDEPTOS extends javax.swing.JFrame {
                 dados.add(new Object[]
                 {
                     conexao.rs.getInt("codigo"),
-                    conexao.rs.getString("tipo"),
+                    conexao.rs.getString("modelo"),
                     conexao.rs.getString("serie"),
                     conexao.rs.getString("chapa"),
                     conexao.rs.getString("origem"),
@@ -1883,7 +1914,7 @@ public class F_PATRIDEPTOS extends javax.swing.JFrame {
         conexao.conectar();
         ArrayList dados = new ArrayList();
         //para receber os dados das colunas(exibe os titulos das colunas)
-        String[] Colunas = new String[]{"Código", "Tipo", "Série", "Chapa", "Origem", "Destino", "Data Entrada","Data Devolução", "Status"};
+        String[] Colunas = new String[]{"Código", "Modelo", "Série", "Chapa", "Origem", "Destino", "Data Entrada","Data Devolução", "Status"};
         try 
         {  
             conexao.ExecutarPesquisaSQL(sql);
@@ -1893,7 +1924,7 @@ public class F_PATRIDEPTOS extends javax.swing.JFrame {
                 dados.add(new Object[]
                 {
                     conexao.rs.getInt("codigo"),
-                    conexao.rs.getString("tipo"),
+                    conexao.rs.getString("modelo"),
                     conexao.rs.getString("serie"),
                     conexao.rs.getString("chapa"),
                     conexao.rs.getString("origem"),

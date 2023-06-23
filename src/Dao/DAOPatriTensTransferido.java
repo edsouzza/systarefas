@@ -17,11 +17,11 @@ public class DAOPatriTensTransferido {
         conexao.conectar();
         try 
         {
-            String sql = "INSERT INTO TBLITENSMEMOTRANSFERIDOS (item, numemo, modelo, serie, chapa, origem, destino, status) VALUES (?,?,?,?,?,?,?,?)";
+            String sql = "INSERT INTO TBLITENSMEMOTRANSFERIDOS (item, numemo, modeloid, serie, chapa, origem, destino, status) VALUES (?,?,?,?,?,?,?,?)";
             PreparedStatement pst = conexao.getConnection().prepareStatement(sql);
             pst.setInt(1, pPatritransferido.getItem());
             pst.setString(2, pPatritransferido.getNumemo());
-            pst.setString(3, pPatritransferido.getModelo());
+            pst.setInt(3, pPatritransferido.getModeloid());
             pst.setString(4, pPatritransferido.getSerie());  
             pst.setString(5, pPatritransferido.getChapa());  
             pst.setString(6, pPatritransferido.getOrigem());                 

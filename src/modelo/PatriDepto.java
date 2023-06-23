@@ -5,7 +5,7 @@ import java.sql.Date;
 public class PatriDepto {
      private int codigo;
      private int tipoid;  
-     private String modelo;    
+     private int modeloid;   
      private String serie;
      private String chapa;      
      private String origem;      
@@ -33,15 +33,7 @@ public class PatriDepto {
     public void setTipoid(int tipoid) {
         this.tipoid = tipoid;
     }
-
-    public String getModelo() {
-        return modelo;
-    }
-
-    public void setModelo(String modelo) {
-        this.modelo = modelo;
-    }
-    
+        
     public String getSerie() {
         return serie;
     }
@@ -128,6 +120,20 @@ public class PatriDepto {
 
     public void setMemoenvio(String memoenvio) {
         this.memoenvio = memoenvio;
+    }
+
+    /**
+     * @return the modeloid
+     */
+    public int getModeloid() {
+        return modeloid;
+    }
+
+    /**
+     * @param modeloid the modeloid to set
+     */
+    public void setModeloid(int modeloid) {
+        this.modeloid = modeloid;
     }
      
 }

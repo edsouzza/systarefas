@@ -8,7 +8,7 @@ public class PatriTensTransferido {
      private int codigo;
      private int item;
      private String numemo;
-     private String modelo;  
+     private int modeloid;  
      private String serie;
      private String chapa;
      private String origem;      
@@ -31,24 +31,18 @@ public class PatriTensTransferido {
     }
 
     /**
-     * @return the modelo
-     */
-    public String getModelo() {
-        return modelo;
-    }
-
-    /**
-     * @param modelo the modelo to set
-     */
-    public void setModelo(String modelo) {
-        this.modelo = modelo;
-    }
-
-    /**
      * @return the serie
      */
     public String getSerie() {
         return serie;
+    }
+
+    public int getModeloid() {
+        return modeloid;
+    }
+
+    public void setModeloid(int modeloid) {
+        this.modeloid = modeloid;
     }
 
     /**

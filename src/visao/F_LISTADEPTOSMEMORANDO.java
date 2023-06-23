@@ -8,6 +8,7 @@ import static biblioteca.VariaveisPublicas.patriDeptos;
 import static biblioteca.VariaveisPublicas.enviando;
 import java.awt.Color;
 import java.awt.Font;
+import javax.swing.JOptionPane;
 
 /**  
  * LISTA DE RELATORIOS A SEREM IMPRESSOS
@@ -34,8 +35,7 @@ public class F_LISTADEPTOSMEMORANDO extends javax.swing.JDialog {
         setResizable(false);   //desabilitando o redimencionamento da tela        
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE); //desabilitando o botao fechar
     }
-   
-  
+     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -82,7 +82,7 @@ public class F_LISTADEPTOSMEMORANDO extends javax.swing.JDialog {
         }else{
             destinoMemorando = JListaRelatorios.getSelectedItem().toString();
         }                
-                       
+        
         this.dispose();
     }//GEN-LAST:event_JListaRelatoriosMouseClicked
 
@@ -109,20 +109,19 @@ public class F_LISTADEPTOSMEMORANDO extends javax.swing.JDialog {
 //       System.out.println("ENCERRADO "+qdeRegsEncerrados);
        
        if(qdeRegsEnviados > 0){
-         umMetodo.PreencherLista(JListaRelatorios, "TBLPATRIDEPTOS", "DESTINO");
+         umMetodo.PreencherListaDestino(JListaRelatorios, "DESTINO");
          enviando=true;
        }else if(qdeRegsDevolver > 0){
-         umMetodo.PreencherLista(JListaRelatorios, "TBLPATRIDEPTOS", "ORIGEM");  
+         umMetodo.PreencherListaDestino(JListaRelatorios, "ORIGEM");  
          enviando=false;
        }else if(qdeRegsEncerrados > 0){
-         umMetodo.PreencherLista(JListaRelatorios, "TBLPATRIDEPTOS", "ORIGEM");  
+         umMetodo.PreencherListaDestino(JListaRelatorios, "ORIGEM");  
          enviando=false;
        }
        
        JListaRelatorios.select(0); //selecionando o primeiro item da lista
     }
-    
-    
+        
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

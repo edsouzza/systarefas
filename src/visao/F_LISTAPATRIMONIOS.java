@@ -53,9 +53,14 @@ public class F_LISTAPATRIMONIOS extends javax.swing.JDialog {
         
     int icodigo, codModelo, tipoid = 0;
     String serieClicada, serieRetornada;
-    String sqlPatriCGGM          = "SELECT p.*, m.modelo FROM tblpatrimonios p, tblmodelos m where p.modeloid = m.codigo and p.status = 'ATIVO' ORDER BY m.modelo, p.codigo";
-    String sqlPatriDEPTOSENVIO   = "SELECT p.codigo,t.tipo,p.serie,p.chapa,p.origem,p.status FROM tblpatrideptos p,tbltipos t WHERE p.tipoid = t.codigo AND (p.status = 'ENVIADO') AND (p.memodevolucao = 'N') AND p.destino='"+destinoTransferidos+"' ORDER BY t.tipo,p.codigo";
-    String sqlPatriDEPTOSDEVOL   = "SELECT p.codigo,t.tipo,p.serie,p.chapa,p.origem,p.status FROM tblpatrideptos p,tbltipos t WHERE p.tipoid = t.codigo AND (p.status = 'ENCERRADO') AND (p.memodevolucao = 'N') AND p.origem='"+destinoTransferidos+"' ORDER BY t.tipo,p.codigo";
+    String sqlPatriCGGM          = "SELECT p.*, t.*, m.* FROM tblpatrimonios p, tbltipos t, tblmodelos m WHERE p.tipoid = t.codigo AND p.modeloid = m.codigo AND p.status = 'ATIVO' ORDER BY m.modelo, p.codigo";
+    
+    //String sqlPatriDEPTOSENVIO   = "SELECT p.codigo,t.tipo,p.serie,p.chapa,p.origem,p.status FROM tblpatrideptos p,tbltipos t WHERE p.tipoid = t.codigo AND (p.status = 'ENVIADO') AND (p.memodevolucao = 'N') AND p.destino='"+destinoTransferidos+"' ORDER BY t.tipo,p.codigo";
+    String sqlPatriDEPTOSENVIO   = "SELECT p.*, t.*, m.* FROM tblpatrideptos p, tbltipos t, tblmodelos m WHERE m.codigo=p.modeloid AND p.tipoid = t.codigo AND (p.status = 'ENVIADO') AND (p.memodevolucao = 'N') AND p.destino='"+destinoTransferidos+"' ORDER BY t.tipo,p.codigo";
+    
+    //String sqlPatriDEPTOSDEVOL   = "SELECT p.codigo,t.tipo,p.serie,p.chapa,p.origem,p.status FROM tblpatrideptos p,tbltipos t WHERE p.tipoid = t.codigo AND (p.status = 'ENCERRADO') AND (p.memodevolucao = 'N') AND p.origem='"+destinoTransferidos+"' ORDER BY t.tipo,p.codigo";
+    String sqlPatriDEPTOSDEVOL   = "SELECT p.*, t.*, m.* FROM tblpatrideptos p, tbltipos t, tblmodelos m WHERE m.codigo=p.modeloid AND p.tipoid = t.codigo AND (p.status = 'ENCERRADO') AND (p.memodevolucao = 'N') AND p.destino='"+destinoTransferidos+"' ORDER BY t.tipo,p.codigo";
+    
     String codigo, modelo, serie, chapa, numemo, origem, destino, status, tipo;
     String[] Colunas;
     
@@ -181,6 +186,7 @@ public class F_LISTAPATRIMONIOS extends javax.swing.JDialog {
     private void mostrarPatrimonios() 
     {      
         //MOSTRA TODOS OS PATRIMONIOS CADASTRADOS 
+        //JOptionPane.showMessageDialog(rootPane, patriDeptos);
         if(!patriDeptos){
            PreencherTabela(sqlPatriCGGM);  
         }else{         
@@ -200,15 +206,15 @@ public class F_LISTAPATRIMONIOS extends javax.swing.JDialog {
         //filtro pela serie, chapa ou modelo
         if(!patriDeptos){
             
-            String filtrarPatriCGGM     = "SELECT p.codigo, p.serie, p.chapa, p.modeloid, p.status, m.codigo, m.modelo FROM tblpatrimonios p, tblmodelos m "
-                                        + "WHERE p.modeloid = m.codigo AND (p.serie like '%" + pPesq + "%' OR p.chapa like '%" + pPesq + "%' OR m.modelo "
+            String filtrarPatriCGGM     = "SELECT p.*, m.*, t.* FROM tblpatrimonios p, tblmodelos m, tbltipos t "
+                                        + "WHERE p.tipoid = t.codigo AND p.modeloid = m.codigo AND (p.serie like '%" + pPesq + "%' OR p.chapa like '%" + pPesq + "%' OR m.modelo "
                                         + "like '%" + pPesq + "%') AND p.status = 'ATIVO'";   
         
             PreencherTabela(filtrarPatriCGGM);  
         }else{
             
-            String filtrarPatriDEPTOS   = "SELECT p.*, t.tipo FROM tblpatrideptos p, tbltipos t WHERE (serie like '%" + pPesq + "%' OR chapa like '%" + pPesq + "%' OR tipo like '%" + pPesq + "%') "
-                                        + "AND (p.status = 'ENVIAR' OR p.status = 'ENVIADO') AND p.tipoid =  t.codigo ORDER BY t.tipo";               
+            String filtrarPatriDEPTOS   = "SELECT p.*, t.*, m.* FROM tblpatrideptos p, tblmodelos m, tbltipos t WHERE (serie like '%" + pPesq + "%' OR chapa like '%" + pPesq + "%' OR tipo like '%" + pPesq + "%') "
+                                        + "AND (p.status = 'ENVIAR' OR p.status = 'ENVIADO') AND p.tipoid =  t.codigo AND m.codigo=p.modeloid ORDER BY t.tipo";               
                     
             PreencherTabela(filtrarPatriDEPTOS);  
         }
@@ -245,15 +251,7 @@ public class F_LISTAPATRIMONIOS extends javax.swing.JDialog {
         //SETANDO OS VALORES NO MODELO PARA GRAVAR
         objModPatriTemTransferido.setItem(valorItem);
         objModPatriTemTransferido.setNumemo(numemo);
-        
-        if(!patriDeptos){
-            modelo = umabiblio.pesquisarString("tblmodelos", "modelo", codModelo); 
-            objModPatriTemTransferido.setModelo(modelo);
-        }else{
-            String umTipo  = umabiblio.pesquisarString("tbltipos", "tipo", tipoid);
-            objModPatriTemTransferido.setModelo(umTipo);
-        }          
-        
+        objModPatriTemTransferido.setModeloid(codModelo);        
         objModPatriTemTransferido.setSerie(serieRetornada);
         objModPatriTemTransferido.setChapa(chapa);      
         objModPatriTemTransferido.setOrigem(origem);     
@@ -262,12 +260,14 @@ public class F_LISTAPATRIMONIOS extends javax.swing.JDialog {
         
         ctrlPatriTenstransferido.salvarPatriItensTransferido(objModPatriTemTransferido);
         umGravarLog.gravarLog("Impressão do Memo de Transferencia "+numemo);
-       
+        
+        codModelo = 0;
     }
 
     private void jTabelaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabelaMouseClicked
         //AO CLICAR EM UM REGISTRO DA TABELA PEGAR O CODIGO DO REGISTRO CLICADO
         //JOptionPane.showMessageDialog(null, "SERIE DO PATRIMÔNIO SELECIONADO...: "+jTabela.getValueAt(jTabela.getSelectedRow(), 2));   
+        //JOptionPane.showMessageDialog(null, "PATRIDEPTOS : "+patriDeptos);   
         valorItem++;
         
         //Ao clicar na linha desejada obtem-se a serie do equipamento, setando-a no objeto, com o objeto setado faço a pesquisa e obtenho o patrimonio com todos os seus dados
@@ -275,10 +275,11 @@ public class F_LISTAPATRIMONIOS extends javax.swing.JDialog {
             serieClicada = (String) jTabela.getValueAt(jTabela.getSelectedRow(), 2); 
         }else{
             serieClicada = (String) jTabela.getValueAt(jTabela.getSelectedRow(), 3); 
-        }        
-               
+        }       
+        
+        //NAO PATRIDEPTOS       
         if(!patriDeptos){        
-            //setando a serie do equipamento para pesquisa
+            //setando a serie do equipamento para pesquisa de NAO PATRIDEPTOS
             objModPatrimonio.setSerie(serieClicada);      
 
             //obtendo o patrimonio com todos os dados
@@ -303,7 +304,7 @@ public class F_LISTAPATRIMONIOS extends javax.swing.JDialog {
 //            System.out.println(chapa);
                         
         }else{
-            //setando a serie do equipamento para pesquisa
+            //setando a serie do equipamento para pesquisa de PATRIDEPTOS
             umModPatrDepto.setSerie(serieClicada);   
                         
             //obtendo o patrimonio com todos os dados
@@ -313,7 +314,8 @@ public class F_LISTAPATRIMONIOS extends javax.swing.JDialog {
             codigoPatrimonio            = umModPatrDepto.getCodigo();     
             serieRetornada              = umModPatrDepto.getSerie();
             tipoid                      = umModPatrDepto.getTipoid();
-            chapa                       = umModPatrDepto.getChapa();        
+            chapa                       = umModPatrDepto.getChapa();   
+            codModelo                   = umModPatrDepto.getModeloid();   
             
             //inserindo os dados para atualização dos registros em uma lista nesse caso usarei para atualizar o campo devolvido para S          
             lstListaInteiros.add(umModPatrDepto.getCodigo());
@@ -365,7 +367,7 @@ public class F_LISTAPATRIMONIOS extends javax.swing.JDialog {
          if(!patriDeptos){
             Colunas = new String[]{"Código", "Descrição", "Série", "Chapa"};
          }else{
-            Colunas = new String[]{"Código", "Origem", "Descrição", "Série", "Chapa", "Status"}; 
+            Colunas = new String[]{"Código", "Origem", "Descrição", "Série", "Chapa"}; 
          }
         try {
             conexao.ExecutarPesquisaSQL(sql);
@@ -381,15 +383,14 @@ public class F_LISTAPATRIMONIOS extends javax.swing.JDialog {
                     });
                 };
             }else{               
-           
+                //< PATRIDEPTOS >
                 while (conexao.rs.next()) {
                     dados.add(new Object[]{
                         conexao.rs.getString("codigo"),
                         conexao.rs.getString("origem"),
-                        conexao.rs.getString("tipo"),
+                        conexao.rs.getString("modelo"),
                         conexao.rs.getString("serie"),
-                        conexao.rs.getString("chapa"),
-                        conexao.rs.getString("status")
+                        conexao.rs.getString("chapa")
                     });
                 };
              }         
@@ -410,7 +411,9 @@ public class F_LISTAPATRIMONIOS extends javax.swing.JDialog {
                 jTabela.getTableHeader().setReorderingAllowed(false);          //nao podera ser reorganizada
                 jTabela.setAutoResizeMode(jTabela.AUTO_RESIZE_OFF);            //nao será possivel redimencionar a tabela
                 jTabela.setSelectionMode(ListSelectionModel.SINGLE_SELECTION); //so podera selecionar apena uma linha  
+                
             }else{
+                
                 ModeloTabela modelo = new ModeloTabela(dados, Colunas);
                 jTabela.setModel(modelo);
                 //define tamanho das colunas
@@ -418,14 +421,12 @@ public class F_LISTAPATRIMONIOS extends javax.swing.JDialog {
                 jTabela.getColumnModel().getColumn(0).setResizable(false);     //nao será possivel redimencionar a coluna        
                 jTabela.getColumnModel().getColumn(1).setPreferredWidth(100);  //define o tamanho da coluna
                 jTabela.getColumnModel().getColumn(1).setResizable(false);     //nao será possivel redimencionar a coluna        
-                jTabela.getColumnModel().getColumn(2).setPreferredWidth(170);  //define o tamanho da coluna
+                jTabela.getColumnModel().getColumn(2).setPreferredWidth(320);  //define o tamanho da coluna
                 jTabela.getColumnModel().getColumn(2).setResizable(false);     //nao será possivel redimencionar a coluna    
-                jTabela.getColumnModel().getColumn(3).setPreferredWidth(130);  //define o tamanho da coluna
+                jTabela.getColumnModel().getColumn(3).setPreferredWidth(100);  //define o tamanho da coluna
                 jTabela.getColumnModel().getColumn(3).setResizable(false);     //nao será possivel redimencionar a coluna        
-                jTabela.getColumnModel().getColumn(4).setPreferredWidth(130);  //define o tamanho da coluna
-                jTabela.getColumnModel().getColumn(4).setResizable(false);     //nao será possivel redimencionar a coluna        
-                jTabela.getColumnModel().getColumn(5).setPreferredWidth(90);  //define o tamanho da coluna
-                jTabela.getColumnModel().getColumn(5).setResizable(false);     //nao será possivel redimencionar a coluna        
+                jTabela.getColumnModel().getColumn(4).setPreferredWidth(100);  //define o tamanho da coluna
+                jTabela.getColumnModel().getColumn(4).setResizable(false);     //nao será possivel redimencionar a coluna      
                 //define propriedades da tabela
                 jTabela.getTableHeader().setReorderingAllowed(false);          //nao podera ser reorganizada
                 jTabela.setAutoResizeMode(jTabela.AUTO_RESIZE_OFF);            //nao será possivel redimencionar a tabela

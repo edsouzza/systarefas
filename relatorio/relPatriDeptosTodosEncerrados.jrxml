@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.0.final using JasperReports Library version 6.3.0  -->
-<!-- 2023-05-11T15:14:16 -->
+<!-- 2023-06-22T21:34:09 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="relMicrosEMonitores" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="7a5c9b49-9dc5-422a-ac69-e92cf61ef530">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Firebird"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="connSysTarefas"/>
 	<style name="Title" forecolor="#FFFFFF" fontName="Times New Roman" fontSize="50" isBold="false"/>
 	<style name="SubTitle" forecolor="#CCCCCC" fontName="Times New Roman" fontSize="18" isBold="false"/>
 	<style name="Column header" forecolor="#666666" fontName="Times New Roman" fontSize="14" isBold="true"/>
@@ -15,27 +15,28 @@
 		</conditionalStyle>
 	</style>
 	<queryString>
-		<![CDATA[SELECT t.tipo, p.* FROM tbltipos t, tblpatrideptos p 
+		<![CDATA[SELECT  p.*, m.modelo FROM tblmodelos m, tblpatrideptos p 
 WHERE 
-p.tipoid = t.codigo 
+m.codigo=p.modeloid
 AND 
-(p.status = 'ENCERRADO') 
-ORDER BY 
-p.codigo]]>
+(p.status = 'ENCERRADO')
+ ORDER BY p.codigo]]>
 	</queryString>
-	<field name="TIPO" class="java.lang.String"/>
 	<field name="CODIGO" class="java.lang.Integer"/>
 	<field name="TIPOID" class="java.lang.Integer"/>
+	<field name="MODELOID" class="java.lang.Integer"/>
 	<field name="SERIE" class="java.lang.String"/>
 	<field name="CHAPA" class="java.lang.String"/>
 	<field name="ORIGEM" class="java.lang.String"/>
 	<field name="DESTINO" class="java.lang.String"/>
 	<field name="DTENTRADA" class="java.lang.String"/>
 	<field name="DTENVIO" class="java.lang.String"/>
+	<field name="MEMOENVIO" class="java.lang.String"/>
 	<field name="DTDEVOLUCAO" class="java.lang.String"/>
 	<field name="MEMODEVOLUCAO" class="java.lang.String"/>
 	<field name="STATUS" class="java.lang.String"/>
 	<field name="OBS" class="java.lang.String"/>
+	<field name="MODELO" class="java.lang.String"/>
 	<group name="Group1">
 		<groupExpression><![CDATA[(int)($V{REPORT_COUNT}/15)]]></groupExpression>
 		<groupFooter>
@@ -64,18 +65,18 @@ p.codigo]]>
 			<frame>
 				<reportElement mode="Opaque" x="0" y="70" width="802" height="32" forecolor="#000000" backcolor="#CC0000" uuid="b0c895f6-6dbd-477d-9858-9ad66af087e1"/>
 				<staticText>
-					<reportElement style="Column header" x="414" y="10" width="68" height="18" forecolor="#FFFCFC" uuid="0a3ccd66-5cfd-41ba-a1f9-e9804ae1533d"/>
+					<reportElement style="Column header" x="483" y="10" width="68" height="18" forecolor="#FFFCFC" uuid="0a3ccd66-5cfd-41ba-a1f9-e9804ae1533d"/>
 					<textElement>
 						<font isBold="true"/>
 					</textElement>
 					<text><![CDATA[ORIGEM]]></text>
 				</staticText>
 				<staticText>
-					<reportElement style="Column header" x="559" y="10" width="150" height="18" forecolor="#FFFCFC" uuid="c4c8b198-ea9f-4963-8405-c78a258801d0"/>
+					<reportElement style="Column header" x="609" y="10" width="101" height="18" forecolor="#FFFCFC" uuid="c4c8b198-ea9f-4963-8405-c78a258801d0"/>
 					<textElement>
 						<font isBold="true"/>
 					</textElement>
-					<text><![CDATA[DATA DEVOLUÇÃO]]></text>
+					<text><![CDATA[DEVOLUÇÃO]]></text>
 				</staticText>
 				<staticText>
 					<reportElement style="Column header" x="716" y="10" width="77" height="18" forecolor="#FFFCFC" uuid="f2dc199d-6f3f-4bbe-9457-d21825b8bc3b"/>
@@ -104,21 +105,21 @@ p.codigo]]>
 				<text><![CDATA[COD.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Column header" x="46" y="-24" width="54" height="18" forecolor="#FFFCFC" uuid="aab30788-3076-4a55-b1ec-31afce50537f"/>
+				<reportElement style="Column header" x="46" y="-24" width="114" height="18" forecolor="#FFFCFC" uuid="aab30788-3076-4a55-b1ec-31afce50537f"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
-				<text><![CDATA[TIPO]]></text>
+				<text><![CDATA[MODELO]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Column header" x="148" y="-24" width="56" height="18" forecolor="#FFFCFC" uuid="b5071716-a761-4db3-8760-0b96013d1b3b"/>
+				<reportElement style="Column header" x="254" y="-24" width="56" height="18" forecolor="#FFFCFC" uuid="b5071716-a761-4db3-8760-0b96013d1b3b"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[SÉRIE]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Column header" x="270" y="-24" width="84" height="18" forecolor="#FFFCFC" uuid="a5b613cc-d180-44bb-97ac-98f8140d2d62"/>
+				<reportElement style="Column header" x="359" y="-24" width="84" height="18" forecolor="#FFFCFC" uuid="a5b613cc-d180-44bb-97ac-98f8140d2d62"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
@@ -131,21 +132,21 @@ p.codigo]]>
 			<frame>
 				<reportElement style="Row" mode="Opaque" x="0" y="0" width="797" height="18" uuid="34a2ae4b-4055-476b-8676-d499f6af510b"/>
 				<textField isStretchWithOverflow="true">
-					<reportElement style="Detail" positionType="Float" x="150" y="0" width="115" height="18" uuid="4bae0817-08dd-4a76-b06b-af991e04cc22"/>
+					<reportElement style="Detail" positionType="Float" x="256" y="0" width="100" height="18" uuid="4bae0817-08dd-4a76-b06b-af991e04cc22"/>
 					<textElement>
 						<font size="12"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{SERIE}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true">
-					<reportElement style="Detail" positionType="Float" x="273" y="0" width="137" height="18" uuid="536b3605-9470-4a92-bedb-5df6405c64f8"/>
+					<reportElement style="Detail" positionType="Float" x="362" y="0" width="114" height="18" uuid="536b3605-9470-4a92-bedb-5df6405c64f8"/>
 					<textElement>
 						<font size="12"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{CHAPA}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true">
-					<reportElement style="Detail" positionType="Float" x="416" y="0" width="134" height="18" uuid="ef67676b-f068-4ccc-8c4f-905a184d198e"/>
+					<reportElement style="Detail" positionType="Float" x="485" y="0" width="119" height="18" uuid="ef67676b-f068-4ccc-8c4f-905a184d198e"/>
 					<textElement>
 						<font size="12"/>
 					</textElement>
@@ -159,11 +160,11 @@ p.codigo]]>
 					<textFieldExpression><![CDATA[$F{CODIGO}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true">
-					<reportElement style="Detail" positionType="Float" x="46" y="0" width="102" height="18" uuid="5fdfa707-cfd4-4b21-8c80-8e09513a5c93"/>
+					<reportElement style="Detail" positionType="Float" x="46" y="0" width="208" height="18" uuid="5fdfa707-cfd4-4b21-8c80-8e09513a5c93"/>
 					<textElement>
 						<font size="12"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{TIPO}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{MODELO}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true">
 					<reportElement style="Detail" positionType="Float" x="716" y="0" width="77" height="18" uuid="5540c870-9c41-4a35-aa2a-4d3d8449f9f2">
@@ -174,8 +175,8 @@ p.codigo]]>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{STATUS}]]></textFieldExpression>
 				</textField>
-				<textField isStretchWithOverflow="true">
-					<reportElement style="Detail" positionType="Float" x="560" y="0" width="149" height="18" uuid="ff6d028b-1880-48bf-8f74-195f00466737">
+				<textField isStretchWithOverflow="true" pattern="dd.MM.yyyy">
+					<reportElement style="Detail" positionType="Float" x="610" y="0" width="88" height="18" uuid="ff6d028b-1880-48bf-8f74-195f00466737">
 						<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
 					</reportElement>
 					<textElement>

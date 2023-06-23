@@ -17,6 +17,7 @@ import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import modelo.Patrimonio;
 import static biblioteca.VariaveisPublicas.itemSelecionadoCadastro;
+import static biblioteca.VariaveisPublicas.codigoTipoModelo;
 import static biblioteca.VariaveisPublicas.naoTemModelo;
 
 /**  
@@ -90,7 +91,8 @@ public class F_LISTATIPOS extends javax.swing.JDialog {
         itemSelecionadoCadastro = (String) jTabela.getValueAt(jTabela.getSelectedRow(), 0); 
         
         //Verificando se equipamento tem um modelo obrigatoriamente cadastrado
-        int codItemSelecionado = umMetodo.getCodigoPassandoString("tbltipos", "tipo", itemSelecionadoCadastro);        
+        int codItemSelecionado = umMetodo.getCodigoPassandoString("tbltipos", "tipo", itemSelecionadoCadastro);   
+        codigoTipoModelo       = codItemSelecionado;
         if(!umMetodo.tipoTemModeloCadastrado(codItemSelecionado))
         {
             JOptionPane.showMessageDialog(null,itemSelecionadoCadastro+" não tem um modelo cadastrado, cancele o cadastro em andamento, saia e cadastre um modelo para este equipamento!","Tipo sem modelo cadastrado!",2);                      

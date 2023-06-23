@@ -10,6 +10,7 @@ import static biblioteca.VariaveisPublicas.numMemoTransferido;
 import static biblioteca.VariaveisPublicas.origemTransferidos;
 import static biblioteca.VariaveisPublicas.destinoTransferidos;
 import static biblioteca.VariaveisPublicas.destinoMemorando;
+import static biblioteca.VariaveisPublicas.controlenaveg;
 import static biblioteca.VariaveisPublicas.patriDeptos;
 import static biblioteca.VariaveisPublicas.anoVigente;
 import biblioteca.ModeloTabela;
@@ -54,11 +55,11 @@ public class F_MEMOITENSTRANSFERIDOS extends javax.swing.JFrame {
     DAOPatriTensTransferido        umDAOPatriItens              = new DAOPatriTensTransferido();
     
     
-    String sqlPatriCGGM    = "SELECT * FROM TBLITENSMEMOTRANSFERIDOS WHERE status <> 'TRANSFERIDO' ORDER BY item";  
-    String sqlPatriDEPTOS  = "SELECT i.*, t.tipo FROM TBLITENSMEMOTRANSFERIDOS i, TBLTIPOS t WHERE t.tipo=i.modelo AND i.status <> 'TRANSFERIDO' ORDER BY i.item";      
+    String sqlPatriCGGM    = "SELECT i.*, m.* FROM TBLITENSMEMOTRANSFERIDOS i, TBLMODELOS m WHERE i.modeloid=m.codigo AND i.status <> 'TRANSFERIDO' ORDER BY i.item";       
+    String sqlPatriDEPTOS  = "SELECT i.*, m.* FROM TBLITENSMEMOTRANSFERIDOS i, TBLMODELOS m WHERE i.modeloid=m.codigo AND i.status <> 'TRANSFERIDO' ORDER BY i.item";      
     String sqlVazia        = "SELECT codigo FROM TBLITENSMEMOTRANSFERIDOS WHERE codigo < 1";  
     String observacao, numemoinicial;
-    int icodigo, codExc, codItem, TotalItens, controlenaveg, codigoPatri = 0;
+    int icodigo, codExc, codItem, TotalItens, codigoPatri = 0;
     boolean mostrouForm;
     
     public F_MEMOITENSTRANSFERIDOS() {
@@ -149,7 +150,7 @@ public class F_MEMOITENSTRANSFERIDOS extends javax.swing.JFrame {
         jScrollPane2.setViewportView(jTabela);
 
         btnAdicionar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/users16.jpg"))); // NOI18N
-        btnAdicionar.setText("Add Equipamento");
+        btnAdicionar.setText("Add Equipamentos");
         btnAdicionar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnAdicionar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -371,6 +372,7 @@ public class F_MEMOITENSTRANSFERIDOS extends javax.swing.JFrame {
         txtDESTINO.setEditable(true);        
         numMemoTransferido = "";
         mostrouForm = false;
+        patriDeptos=false;
         valorItem = 0;
         controlenaveg = 0;
         lstListaInteiros.clear();
@@ -399,6 +401,7 @@ public class F_MEMOITENSTRANSFERIDOS extends javax.swing.JFrame {
                 
         //SE O NUMERO DO MEMORANDO ESTIVER PREENCHIDO - NOSSO CABEÇALHO
         if(!txtNUMEMO.getText().isEmpty() || !txtORIGEM.getText().isEmpty() || !txtDESTINO.getText().isEmpty()){
+            
             //GERANDO NUMERO DO MEMO COM O ANO VIGENTE
             numMemoTransferido     = txtNUMEMO.getText()+"/"+anoVigente;
             origemTransferidos     = txtORIGEM.getText();
@@ -431,14 +434,14 @@ public class F_MEMOITENSTRANSFERIDOS extends javax.swing.JFrame {
                 
             }else if((umMetodo.temUnidadesParaEnvio() || umMetodo.temUnidadesParaDevolucao() && patriDeptos == true)){
                         
-                //ABRE ALISTA DE PATRIMONIOS COM SEUS DEVIDOS MODELOS PARA SELEÇÃO DO PATRIMONIO DESEJADO
+                //ABRE ALISTA DE PATRIMONIOS ( PATRIDEPTOS ) COM SEUS DEVIDOS MODELOS PARA SELEÇÃO DO PATRIMONIO DESEJADO
                 F_LISTAPATRIMONIOS frmPatrimonios = new F_LISTAPATRIMONIOS(this, true);
                 frmPatrimonios.setVisible(true);
                 btnImprimir.setEnabled(true);        
                 
             }else if(patriDeptos == false){
                         
-                //ABRE ALISTA DE PATRIMONIOS COM SEUS DEVIDOS MODELOS PARA SELEÇÃO DO PATRIMONIO DESEJADO
+                //ABRE ALISTA DE PATRIMONIOS COM SEUS DEVIDOS MODELOS PARA SELEÇÃO DO PATRIMONIO DESEJADO->NAO SE TRATA DE PATRIDEPTOS
                 F_LISTAPATRIMONIOS frmPatrimonios = new F_LISTAPATRIMONIOS(this, true);
                 frmPatrimonios.setVisible(true);
                 btnImprimir.setEnabled(true);   
@@ -491,6 +494,7 @@ public class F_MEMOITENSTRANSFERIDOS extends javax.swing.JFrame {
     
     private void txtDESTINOKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDESTINOKeyPressed
         btnAdicionar.setEnabled(true);
+        btnCancelar.setEnabled(true);
         lstListaGenerica.clear();
         patriDeptos=false;
         btnSelecionarDestino.setEnabled(false);
@@ -598,9 +602,9 @@ public class F_MEMOITENSTRANSFERIDOS extends javax.swing.JFrame {
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             txtDESTINO.requestFocus();            
         }
-        if(controlenaveg==0){
+        if(controlenaveg==1){
              btnSelecionarDestino.setEnabled(true);
-             controlenaveg++;
+             txtDESTINO.setEditable(false);             
         }
         btnSair.setEnabled(false);   
     }//GEN-LAST:event_txtORIGEMKeyPressed
@@ -615,10 +619,11 @@ public class F_MEMOITENSTRANSFERIDOS extends javax.swing.JFrame {
 
     private void btnSelecionarDestinoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelecionarDestinoActionPerformed
         destinoMemorando = "";
+        patriDeptos=true;
+        
         if(umMetodo.temUnidadesParaEnvio() || umMetodo.temUnidadesParaDevolucao()){
             if(mostrouForm == false){
-                patriDeptos=true;
-                
+                                
                 F_LISTADEPTOSMEMORANDO frm = new F_LISTADEPTOSMEMORANDO(this,true);
                 frm.setVisible(true);  
                 
@@ -646,10 +651,16 @@ public class F_MEMOITENSTRANSFERIDOS extends javax.swing.JFrame {
     
     public void PreencherTabela(String sql)
     {
+        String[] Colunas;
+        
         conexao.conectar();
         ArrayList dados = new ArrayList();
         //para receber os dados das colunas(exibe os titulos das colunas)
-        String[] Colunas = new String[]{"Ítem", "Descrição", "Série", "Chapa"};
+        if(!patriDeptos){
+            Colunas = new String[]{"Ítem", "Descrição", "Série", "Chapa"};
+        }else{
+            Colunas = new String[]{"Ítem", "Descrição", "Série", "Chapa"};
+        }
         try {
             conexao.ExecutarPesquisaSQL(sql);
             
@@ -666,7 +677,7 @@ public class F_MEMOITENSTRANSFERIDOS extends javax.swing.JFrame {
                 while (conexao.rs.next()) {
                         dados.add(new Object[]{
                         conexao.rs.getInt("item"),
-                        conexao.rs.getString("tipo"),
+                        conexao.rs.getString("modelo"),
                         conexao.rs.getString("serie"),
                         conexao.rs.getString("chapa")
                     });
@@ -678,7 +689,7 @@ public class F_MEMOITENSTRANSFERIDOS extends javax.swing.JFrame {
             //define tamanho das colunas   
             jTabela.getColumnModel().getColumn(0).setPreferredWidth(50);  //define o tamanho da coluna
             jTabela.getColumnModel().getColumn(0).setResizable(false);    //nao será possivel redimencionar a coluna      
-            jTabela.getColumnModel().getColumn(1).setPreferredWidth(700);  //define o tamanho da coluna
+            jTabela.getColumnModel().getColumn(1).setPreferredWidth(680);  //define o tamanho da coluna
             jTabela.getColumnModel().getColumn(1).setResizable(false);    //nao será possivel redimencionar a coluna        
             jTabela.getColumnModel().getColumn(2).setPreferredWidth(125);  //define o tamanho da coluna
             jTabela.getColumnModel().getColumn(2).setResizable(false);    //nao será possivel redimencionar a coluna    
@@ -690,7 +701,7 @@ public class F_MEMOITENSTRANSFERIDOS extends javax.swing.JFrame {
             jTabela.setSelectionMode(ListSelectionModel.SINGLE_SELECTION); //so podera selecionar apena uma linha  
         } catch (SQLException ex) {
             //apos a consulta acima abrir o formulario mesmo que a tabela esteja vazia  
-            JOptionPane.showMessageDialog(null, "Erro ao preencher a Tabela de Patrimônios9999!\nErro: " + ex.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro ao preencher a Tabela de Patrimônios!\nErro: " + ex.getMessage());
         }finally{
              conexao.desconectar();
         }

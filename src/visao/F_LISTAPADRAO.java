@@ -17,8 +17,9 @@ import static biblioteca.VariaveisPublicas.nomeDepartamento;
 import static biblioteca.VariaveisPublicas.codigoTipoModelo;
 import static biblioteca.VariaveisPublicas.TipoModelo;
 import static biblioteca.VariaveisPublicas.tabela_da_lista;
-import static biblioteca.VariaveisPublicas.cadPatrimovel;
 import static biblioteca.VariaveisPublicas.cadastrando;
+import static biblioteca.VariaveisPublicas.cadPatrimovel;
+import static biblioteca.VariaveisPublicas.cadPatriDeptos;
 import static biblioteca.VariaveisPublicas.nomeSecao;
 import static biblioteca.VariaveisPublicas.codigoSecao;
 import static biblioteca.VariaveisPublicas.nomeCliente;
@@ -72,7 +73,7 @@ public class F_LISTAPADRAO extends javax.swing.JDialog {
     public F_LISTAPADRAO(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         this.setFocusableWindowState(true); //corrigindo erro quando clico fora da lista
-        initComponents();          
+        initComponents();   
         setTitle(tabela_da_lista.substring(3, tabela_da_lista.length()));
         setResizable(false);   //desabilitando o redimencionamento da tela        
         jTabela.setForeground(Color.blue);
@@ -88,6 +89,8 @@ public class F_LISTAPADRAO extends javax.swing.JDialog {
         }
         
     }
+    
+ 
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -308,10 +311,11 @@ public class F_LISTAPADRAO extends javax.swing.JDialog {
             default:
                 JOptionPane.showMessageDialog(null, "Nenhuma alternativa válida foi selecionada!");
         }
-        cadPatrimovel=false;
+        cadPatrimovel  =false;
+        cadPatriDeptos =false;
+        cadastrando    =false;
         dispose();              
         
-
     }//GEN-LAST:event_jTabelaMouseClicked
     
     private void filtrarPorDigitacao(String pPesq) 
@@ -319,7 +323,9 @@ public class F_LISTAPADRAO extends javax.swing.JDialog {
         if(tabela_da_lista.equals("TBLTIPODOCUMENTOS")){
             PreencherTabelaPadrao("select * from TBLTIPODOCUMENTOS where (tipo like '%" + pPesq + "%') ORDER BY tipo");                      
         }else if(tabela_da_lista.equals("TBLMODELOS")&&cadPatrimovel){
-            PreencherTabelaPadrao("select * from TBLMODELOS where (modelo like '%" + pPesq + "%') and tipoid=1 and tipoid=2 order by tipoid");                     
+            PreencherTabelaPadrao("select * from TBLMODELOS where (modelo like '%" + pPesq + "%') and tipoid=1 and tipoid=2 order by tipoid");         //Cadastro PatriMoveis          
+        }else if(tabela_da_lista.equals("TBLMODELOS")&&cadPatriDeptos){
+            PreencherTabelaPadrao("select * from TBLMODELOS where (modelo like '%" + pPesq + "%') and tipoid= "+codigoTipoModelo+" order by tipoid");  //Cadastro PatriDeptos
         }else if(tabela_da_lista.equals("TBLMODELOS")){
             PreencherTabelaPadrao("select * from TBLMODELOS where (modelo like '%" + pPesq + "%') ORDER BY modelo");                      
         }else if(tabela_da_lista.equals("TBLDEPARTAMENTOS")){
