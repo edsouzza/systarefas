@@ -1589,7 +1589,7 @@ public class MetodosPublicos {
     public void PreencherListaDestino(List lst, String sCampo) {
         //preenche a combobox ordenando pelo campo escolhido pra ser mostrado
         conn = conexao.conectar();
-        sql = "select distinct " +sCampo+ ", status from tblpatrideptos where (status ='ENVIADO' OR status ='ENCERRADO') and  memodevolucao ='N'";
+        sql = "select distinct " +sCampo+ ", status from tblpatrideptos where (status ='ENVIADO') and  memodevolucao ='N'";
         conexao.ExecutarPesquisaSQL(sql);
         try {
             lst.removeAll();
