@@ -1603,11 +1603,11 @@ public class MetodosPublicos {
         }
     }
     
-    public void PreencherComboComStatusVariados(JComboBox cmb, String tabela, String campo, String status) {
-        //preenche a combobox ordenando pelo campo escolhido pra ser mostrado, usado em F_PATRIDEPTOS
+    public void PreencherComboComStatusVariados(JComboBox cmb, String tabela, String campo) {
+        //preenche a combobox ordenando pelo campo escolhido pra ser mostrado, usado em F_PATRIDEPTOS < MOSTRARA TODAS AS ORIGENS CADASTRADAS > 
         conn = conexao.conectar();
         //sql = "select DISTINCT " + campo + " from " + tabela + " where status != '"+status+"' ORDER BY " + campo;
-        sql = "select DISTINCT " + campo + " from " + tabela + " where status != '"+status+"' ORDER BY " + campo;
+        sql = "select DISTINCT " + campo + " from " + tabela + " ORDER BY " + campo;
         conexao.ExecutarPesquisaSQL(sql);
         try {
             cmb.removeAllItems();

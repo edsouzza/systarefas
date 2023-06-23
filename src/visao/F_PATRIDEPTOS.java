@@ -11,7 +11,6 @@ import static biblioteca.VariaveisPublicas.totalRegs;
 import static biblioteca.VariaveisPublicas.codigoRegSelecionado;
 import static biblioteca.VariaveisPublicas.indiceItemSelecionado;
 import static biblioteca.VariaveisPublicas.controlenaveg;
-import static biblioteca.VariaveisPublicas.tipoEquipamento;
 import static biblioteca.VariaveisPublicas.contador;
 import static biblioteca.VariaveisPublicas.dataDoDia;
 import static biblioteca.VariaveisPublicas.sql;
@@ -488,7 +487,6 @@ public class F_PATRIDEPTOS extends javax.swing.JFrame {
         txtPESQUISA.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         txtPESQUISA.setForeground(new java.awt.Color(51, 51, 255));
         txtPESQUISA.setToolTipText("Barra de Pesquisa Rápida");
-        txtPESQUISA.setEnabled(false);
         txtPESQUISA.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 txtPESQUISAMouseClicked(evt);
@@ -507,7 +505,6 @@ public class F_PATRIDEPTOS extends javax.swing.JFrame {
         cmbFILTRARPORORIGEM.setForeground(new java.awt.Color(51, 51, 255));
         cmbFILTRARPORORIGEM.setToolTipText("Escolha uma seção para filtrar");
         cmbFILTRARPORORIGEM.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        cmbFILTRARPORORIGEM.setEnabled(false);
         cmbFILTRARPORORIGEM.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 cmbFILTRARPORORIGEMMouseClicked(evt);
@@ -677,15 +674,10 @@ public class F_PATRIDEPTOS extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
       
-    private void popularComboFiltroPorOrigem(){
-        //Aqui seleciona todos os patrimonios que tem status <> ENCERRADO e que a origem seja igual a selecionada na combo <Obrigatoriamente tem que ter algo selecionado>
-        if(umMetodo.soTemEncerrados()){
-            cmbFILTRARPORORIGEM.setEnabled(false);
-        }else{        
-            cmbFILTRARPORORIGEM.setEnabled(true);
-            umMetodo.PreencherComboComStatusVariados(cmbFILTRARPORORIGEM, "TBLPATRIDEPTOS", "ORIGEM", "ENCERRADO");
-            cmbFILTRARPORORIGEM.setSelectedIndex(-1);
-        }                
+    private void popularComboFiltroPorOrigem(){                
+        //Popula a combo com todas as origens cadastradas
+        umMetodo.PreencherComboComStatusVariados(cmbFILTRARPORORIGEM, "TBLPATRIDEPTOS", "ORIGEM");
+        cmbFILTRARPORORIGEM.setSelectedIndex(-1);            
     }
     
     public int qdePatrimoniosCadastrados(String tabela)
@@ -914,7 +906,6 @@ public class F_PATRIDEPTOS extends javax.swing.JFrame {
         btnNovo.setEnabled(false); 
         btnSair.setEnabled(false); 
         txtPESQUISA.setEnabled(false);
-        cmbFILTRARPORORIGEM.setEnabled(false);
         PreencherTabelaEnviar(sqlVazia);
     }
     
@@ -948,6 +939,7 @@ public class F_PATRIDEPTOS extends javax.swing.JFrame {
         PreencherTabelaEnviar(sqlVazia);
         filtrou=false;
         clicouInativos=false;
+        JTableStatus.setEnabled(false);
     }//GEN-LAST:event_btnImprimirActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
@@ -990,6 +982,7 @@ public class F_PATRIDEPTOS extends javax.swing.JFrame {
         cmbSTATUS.setEnabled(false);
         cmbSTATUS.setSelectedIndex(-1);
         JTableStatus.setSelectedIndex(0);
+        JTableStatus.setEnabled(true);
         mostrarCursorDefault();
                  
     }//GEN-LAST:event_btnCancelarActionPerformed
@@ -1021,18 +1014,14 @@ public class F_PATRIDEPTOS extends javax.swing.JFrame {
     }
           
     private void Leitura()
-    {
+    {        
         if (umaBiblio.tabelaVazia(tabela)) {
-            btnImprimir.setEnabled(false);   
+            btnImprimir.setEnabled(false); 
+            cmbFILTRARPORORIGEM.setEnabled(false);
         } else {
-            if(umMetodo.soTemEncerrados()){
-                cmbFILTRARPORORIGEM.setEnabled(true);
-                txtPESQUISA.setEnabled(false);
-            }else{
-                cmbFILTRARPORORIGEM.setEnabled(false);
-                txtPESQUISA.setEnabled(true);
-            }
             btnImprimir.setEnabled(true);
+            txtPESQUISA.setEnabled(true);
+            cmbFILTRARPORORIGEM.setEnabled(true);
             popularComboFiltroPorOrigem();
             PreencherTabelaEnviar(sqlEnviar);
             PreencherTabelaEnviados(sqlEnviados);
@@ -1135,6 +1124,7 @@ public class F_PATRIDEPTOS extends javax.swing.JFrame {
         txtOBS         .setEditable(true);
         
         cmbFILTRARPORORIGEM.setEnabled(false);  
+        txtPESQUISA.setEnabled(false);
         btnEditar.setEnabled(false); 
         btnCancelar.setText("Cancelar");    
         btnGravar.setEnabled(true);
@@ -1284,7 +1274,7 @@ public class F_PATRIDEPTOS extends javax.swing.JFrame {
     }//GEN-LAST:event_btnNovoActionPerformed
                 
     private void selecionarPrimeiroRegistro(){
-        //seleciona o primeiro registro da tabeala de ATIVOS
+        //seleciona o primeiro registro da tabeala com status ENVIAR
         conexao.conectar();
         String sql = "select * from tblpatrideptos where status='ENVIAR'";
         conexao.ExecutarPesquisaSQL(sql);
@@ -1303,28 +1293,30 @@ public class F_PATRIDEPTOS extends javax.swing.JFrame {
 
         if (JTableStatus.getSelectedIndex() == 0) { 
             txtPESQUISA.setEnabled(true);
-            cmbFILTRARPORORIGEM.setEnabled(true);
             btnEncaminhar.setEnabled(false);
-            clicouEnviar = true;
-            btnCancelarActionPerformed(null);
+            clicouEnviar = true;    
+                        
         }else if (JTableStatus.getSelectedIndex() == 1) { 
-           txtPESQUISA.setEnabled(false);
-           cmbFILTRARPORORIGEM.setEnabled(false);
+           txtPESQUISA.setEnabled(true);
            cmbFILTRARPORORIGEM.setSelectedIndex(-1);
            btnEncaminhar.setEnabled(true);
-           clicouEnviados = true;      
+           btnCancelar.setEnabled(true);
+           clicouEnviados = true;  
+                      
         }else if (JTableStatus.getSelectedIndex() == 2) { 
-           txtPESQUISA.setEnabled(false);
-           cmbFILTRARPORORIGEM.setEnabled(false);
+           txtPESQUISA.setEnabled(true);
            cmbFILTRARPORORIGEM.setSelectedIndex(-1);
            btnEncaminhar.setEnabled(true);
-           clicouDevolver = true;     
+           btnCancelar.setEnabled(true);
+           clicouDevolver = true;    
+                      
         }else if (JTableStatus.getSelectedIndex() == 3) {    
-           txtPESQUISA.setEnabled(false);
-           cmbFILTRARPORORIGEM.setEnabled(false);
+           txtPESQUISA.setEnabled(true);
            cmbFILTRARPORORIGEM.setSelectedIndex(-1);
            btnEncaminhar.setEnabled(true);
-           clicouEncerrados = true;           
+           btnCancelar.setEnabled(true);
+           clicouEncerrados = true;     
+                      
         }        
         
     }//GEN-LAST:event_JTableStatusMouseClicked
@@ -1334,7 +1326,7 @@ public class F_PATRIDEPTOS extends javax.swing.JFrame {
             tabela = "TBLITENSMEMOTRANSFERIDOS";   
             F_MEMOITENSTRANSFERIDOS frm = new F_MEMOITENSTRANSFERIDOS();
             controlenaveg = 1;
-            frm.setVisible(true);   
+            frm.setVisible(true); 
             dispose();
         }else{
             JOptionPane.showMessageDialog(null, "Ops, não temos patrimônios disponíveis para emissão de memorando no momento!", "Sem patrimônios para encaminhamento!", 2);
@@ -1445,7 +1437,6 @@ public class F_PATRIDEPTOS extends javax.swing.JFrame {
         btnSair.setEnabled(false);
         btnEditar.setEnabled(true);       
         txtPESQUISA.setEnabled(false);
-        cmbFILTRARPORORIGEM.setEnabled(false);
         clicouEnviar=true;
         editando=true;
         codigoRegSelecionado = (int) JTableEnviar.getValueAt(JTableEnviar.getSelectedRow(), 0);          ;
@@ -1508,31 +1499,8 @@ public class F_PATRIDEPTOS extends javax.swing.JFrame {
         if( totalRegs > 0 )btnImprimir.setEnabled(true);        
         btnImprimir.setEnabled(true);  
         
-    }
-    
-    private void filtrarPorOrigemSelecionadaNaCombobox(String pPesq) {
+    }    
         
-        if(!clicouInativos){     
-            
-              PreencherTabelaEnviar("SELECT p.*, m.* FROM tblmodelos m, tblpatrideptos p "
-              + "WHERE (p.origem like '%" + pPesq + "%'"+") "
-              + "AND p.modeloid=m.codigo AND (p.status = 'ENVIAR' OR p.status = 'ENVIADO' OR p.status = 'DEVOLVER') ORDER BY p.codigo");           
-            
-            this.setTitle("Total de registros retornados pela pesquisa = "+totalRegs);                        
-                     
-        }else if(clicouInativos){
-            PreencherTabelaEnviados("SELECT p.*, m.* FROM tblmodelos m, tblpatrideptos p "
-              + "WHERE (p.origem like '%" + pPesq + "%'"+") "
-              + "AND p.modeloid=m.codigo AND (p.status = 'ENCERRADO') ORDER BY p.codigo");
-           
-            this.setTitle("Total de registros inativos retornados pela pesquisa = "+totalRegs);
-        }       
-        
-        if( totalRegs > 0 )btnImprimir.setEnabled(true);        
-        btnImprimir.setEnabled(true);  
-        
-    }
-    
     private void txtPESQUISAKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPESQUISAKeyReleased
         filtrarPorDigitacao(txtPESQUISA.getText());    
     }//GEN-LAST:event_txtPESQUISAKeyReleased
@@ -1605,28 +1573,7 @@ public class F_PATRIDEPTOS extends javax.swing.JFrame {
         txtPESQUISA.setText(null);
         btnCancelarActionPerformed(null);
     }//GEN-LAST:event_txtPESQUISAMouseClicked
-
-    private void itemSelecionadoNaComboFiltro(){
-        if(controle == 1){
-            sOrigemSelecionada = cmbFILTRARPORORIGEM.getSelectedItem().toString();   
-            //JOptionPane.showMessageDialog(null,"A origem selecionada foi : "+sOrigemSelecionada);
-            
-            //DEFININDO AÇÃO APOS A ESCOLHA DA ORIGEM
-            filtrarPorOrigemSelecionadaNaCombobox(sOrigemSelecionada);
-            
-            btnCancelar.setEnabled(true);
-            btnCancelar.setText("Voltar");
-            btnEncaminhar.setEnabled(false); 
-            btnSair.setEnabled(false);
-            btnImprimir.setEnabled(true);
-            btnNovo.setEnabled(false);
-            txtPESQUISA.setEnabled(false);
-            
-            controle = 0;
-            filtrou  = true;
-        }
-    }
-    
+        
     private void itemSelecionadoNaComboStatus(){
         if(controle == 1){
             sStatusSelecionado = cmbSTATUS.getSelectedItem().toString();   
@@ -1651,6 +1598,28 @@ public class F_PATRIDEPTOS extends javax.swing.JFrame {
         }
     }
     
+    private void itemSelecionadoNaComboFiltro(){
+        
+        if(controle == 1){
+            sOrigemSelecionada = cmbFILTRARPORORIGEM.getSelectedItem().toString();   
+            //JOptionPane.showMessageDialog(null,"A origem selecionada foi : "+sOrigemSelecionada);
+            
+            //DEFININDO AÇÃO APOS A ESCOLHA DA ORIGEM
+            //filtrarPorOrigemSelecionadaNaCombobox(sOrigemSelecionada);            
+           
+            btnCancelar.setEnabled(true);
+            btnCancelar.setText("Voltar");
+            btnEncaminhar.setEnabled(false); 
+            btnSair.setEnabled(false);
+            btnImprimir.setEnabled(true);
+            btnNovo.setEnabled(false);
+            txtPESQUISA.setEnabled(false);
+            
+            controle = 0;
+            filtrou  = true;
+        }
+    }
+        
     private void cmbFILTRARPORORIGEMMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cmbFILTRARPORORIGEMMouseClicked
         controle = 1;
     }//GEN-LAST:event_cmbFILTRARPORORIGEMMouseClicked
@@ -1704,7 +1673,6 @@ public class F_PATRIDEPTOS extends javax.swing.JFrame {
         btnSair.setEnabled(false);
         btnEditar.setEnabled(true);       
         txtPESQUISA.setEnabled(false);
-        cmbFILTRARPORORIGEM.setEnabled(false);
         
     }//GEN-LAST:event_JTableDevolverMouseClicked
 
@@ -1728,7 +1696,7 @@ public class F_PATRIDEPTOS extends javax.swing.JFrame {
         conexao.conectar();
         ArrayList dados = new ArrayList();
         //para receber os dados das colunas(exibe os titulos das colunas)
-        String[] Colunas = new String[]{"Código", "Modelo", "Série", "Chapa", "Origem", "Destino", "Data Entrada", "Status"};
+        String[] Colunas = new String[]{"Código", "Modelo", "Série", "Chapa", "Origem", "Destino", "Entrada", "Status"};
         try 
         {  
             conexao.ExecutarPesquisaSQL(sql);
@@ -1757,19 +1725,19 @@ public class F_PATRIDEPTOS extends javax.swing.JFrame {
             //define tamanho das colunas
             JTableEnviar.getColumnModel().getColumn(0).setPreferredWidth(50);  //define o tamanho da coluna
             JTableEnviar.getColumnModel().getColumn(0).setResizable(false);    //nao será possivel redimencionar a coluna 
-            JTableEnviar.getColumnModel().getColumn(1).setPreferredWidth(150);
+            JTableEnviar.getColumnModel().getColumn(1).setPreferredWidth(280);
             JTableEnviar.getColumnModel().getColumn(1).setResizable(false);
-            JTableEnviar.getColumnModel().getColumn(2).setPreferredWidth(150);
+            JTableEnviar.getColumnModel().getColumn(2).setPreferredWidth(120);
             JTableEnviar.getColumnModel().getColumn(2).setResizable(false);
-            JTableEnviar.getColumnModel().getColumn(3).setPreferredWidth(130);  //define o tamanho da coluna
+            JTableEnviar.getColumnModel().getColumn(3).setPreferredWidth(120);  //define o tamanho da coluna
             JTableEnviar.getColumnModel().getColumn(3).setResizable(false);    //nao será possivel redimencionar a coluna 
-            JTableEnviar.getColumnModel().getColumn(4).setPreferredWidth(130);
+            JTableEnviar.getColumnModel().getColumn(4).setPreferredWidth(95);
             JTableEnviar.getColumnModel().getColumn(4).setResizable(false);
-            JTableEnviar.getColumnModel().getColumn(5).setPreferredWidth(130);
+            JTableEnviar.getColumnModel().getColumn(5).setPreferredWidth(95);
             JTableEnviar.getColumnModel().getColumn(5).setResizable(false);
-            JTableEnviar.getColumnModel().getColumn(6).setPreferredWidth(90);
+            JTableEnviar.getColumnModel().getColumn(6).setPreferredWidth(80);
             JTableEnviar.getColumnModel().getColumn(6).setResizable(false);
-            JTableEnviar.getColumnModel().getColumn(7).setPreferredWidth(100);
+            JTableEnviar.getColumnModel().getColumn(7).setPreferredWidth(80);
             JTableEnviar.getColumnModel().getColumn(7).setResizable(false);
 
             //define propriedades da tabela
@@ -1790,7 +1758,7 @@ public class F_PATRIDEPTOS extends javax.swing.JFrame {
         conexao.conectar();
         ArrayList dados = new ArrayList();
         //para receber os dados das colunas(exibe os titulos das colunas)
-        String[] Colunas = new String[]{"Código", "Modelo", "Série", "Chapa", "Origem", "Destino", "Data Entrada", "Status"};
+        String[] Colunas = new String[]{"Código", "Modelo", "Série", "Chapa", "Origem", "Destino", "Entrada", "Status"};
         try 
         {  
             conexao.ExecutarPesquisaSQL(sql);
@@ -1819,19 +1787,19 @@ public class F_PATRIDEPTOS extends javax.swing.JFrame {
             //define tamanho das colunas
             JTableEnviados.getColumnModel().getColumn(0).setPreferredWidth(50);  //define o tamanho da coluna
             JTableEnviados.getColumnModel().getColumn(0).setResizable(false);    //nao será possivel redimencionar a coluna 
-            JTableEnviados.getColumnModel().getColumn(1).setPreferredWidth(150);
+            JTableEnviados.getColumnModel().getColumn(1).setPreferredWidth(280);
             JTableEnviados.getColumnModel().getColumn(1).setResizable(false);
-            JTableEnviados.getColumnModel().getColumn(2).setPreferredWidth(150);
+            JTableEnviados.getColumnModel().getColumn(2).setPreferredWidth(120);
             JTableEnviados.getColumnModel().getColumn(2).setResizable(false);
-            JTableEnviados.getColumnModel().getColumn(3).setPreferredWidth(130);  //define o tamanho da coluna
+            JTableEnviados.getColumnModel().getColumn(3).setPreferredWidth(120);  //define o tamanho da coluna
             JTableEnviados.getColumnModel().getColumn(3).setResizable(false);    //nao será possivel redimencionar a coluna 
-            JTableEnviados.getColumnModel().getColumn(4).setPreferredWidth(130);
+            JTableEnviados.getColumnModel().getColumn(4).setPreferredWidth(95);
             JTableEnviados.getColumnModel().getColumn(4).setResizable(false);
-            JTableEnviados.getColumnModel().getColumn(5).setPreferredWidth(130);
+            JTableEnviados.getColumnModel().getColumn(5).setPreferredWidth(95);
             JTableEnviados.getColumnModel().getColumn(5).setResizable(false);
-            JTableEnviados.getColumnModel().getColumn(6).setPreferredWidth(90);
+            JTableEnviados.getColumnModel().getColumn(6).setPreferredWidth(80);
             JTableEnviados.getColumnModel().getColumn(6).setResizable(false);
-            JTableEnviados.getColumnModel().getColumn(7).setPreferredWidth(100);
+            JTableEnviados.getColumnModel().getColumn(7).setPreferredWidth(80);
             JTableEnviados.getColumnModel().getColumn(7).setResizable(false);
 
             //define propriedades da tabela
@@ -1852,7 +1820,7 @@ public class F_PATRIDEPTOS extends javax.swing.JFrame {
         conexao.conectar();
         ArrayList dados = new ArrayList();
         //para receber os dados das colunas(exibe os titulos das colunas)
-        String[] Colunas = new String[]{"Código", "Modelo", "Série", "Chapa", "Origem", "Destino", "Data Entrada", "Status"};
+        String[] Colunas = new String[]{"Código", "Modelo", "Série", "Chapa", "Origem", "Destino", "Entrada", "Status"};
         try 
         {  
             conexao.ExecutarPesquisaSQL(sql);
@@ -1881,19 +1849,19 @@ public class F_PATRIDEPTOS extends javax.swing.JFrame {
             //define tamanho das colunas
             JTableDevolver.getColumnModel().getColumn(0).setPreferredWidth(50);  //define o tamanho da coluna
             JTableDevolver.getColumnModel().getColumn(0).setResizable(false);    //nao será possivel redimencionar a coluna 
-            JTableDevolver.getColumnModel().getColumn(1).setPreferredWidth(150);
+            JTableDevolver.getColumnModel().getColumn(1).setPreferredWidth(280);
             JTableDevolver.getColumnModel().getColumn(1).setResizable(false);
-            JTableDevolver.getColumnModel().getColumn(2).setPreferredWidth(150);
+            JTableDevolver.getColumnModel().getColumn(2).setPreferredWidth(120);
             JTableDevolver.getColumnModel().getColumn(2).setResizable(false);
-            JTableDevolver.getColumnModel().getColumn(3).setPreferredWidth(130);  //define o tamanho da coluna
+            JTableDevolver.getColumnModel().getColumn(3).setPreferredWidth(120);  //define o tamanho da coluna
             JTableDevolver.getColumnModel().getColumn(3).setResizable(false);    //nao será possivel redimencionar a coluna 
-            JTableDevolver.getColumnModel().getColumn(4).setPreferredWidth(130);
+            JTableDevolver.getColumnModel().getColumn(4).setPreferredWidth(95);
             JTableDevolver.getColumnModel().getColumn(4).setResizable(false);
-            JTableDevolver.getColumnModel().getColumn(5).setPreferredWidth(130);
+            JTableDevolver.getColumnModel().getColumn(5).setPreferredWidth(95);
             JTableDevolver.getColumnModel().getColumn(5).setResizable(false);
-            JTableDevolver.getColumnModel().getColumn(6).setPreferredWidth(90);
+            JTableDevolver.getColumnModel().getColumn(6).setPreferredWidth(80);
             JTableDevolver.getColumnModel().getColumn(6).setResizable(false);
-            JTableDevolver.getColumnModel().getColumn(7).setPreferredWidth(100);
+            JTableDevolver.getColumnModel().getColumn(7).setPreferredWidth(80);
             JTableDevolver.getColumnModel().getColumn(7).setResizable(false);
 
             //define propriedades da tabela
@@ -1914,7 +1882,7 @@ public class F_PATRIDEPTOS extends javax.swing.JFrame {
         conexao.conectar();
         ArrayList dados = new ArrayList();
         //para receber os dados das colunas(exibe os titulos das colunas)
-        String[] Colunas = new String[]{"Código", "Modelo", "Série", "Chapa", "Origem", "Destino", "Data Entrada","Data Devolução", "Status"};
+        String[] Colunas = new String[]{"Código", "Modelo", "Série", "Chapa", "Origem", "Destino", "Entrada","Devolução", "Status"};
         try 
         {  
             conexao.ExecutarPesquisaSQL(sql);
@@ -1944,21 +1912,21 @@ public class F_PATRIDEPTOS extends javax.swing.JFrame {
             //define tamanho das colunas
             JTableEncerrados.getColumnModel().getColumn(0).setPreferredWidth(50);  //define o tamanho da coluna
             JTableEncerrados.getColumnModel().getColumn(0).setResizable(false);    //nao será possivel redimencionar a coluna 
-            JTableEncerrados.getColumnModel().getColumn(1).setPreferredWidth(120);
+            JTableEncerrados.getColumnModel().getColumn(1).setPreferredWidth(200);
             JTableEncerrados.getColumnModel().getColumn(1).setResizable(false);
-            JTableEncerrados.getColumnModel().getColumn(2).setPreferredWidth(150);
+            JTableEncerrados.getColumnModel().getColumn(2).setPreferredWidth(120);
             JTableEncerrados.getColumnModel().getColumn(2).setResizable(false);
-            JTableEncerrados.getColumnModel().getColumn(3).setPreferredWidth(130);  //define o tamanho da coluna
+            JTableEncerrados.getColumnModel().getColumn(3).setPreferredWidth(120);  //define o tamanho da coluna
             JTableEncerrados.getColumnModel().getColumn(3).setResizable(false);    //nao será possivel redimencionar a coluna 
-            JTableEncerrados.getColumnModel().getColumn(4).setPreferredWidth(110);
+            JTableEncerrados.getColumnModel().getColumn(4).setPreferredWidth(100);
             JTableEncerrados.getColumnModel().getColumn(4).setResizable(false);
-            JTableEncerrados.getColumnModel().getColumn(5).setPreferredWidth(120);
+            JTableEncerrados.getColumnModel().getColumn(5).setPreferredWidth(100);
             JTableEncerrados.getColumnModel().getColumn(5).setResizable(false);
-            JTableEncerrados.getColumnModel().getColumn(6).setPreferredWidth(90);
+            JTableEncerrados.getColumnModel().getColumn(6).setPreferredWidth(80);
             JTableEncerrados.getColumnModel().getColumn(6).setResizable(false);
             JTableEncerrados.getColumnModel().getColumn(7).setPreferredWidth(80);
             JTableEncerrados.getColumnModel().getColumn(7).setResizable(false);
-            JTableEncerrados.getColumnModel().getColumn(8).setPreferredWidth(90);
+            JTableEncerrados.getColumnModel().getColumn(8).setPreferredWidth(85);
             JTableEncerrados.getColumnModel().getColumn(8).setResizable(false);
 
             //define propriedades da tabela
