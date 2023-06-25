@@ -683,10 +683,17 @@ public class F_PRINCIPAL extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
      
+    
+
+     
     private void menuSairMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuSairMouseClicked
-  
-              gerarCopia.CopiarArquivo("C:\\Meus Documentos\\Bancos_De_Projetos\\SysTarefas\\SYSTAREFAS.fdb", "C:\\Meus Documentos\\Bancos_De_Projetos\\SysTarefas\\SYSDESENV.fdb");
-              umGravarLog.gravarLog("saida do Sistema");
+             
+             //copia no servidor
+             gerarCopia.CopiarArquivo("\\\\10.71.32.55\\Meus Documentos\\Bancos_De_Projetos\\SysTarefas\\SYSTAREFAS.fdb", "\\\\10.71.32.55\\Meus Documentos\\Bancos_De_Projetos\\SysTarefas\\SYSDESENV.fdb");
+             //copia local
+             gerarCopia.CopiarArquivo("C:\\Meus Documentos\\Bancos_De_Projetos\\SysTarefas\\SYSTAREFAS.fdb", "C:\\Meus Documentos\\Bancos_De_Projetos\\SysTarefas\\SYSDESENV.fdb");
+      
+             umGravarLog.gravarLog("saida do Sistema"); 
               System.exit(0);
 //         
 //        if(umabiblio.ConfirmouOperacao("Tem certeza que deseja sair?", "Saindo do Sistema!")){

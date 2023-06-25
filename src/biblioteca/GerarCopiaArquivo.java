@@ -19,7 +19,7 @@ import java.io.OutputStream;
 public class GerarCopiaArquivo {
     
     private static void copiar(File fonte, File destino) throws IOException{
-        InputStream in = new FileInputStream(fonte);
+        InputStream   in = new FileInputStream(fonte);
         OutputStream out = new FileOutputStream(destino);
      
         byte[] buf = new byte[1024];

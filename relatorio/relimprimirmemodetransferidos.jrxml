@@ -1,37 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.0.final using JasperReports Library version 6.3.0  -->
-<!-- 2023-05-06T11:38:03 -->
+<!-- 2023-06-23T13:11:43 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="relimprimirmemodetransferidos" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="3c53ebc6-760c-4afc-b2c0-43ee711e05ca">
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="connSysTarefas"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Firebird"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<parameter name="CABECALHO" class="java.awt.Image"/>
 	<parameter name="numemo" class="java.lang.String">
 		<parameterDescription><![CDATA[]]></parameterDescription>
 	</parameter>
 	<queryString>
-		<![CDATA[SELECT i.*, m.observacao, u.nome
+		<![CDATA[SELECT i.*, m.*, u.nome, g.*
 FROM
-TBLITENSMEMOTRANSFERIDOS i, TBLMEMOSTRANSFERIDOS m, TBLUSUARIOS u
+TBLITENSMEMOTRANSFERIDOS i, TBLMEMOSTRANSFERIDOS m, TBLUSUARIOS u, TBLMODELOS g
 WHERE
 i.numemo = m.numemo
 AND
 m.numemo =  $P{numemo}
 AND
 m.idusuario=u.codigo
+AND
+i.modeloid= g.codigo
 ORDER by 
 i.item]]>
 	</queryString>
 	<field name="CODIGO" class="java.lang.Integer"/>
 	<field name="ITEM" class="java.lang.Integer"/>
 	<field name="NUMEMO" class="java.lang.String"/>
-	<field name="MODELO" class="java.lang.String"/>
+	<field name="MODELOID" class="java.lang.Integer"/>
 	<field name="SERIE" class="java.lang.String"/>
 	<field name="CHAPA" class="java.lang.String"/>
 	<field name="ORIGEM" class="java.lang.String"/>
 	<field name="DESTINO" class="java.lang.String"/>
 	<field name="STATUS" class="java.lang.String"/>
+	<field name="COLUMN_10" class="java.lang.Integer"/>
+	<field name="IDUSUARIO" class="java.lang.Integer"/>
+	<field name="COLUMN_12" class="java.lang.String"/>
+	<field name="DATACAD" class="java.lang.String"/>
+	<field name="COLUMN_14" class="java.lang.String"/>
 	<field name="OBSERVACAO" class="java.lang.String"/>
 	<field name="NOME" class="java.lang.String"/>
+	<field name="COLUMN_17" class="java.lang.Integer"/>
+	<field name="TIPOID" class="java.lang.Integer"/>
+	<field name="MODELO" class="java.lang.String"/>
+	<field name="DESCRICAO" class="java.lang.String"/>
+	<field name="CONTRATO" class="java.lang.String"/>
+	<field name="COLUMN_22" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
