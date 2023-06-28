@@ -5,6 +5,7 @@ import biblioteca.GetIPServidor;
 import biblioteca.MetodosPublicos;
 import static biblioteca.VariaveisPublicas.alterouBanco;
 import static biblioteca.VariaveisPublicas.confIni;
+import static biblioteca.VariaveisPublicas.ipServidor;
 import static biblioteca.VariaveisPublicas.visualizandoInativos;
 import static biblioteca.VariaveisPublicas.nivelAcessoUsuario;
 import static biblioteca.VariaveisPublicas.tabela;
@@ -689,9 +690,13 @@ public class F_PRINCIPAL extends javax.swing.JFrame {
     private void menuSairMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuSairMouseClicked
              
              //copia no servidor
-             gerarCopia.CopiarArquivo("\\\\10.71.32.55\\Meus Documentos\\Bancos_De_Projetos\\SysTarefas\\SYSTAREFAS.fdb", "\\\\10.71.32.55\\Meus Documentos\\Bancos_De_Projetos\\SysTarefas\\SYSDESENV.fdb");
-             //copia local
-             gerarCopia.CopiarArquivo("C:\\Meus Documentos\\Bancos_De_Projetos\\SysTarefas\\SYSTAREFAS.fdb", "C:\\Meus Documentos\\Bancos_De_Projetos\\SysTarefas\\SYSDESENV.fdb");
+             if(!ipServidor.equals("LOCALHOST"))
+             {
+                gerarCopia.CopiarArquivo("\\\\10.71.32.55\\Meus Documentos\\Bancos_De_Projetos\\SysTarefas\\SYSTAREFAS.fdb", "\\\\10.71.32.55\\Meus Documentos\\Bancos_De_Projetos\\SysTarefas\\SYSDESENV.fdb");
+             }else{
+                //copia local
+                gerarCopia.CopiarArquivo("C:\\Meus Documentos\\Bancos_De_Projetos\\SysTarefas\\SYSTAREFAS.fdb", "C:\\Meus Documentos\\Bancos_De_Projetos\\SysTarefas\\SYSDESENV.fdb");
+             }
       
              umGravarLog.gravarLog("saida do Sistema"); 
               System.exit(0);

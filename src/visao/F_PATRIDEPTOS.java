@@ -55,16 +55,17 @@ public class F_PATRIDEPTOS extends javax.swing.JFrame {
     Date                dataDia                    = dataDoDia; 
     SimpleDateFormat    sdf                        = new SimpleDateFormat("dd.MM.yyyy");   
        
-    String tipo,serie,chapa,origem,destino,dtentrada,dtenvio,dtdevolucao,status,obs,sOrigemSelecionada,sStatusSelecionado,dataDevolucao,dataEnvio,dataDev,memoDev,memoEnv,statusAtual,modelo  = null; 
+    String tipo,serie,chapa,origem,destino,dtentrada,dtenvio,dtdevolucao,status,obs,sOrigemSelecionada,sStatusSelecionado,dataDevolucao,
+           sqlPorOrigem,dataEnvio,dataDev,memoDev,memoEnv,statusAtual,modelo  = null; 
     int controle, codigo, tipoid, modeloid = 0;
     boolean editando, cadastrando, clicouEnviar, clicouEncerrados, filtrou, enviado, alterouCampo, clicouEnviados, clicouDevolver, clicouInativos;
     
-    String sqlEnviar          = "SELECT m.modelo, p.* FROM tblmodelos m, tblpatrideptos p WHERE p.modeloid = m.codigo AND (p.status = 'ENVIAR') ORDER BY p.codigo";
-    String sqlEnviados        = "SELECT m.modelo, p.* FROM tblmodelos m, tblpatrideptos p WHERE p.modeloid = m.codigo AND (p.status = 'ENVIADO') ORDER BY p.codigo";
-    String sqlDevolver        = "SELECT m.modelo, p.* FROM tblmodelos m, tblpatrideptos p WHERE p.modeloid = m.codigo AND (p.status = 'DEVOLVER') ORDER BY p.codigo";    
-    String sqlEncerrados      = "SELECT m.modelo, p.* FROM tblmodelos m, tblpatrideptos p WHERE p.modeloid = m.codigo AND (p.status = 'ENCERRADO') ORDER BY p.codigo";
-    String sqlDefault         = "select * from tblPatriDeptos";    
-    String sqlVazia           = "select * from tblPatriDeptos where codigo = 0";
+    String sqlEnviar            = "SELECT m.modelo, p.* FROM tblmodelos m, tblpatrideptos p WHERE p.modeloid = m.codigo AND (p.status = 'ENVIAR') ORDER BY p.codigo";
+    String sqlEnviados          = "SELECT m.modelo, p.* FROM tblmodelos m, tblpatrideptos p WHERE p.modeloid = m.codigo AND (p.status = 'ENVIADO') ORDER BY p.codigo";
+    String sqlDevolver          = "SELECT m.modelo, p.* FROM tblmodelos m, tblpatrideptos p WHERE p.modeloid = m.codigo AND (p.status = 'DEVOLVER') ORDER BY p.codigo";    
+    String sqlEncerrados        = "SELECT m.modelo, p.* FROM tblmodelos m, tblpatrideptos p WHERE p.modeloid = m.codigo AND (p.status = 'ENCERRADO') ORDER BY p.codigo";    
+    String sqlDefault           = "select * from tblPatriDeptos";    
+    String sqlVazia             = "select * from tblPatriDeptos where codigo = 0";
     
     
     
@@ -113,6 +114,8 @@ public class F_PATRIDEPTOS extends javax.swing.JFrame {
       JTableDevolver.setForeground(Color.blue);            
       JTableEncerrados.setFont(new Font("TimesRoman", Font.BOLD, 12));
       JTableEncerrados.setForeground(Color.red);            
+      JTablePorOrigem.setFont(new Font("TimesRoman", Font.BOLD, 12));
+      JTablePorOrigem.setForeground(Color.blue);            
       
       
       cmbFILTRARPORORIGEM.setFont(new Font("TimesRoman", Font.BOLD, 12));
@@ -152,6 +155,9 @@ public class F_PATRIDEPTOS extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         jScrollPane6 = new javax.swing.JScrollPane();
         JTableEncerrados = new javax.swing.JTable();
+        jPanel6 = new javax.swing.JPanel();
+        jScrollPane7 = new javax.swing.JScrollPane();
+        JTablePorOrigem = new javax.swing.JTable();
         btnNovo = new javax.swing.JButton();
         btnGravar = new javax.swing.JButton();
         btnEditar = new javax.swing.JButton();
@@ -219,7 +225,7 @@ public class F_PATRIDEPTOS extends javax.swing.JFrame {
                 .addContainerGap(128, Short.MAX_VALUE))
         );
 
-        JTableStatus.addTab("AGURADANDO ENVIO PARA MANUTENCAO", jPanel5);
+        JTableStatus.addTab("ENVIAR PARA MANUTENCAO", jPanel5);
 
         JTableEnviados.setGridColor(new java.awt.Color(255, 255, 255));
         JTableEnviados.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -242,7 +248,7 @@ public class F_PATRIDEPTOS extends javax.swing.JFrame {
                 .addGap(0, 126, Short.MAX_VALUE))
         );
 
-        JTableStatus.addTab("ENVIADOS PARA MANUTENCAO", jPanel2);
+        JTableStatus.addTab("ENVIADOS A MANUTENCAO", jPanel2);
 
         JTableDevolver.setGridColor(new java.awt.Color(255, 255, 255));
         JTableDevolver.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -265,7 +271,7 @@ public class F_PATRIDEPTOS extends javax.swing.JFrame {
                 .addGap(0, 126, Short.MAX_VALUE))
         );
 
-        JTableStatus.addTab("AGUARDANDO DEVOLUCAO PARA UNIDADE DE ORIGEM", jPanel3);
+        JTableStatus.addTab("DEVOLVER A UNIDADE DE ORIGEM", jPanel3);
 
         JTableEncerrados.setGridColor(new java.awt.Color(255, 255, 255));
         jScrollPane6.setViewportView(JTableEncerrados);
@@ -284,6 +290,24 @@ public class F_PATRIDEPTOS extends javax.swing.JFrame {
         );
 
         JTableStatus.addTab("ENCERRADOS", jPanel4);
+
+        JTablePorOrigem.setGridColor(new java.awt.Color(255, 255, 255));
+        jScrollPane7.setViewportView(JTablePorOrigem);
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 935, Short.MAX_VALUE)
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 415, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 126, Short.MAX_VALUE))
+        );
+
+        JTableStatus.addTab("FILTRAR POR ORIGEM", jPanel6);
 
         btnNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/users16.jpg"))); // NOI18N
         btnNovo.setText("Novo");
@@ -503,7 +527,7 @@ public class F_PATRIDEPTOS extends javax.swing.JFrame {
 
         cmbFILTRARPORORIGEM.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
         cmbFILTRARPORORIGEM.setForeground(new java.awt.Color(51, 51, 255));
-        cmbFILTRARPORORIGEM.setToolTipText("Escolha uma seção para filtrar");
+        cmbFILTRARPORORIGEM.setToolTipText("Escolha um setor de origem para filtrar");
         cmbFILTRARPORORIGEM.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         cmbFILTRARPORORIGEM.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -1315,9 +1339,15 @@ public class F_PATRIDEPTOS extends javax.swing.JFrame {
            cmbFILTRARPORORIGEM.setSelectedIndex(-1);
            btnEncaminhar.setEnabled(true);
            btnCancelar.setEnabled(true);
-           clicouEncerrados = true;     
-                      
-        }        
+           clicouEncerrados = true;                           
+        }else if (JTableStatus.getSelectedIndex() == 4) {    
+           txtPESQUISA.setEnabled(true);
+           cmbFILTRARPORORIGEM.setSelectedIndex(-1);
+           btnEncaminhar.setEnabled(true);
+           btnCancelar.setEnabled(true);
+           clicouEncerrados = true;   
+           PreencherTabelaPorOrigem(sqlVazia);
+        }
         
     }//GEN-LAST:event_JTableStatusMouseClicked
         
@@ -1596,7 +1626,7 @@ public class F_PATRIDEPTOS extends javax.swing.JFrame {
             }            
             controle = 0;            
         }
-    }
+    }    
     
     private void itemSelecionadoNaComboFiltro(){
         
@@ -1604,8 +1634,10 @@ public class F_PATRIDEPTOS extends javax.swing.JFrame {
             sOrigemSelecionada = cmbFILTRARPORORIGEM.getSelectedItem().toString();   
             //JOptionPane.showMessageDialog(null,"A origem selecionada foi : "+sOrigemSelecionada);
             
-            //DEFININDO AÇÃO APOS A ESCOLHA DA ORIGEM
-            //filtrarPorOrigemSelecionadaNaCombobox(sOrigemSelecionada);            
+            //DEFININDO AÇÃO APOS A ESCOLHA DA ORIGEM              
+            sqlPorOrigem = "SELECT m.modelo, p.* FROM tblmodelos m, tblpatrideptos p WHERE p.modeloid = m.codigo AND (p.origem = '"+sOrigemSelecionada+"') ORDER BY p.codigo";
+            PreencherTabelaPorOrigem(sqlPorOrigem);
+            JTableStatus.setSelectedIndex(4);
            
             btnCancelar.setEnabled(true);
             btnCancelar.setText("Voltar");
@@ -1941,12 +1973,78 @@ public class F_PATRIDEPTOS extends javax.swing.JFrame {
             conexao.desconectar();
         }        
     }
+    
+    public void PreencherTabelaPorOrigem(String sql)
+    {
+        conexao.conectar();
+        ArrayList dados = new ArrayList();
+        //para receber os dados das colunas(exibe os titulos das colunas)
+        String[] Colunas = new String[]{"Código", "Modelo", "Série", "Chapa", "Origem", "Destino", "Entrada","Devolução", "Status"};
+        try 
+        {  
+            conexao.ExecutarPesquisaSQL(sql);
+            
+            while (conexao.rs.next())
+            {               
+                dados.add(new Object[]
+                {
+                    conexao.rs.getInt("codigo"),
+                    conexao.rs.getString("modelo"),
+                    conexao.rs.getString("serie"),
+                    conexao.rs.getString("chapa"),
+                    conexao.rs.getString("origem"),
+                    conexao.rs.getString("destino"),
+                    conexao.rs.getString("dtentrada"), 
+                    conexao.rs.getString("dtdevolucao"), 
+                    conexao.rs.getString("status")
+                });
+                totalRegs = conexao.rs.getRow(); //passando o total de registros para o titulo
+                
+            };    
+            
+            if(totalRegs == 0){btnImprimir.setEnabled(false);}
+
+            ModeloTabela modelo = new ModeloTabela(dados, Colunas);
+            JTablePorOrigem.setModel(modelo);
+            //define tamanho das colunas
+            JTablePorOrigem.getColumnModel().getColumn(0).setPreferredWidth(50);  //define o tamanho da coluna
+            JTablePorOrigem.getColumnModel().getColumn(0).setResizable(false);    //nao será possivel redimencionar a coluna 
+            JTablePorOrigem.getColumnModel().getColumn(1).setPreferredWidth(200);
+            JTablePorOrigem.getColumnModel().getColumn(1).setResizable(false);
+            JTablePorOrigem.getColumnModel().getColumn(2).setPreferredWidth(120);
+            JTablePorOrigem.getColumnModel().getColumn(2).setResizable(false);
+            JTablePorOrigem.getColumnModel().getColumn(3).setPreferredWidth(120);  //define o tamanho da coluna
+            JTablePorOrigem.getColumnModel().getColumn(3).setResizable(false);    //nao será possivel redimencionar a coluna 
+            JTablePorOrigem.getColumnModel().getColumn(4).setPreferredWidth(100);
+            JTablePorOrigem.getColumnModel().getColumn(4).setResizable(false);
+            JTablePorOrigem.getColumnModel().getColumn(5).setPreferredWidth(100);
+            JTablePorOrigem.getColumnModel().getColumn(5).setResizable(false);
+            JTablePorOrigem.getColumnModel().getColumn(6).setPreferredWidth(80);
+            JTablePorOrigem.getColumnModel().getColumn(6).setResizable(false);
+            JTablePorOrigem.getColumnModel().getColumn(7).setPreferredWidth(80);
+            JTablePorOrigem.getColumnModel().getColumn(7).setResizable(false);
+            JTablePorOrigem.getColumnModel().getColumn(8).setPreferredWidth(85);
+            JTablePorOrigem.getColumnModel().getColumn(8).setResizable(false);
+
+            //define propriedades da tabela
+            JTablePorOrigem.getTableHeader().setReorderingAllowed(false);          //nao podera ser reorganizada
+            JTablePorOrigem.setAutoResizeMode(JTablePorOrigem.AUTO_RESIZE_OFF);      //nao será possivel redimencionar a tabela
+            JTablePorOrigem.setSelectionMode(ListSelectionModel.SINGLE_SELECTION); //so podera selecionar apena uma linha  
+        
+        } catch (SQLException ex) {
+                //apos a consulta acima abrir o formulario mesmo que a tabela esteja vazia  
+                JOptionPane.showMessageDialog(null, "Erro ao preencher o ArrayList da tabela ATIVOS!\nErro: " + ex.getMessage());
+        } finally {
+            conexao.desconectar();
+        }        
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable JTableDevolver;
     private javax.swing.JTable JTableEncerrados;
     private javax.swing.JTable JTableEnviados;
     private javax.swing.JTable JTableEnviar;
+    private javax.swing.JTable JTablePorOrigem;
     private javax.swing.JTabbedPane JTableStatus;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnEditar;
@@ -1971,11 +2069,13 @@ public class F_PATRIDEPTOS extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
+    private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JPanel panelPrincipal;
     private javax.swing.JTextField txtCHAPA;
     private javax.swing.JTextField txtCODIGO;
