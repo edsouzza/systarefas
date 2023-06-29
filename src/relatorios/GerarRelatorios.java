@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.util.Date;
 import java.util.HashMap;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
@@ -357,7 +358,7 @@ public class GerarRelatorios
         //o primeiro param trata-se do parametro criado dentro do relatorio, o segundo esta sendo passado como parametro no proprio procedimento
         JasperPrint impressao = JasperFillManager.fillReport( caminho, filtro, conexao );
         JasperViewer viewer   = new JasperViewer( impressao , false );
-        viewer.setTitle("Relatório de Micros"); //titulo a ser mostrado no formulario de relatorio
+        viewer.setTitle("Relatório de Monitores"); //titulo a ser mostrado no formulario de relatorio
         viewer.setZoomRatio(new Float(0.7956));      //ajustando o relatorio na pagina
         viewer.setVisible(true);        
         conexao.close();        
@@ -369,7 +370,7 @@ public class GerarRelatorios
         //o primeiro param trata-se do parametro criado dentro do relatorio, o segundo esta sendo passado como parametro no proprio procedimento
         JasperPrint impressao = JasperFillManager.fillReport( caminho, filtro, conexao );
         JasperViewer viewer   = new JasperViewer( impressao , false );
-        viewer.setTitle("Relatório de Micros"); //titulo a ser mostrado no formulario de relatorio
+        viewer.setTitle("Relatório de Monitores"); //titulo a ser mostrado no formulario de relatorio
         viewer.setZoomRatio(new Float(0.7956));      //ajustando o relatorio na pagina
         viewer.setVisible(true);        
         conexao.close();        
@@ -382,7 +383,7 @@ public class GerarRelatorios
         filtro.put("codigoSecao", param); 
         JasperPrint impressao = JasperFillManager.fillReport( caminho, filtro, conexao );
         JasperViewer viewer   = new JasperViewer( impressao , false );
-        viewer.setTitle("Relatório de Micros"); //titulo a ser mostrado no formulario de relatorio
+        viewer.setTitle("Relatório de Monitores"); //titulo a ser mostrado no formulario de relatorio
         viewer.setZoomRatio(new Float(0.7956));      //ajustando o relatorio na pagina
         viewer.setVisible(true);        
         conexao.close();        
@@ -392,10 +393,10 @@ public class GerarRelatorios
         //exibindo o relatorio
         HashMap filtro = new HashMap();
         //o primeiro param trata-se do parametro criado dentro do relatorio, o segundo esta sendo passado como parametro no proprio procedimento
-        filtro.put("codModelo", param);
+        filtro.put("codModelo", param);        
         JasperPrint impressao = JasperFillManager.fillReport( caminho, filtro, conexao );
         JasperViewer viewer   = new JasperViewer( impressao , false );
-        viewer.setTitle("Relatório de Micros"); //titulo a ser mostrado no formulario de relatorio
+        viewer.setTitle("Relatório de Monitores"); //titulo a ser mostrado no formulario de relatorio
         viewer.setZoomRatio(new Float(0.7956));      //ajustando o relatorio na pagina
         viewer.setVisible(true);        
         conexao.close();        
