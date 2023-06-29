@@ -603,6 +603,7 @@ public class F_CONSMONITORES extends javax.swing.JFrame {
                 //se filtrou por modelo imprime relatorio do modelo selecionado
                 GerarRelatorios objRel = new GerarRelatorios();
                 try {
+                    //JOptionPane.showMessageDialog(null, codigoModelo);
                     objRel.imprimirMonitoresModeloSelecionado("relatorio/relmonitoresdomodeloselecionado.jasper",codigoModelo);
                 } catch (Exception e) {
                     JOptionPane.showMessageDialog(null, "Erro ao gerar relatório!"+e);                
@@ -883,6 +884,7 @@ public class F_CONSMONITORES extends javax.swing.JFrame {
        //quando perder o foco mostrar descricao atraves do id do patrimonio
        codigoSecao  = umabiblio.buscarCodigoGenerico("tblsecoes","nome",cmbSECOES.getSelectedItem().toString());
        filtrarPorSecao(codigoSecao);
+       //JOptionPane.showMessageDialog(null, codigoSecao);
        btnLimparPesquisa.setEnabled(true);
        btnImprimir.setEnabled(true);
     }//GEN-LAST:event_cmbSECOESFocusLost

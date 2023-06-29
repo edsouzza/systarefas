@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.0.final using JasperReports Library version 6.3.0  -->
-<!-- 2017-04-01T11:50:36 -->
+<!-- 2023-06-29T18:31:49 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="relMicrosEMonitores" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="7a5c9b49-9dc5-422a-ac69-e92cf61ef530">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="conTarefas"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Firebird"/>
 	<style name="Title" forecolor="#FFFFFF" fontName="Times New Roman" fontSize="50" isBold="false"/>
 	<style name="SubTitle" forecolor="#CCCCCC" fontName="Times New Roman" fontSize="18" isBold="false"/>
 	<style name="Column header" forecolor="#666666" fontName="Times New Roman" fontSize="14" isBold="true"/>
@@ -18,7 +18,7 @@
 		<parameterDescription><![CDATA[id do modelo]]></parameterDescription>
 	</parameter>
 	<queryString>
-		<![CDATA[select p.codigo, p.tipoid,p.serie, p.chapa, s.nome as secao, c.nome as cliente, m.modelo
+		<![CDATA[select p.*, s.nome as secao, c.nome as cliente, m.modelo, t.*
 from
 tblpatrimonios p, tblsecoes s, tblclientes c, tblmodelos m, tbltipos t
 where
@@ -39,12 +39,29 @@ order by
 secao,serie]]>
 	</queryString>
 	<field name="CODIGO" class="java.lang.Integer"/>
-	<field name="TIPO" class="java.lang.String"/>
+	<field name="TIPOID" class="java.lang.Integer"/>
+	<field name="IP" class="java.lang.String"/>
 	<field name="SERIE" class="java.lang.String"/>
 	<field name="CHAPA" class="java.lang.String"/>
+	<field name="ESTACAO" class="java.lang.String"/>
+	<field name="SECAOID" class="java.lang.Integer"/>
+	<field name="CLIENTEID" class="java.lang.Integer"/>
+	<field name="MODELOID" class="java.lang.Integer"/>
+	<field name="DEPTOID" class="java.lang.Integer"/>
+	<field name="STATUS" class="java.lang.String"/>
+	<field name="MOTIVO" class="java.lang.String"/>
+	<field name="DATACAD" class="java.sql.Date"/>
+	<field name="DATAINATIVACAO" class="java.sql.Date"/>
+	<field name="OBSERVACOES" class="java.lang.String"/>
+	<field name="CONTRATO" class="java.lang.String"/>
 	<field name="SECAO" class="java.lang.String"/>
 	<field name="CLIENTE" class="java.lang.String"/>
 	<field name="MODELO" class="java.lang.String"/>
+	<field name="COLUMN_20" class="java.lang.Integer"/>
+	<field name="TIPO" class="java.lang.String"/>
+	<field name="TIPOPATRIMONIO" class="java.lang.String"/>
+	<field name="TEMIP" class="java.lang.String"/>
+	<field name="COLUMN_24" class="java.lang.String"/>
 	<group name="Group1">
 		<groupExpression><![CDATA[(int)($V{REPORT_COUNT}/15)]]></groupExpression>
 		<groupFooter>
