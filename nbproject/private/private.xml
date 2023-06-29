@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
-    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="2">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="3">
+        <file>
+            <url>src/biblioteca/GetIPServidor.java</url>
+            <bookmark id="3">
+                <name/>
+                <line>72</line>
+                <key/>
+            </bookmark>
+        </file>
         <file>
             <url>src/visao/F_LOGIN.java</url>
             <bookmark id="2">
@@ -14,6 +22,8 @@
         <group>
             <file>file:/D:/PROJETOS-JAVA/NetBeans/SYSTAREFAS/Tarefas/src/visao/F_PRINCIPAL.java</file>
             <file>file:/D:/PROJETOS-JAVA/NetBeans/SYSTAREFAS/Tarefas/src/biblioteca/GetIPServidor.java</file>
+            <file>file:/D:/PROJETOS-JAVA/NetBeans/SYSTAREFAS/Tarefas/src/relatorios/GerarRelatorios.java</file>
+            <file>file:/D:/PROJETOS-JAVA/NetBeans/SYSTAREFAS/Tarefas/src/visao/F_CONSMONITORES.java</file>
             <file>file:/D:/PROJETOS-JAVA/NetBeans/SYSTAREFAS/Tarefas/src/visao/F_LOGIN.java</file>
         </group>
     </open-files>
