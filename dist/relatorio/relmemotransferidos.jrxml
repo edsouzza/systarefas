@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.0.final using JasperReports Library version 6.3.0  -->
+<<<<<<< HEAD
 <!-- 2023-06-22T21:04:27 -->
+=======
+<!-- 2023-07-07T17:11:41 -->
+>>>>>>> 31a200178627d4c65c7eb5774f52d493e99f8d23
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="TESTE" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="3c53ebc6-760c-4afc-b2c0-43ee711e05ca">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="connSysTarefas"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
@@ -104,7 +108,11 @@ Senhor(a) Responsável
 				<textFieldExpression><![CDATA[$F{ORIGEM}]]></textFieldExpression>
 			</textField>
 			<textField pattern="dd MMMMM yyyy">
+<<<<<<< HEAD
 				<reportElement x="432" y="104" width="98" height="17" uuid="fc1191b1-581f-4869-85e6-c0ae2bbfe17f">
+=======
+				<reportElement x="470" y="104" width="83" height="17" uuid="fc1191b1-581f-4869-85e6-c0ae2bbfe17f">
+>>>>>>> 31a200178627d4c65c7eb5774f52d493e99f8d23
 					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
 				</reportElement>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
