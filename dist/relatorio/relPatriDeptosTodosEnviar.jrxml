@@ -15,11 +15,19 @@
 		</conditionalStyle>
 	</style>
 	<queryString>
+<<<<<<< HEAD
 		<![CDATA[SELECT  p.*, m.modelo FROM tblmodelos m, tblpatrideptos p 
 WHERE 
 m.codigo=p.modeloid
 AND 
 (p.status = 'ENVIAR')
+=======
+		<![CDATA[SELECT  p.*, m.modelo FROM tblmodelos m, tblpatrideptos p 
+WHERE 
+m.codigo=p.modeloid
+AND 
+(p.status = 'ENVIAR')
+>>>>>>> 31a200178627d4c65c7eb5774f52d493e99f8d23
  ORDER BY p.codigo]]>
 	</queryString>
 	<field name="CODIGO" class="java.lang.Integer"/>

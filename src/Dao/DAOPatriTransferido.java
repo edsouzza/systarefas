@@ -39,6 +39,25 @@ public class DAOPatriTransferido {
         } finally {
             conexao.desconectar();
         }
+    }     
+    
+    public boolean editarPatriTransferidoDAO(PatriTransferido pPatritransferido) 
+    {
+        conexao.conectar();
+        try 
+        {
+            String sql = "UPDATE TBLMEMOSTRANSFERIDOS SET observacao=? WHERE numemo=?";
+            PreparedStatement pst = conexao.getConnection().prepareStatement(sql);    
+            pst.setString(1, pPatritransferido.getObservacao());
+            pst.setString(2, pPatritransferido.getNumemo());   
+            pst.executeUpdate(); 
+            return true;
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null,"Não foi possível executar o comando sql, \n"+e+", o sql passado foi \n"+sql);  
+            return false;
+        } finally {
+            conexao.desconectar();
+        }
     }                     
     
     public PatriTransferido pesquisarPatriTransferidoDAO(PatriTransferido pPatriTransferido)
