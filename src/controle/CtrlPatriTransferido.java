@@ -13,6 +13,11 @@ public class CtrlPatriTransferido
     public boolean salvarPatriTransferido(PatriTransferido pPatritransferido) 
     {          
         return new DAOPatriTransferido().salvarPatriTransferidoDAO(pPatritransferido);
+    }   
+    
+    public boolean editarPatriTransferido(PatriTransferido pPatritransferido) 
+    {          
+        return new DAOPatriTransferido().editarPatriTransferidoDAO(pPatritransferido);
     }        
     
     public PatriTransferido pesquisarPatriTransferido(PatriTransferido pPatriTransferido)
